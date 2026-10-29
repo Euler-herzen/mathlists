@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Продвинутая</title>
+<style>
+  :root{ --accent:#c62828; }
+  *{ box-sizing:border-box; }
+  body{ font-family:'Segoe UI', Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; color:#000; }
+  .toolbar{ position:sticky; top:0; z-index:10; display:flex; gap:12px; justify-content:space-between; padding:12px 20px; background:#ffffff; border-bottom:1px solid #d9dee3; }
+  .toolbar a, .toolbar button{ font-family:'Segoe UI', Arial, sans-serif; font-size:15px; cursor:pointer; padding:9px 16px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); text-decoration:none; transition:background .15s, color .15s; }
+  .toolbar a:hover, .toolbar button:hover{ background:var(--accent); color:#fff; }
+  .sheet{ max-width:800px; margin:24px auto; background:#fff; padding:40px; border-left:8px solid var(--accent); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+  .task{ font-family:'Times New Roman', Times, serif; font-size:17px; line-height:1.55; margin-bottom:24px; color:#000; }
+  .task .num{ font-weight:bold; color:var(--accent); margin-right:6px; }
+  .answer-line{ display:inline-block; min-width:120px; border-bottom:1px solid #333; height:18px; margin:0 4px; vertical-align:bottom; }
+  .teacher-answers{ display:none; margin-top:10px; padding:8px 12px; border:1px dashed #999; background:#f4f4f4; font-family:'Segoe UI', Arial, sans-serif; font-size:14px; color:#222; }
+  .variant-title { text-align: center; font-family: 'Segoe UI', Arial, sans-serif; font-weight: bold; font-size: 18px; margin-bottom: 20px; color: #333; }
+  @media print{
+    body{ background:#fff; }
+    .toolbar{ display:none !important; }
+    .sheet{ max-width:800px; margin:0 auto; padding:40px; box-shadow:none; border-left:8px solid var(--accent); }
+    .task{ color:#000; }
+    .teacher-answers{ display:none; }
+    .answer-line{ border-bottom:1px solid #000; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button type="button" onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="variant-title">Продвинутый уровень *</div>
+
+  <div class="task">
+    <span class="num">1*.</span> В фирме работают 6 человек. Их зарплаты (в тыс. руб.): \(30, 30, 35, 40, 45, 200\).
+    <br>а) Найдите среднюю зарплату: <span class="answer-line"></span>
+    <br>б) Найдите медиану: <span class="answer-line"></span>
+    <br>в) Какая характеристика лучше отражает типичную зарплату в фирме и почему?
+    <span class="answer-line" style="min-width:200px;"></span>
+    <div class="teacher-answers">а) \((30+30+35+40+45+200):6 = 380:6 \approx 63,3\) тыс. руб. б) Медиана = \((35+40):2 = 37,5\) тыс. руб. в) Медиана, так как среднее сильно завышено из-за директора (выброса).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">2*.</span> Придумай числовой набор из 5 чисел, у которого среднее арифметическое равно \(10\), а размах равен \(8\). Запиши свой набор.
+    <span class="answer-line" style="min-width:150px;"></span>
+    <div class="teacher-answers">Например, \(6, 9, 10, 11, 14\). (Среднее: 50:5=10, размах: 14-6=8).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">3*.</span> Может ли размах числового набора быть отрицательным? Ответ обоснуйте.
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Нет. Размах — это разность между наибольшим и наименьшим значениями (max - min). Так как максимальное число всегда больше или равно минимальному, разность не может быть отрицательной.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">4*.</span> В таблице показано количество проданных билетов в кино за неделю: \(120, 150, 110, 140, 130\).
+    <br>Директор кинотеатра говорит: «Мы продаем в среднем 130 билетов в день, ситуация стабильна». Оцените справедливость утверждения, используя показатели изменчивости.
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Среднее действительно 130. Размах \(150 - 110 = 40\) билетов. Это довольно большой разброс (почти треть от среднего). Ситуация нестабильна: в некоторые дни продажи падают.</div>
+  </div>
+</div>
+
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
