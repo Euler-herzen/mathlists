@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Соединить 9 точек | Интересные задачи</title>
+    <style>
+        :root {
+            --primary: #d35400;
+            --bg: #f4f7f6;
+            --text: #2c3e50;
+            --green: #27ae60;
+            --blue: #2980b9;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* Верхняя панель */
+        .header-bar { background: white; padding: 15px 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .back-link { text-decoration: none; color: #888; font-weight: 600; transition: 0.2s; }
+        .back-link:hover { color: var(--primary); }
+        
+        .controls { display: flex; gap: 10px; }
+        .btn { padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; font-size: 14px; transition: 0.2s; }
+        .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-solid { background: var(--primary); color: white; }
+        .btn-solid:hover { background: #e67e22; }
+
+        /* Основной контент */
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        
+        .task-header { border-bottom: 2px solid var(--primary); padding-bottom: 20px; margin-bottom: 30px; }
+        .task-header h1 { color: var(--primary); font-size: 28px; margin-bottom: 10px; }
+        .task-header .meta { color: #888; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+        
+        .task-content { font-size: 18px; margin-bottom: 30px; }
+        .task-content b { color: #2c3e50; }
+
+        /* Блоки */
+        .hint-block { background: #fff8e1; border-left: 5px solid #f39c12; padding: 15px 20px; border-radius: 0 8px 8px 0; margin-bottom: 20px; display: none; }
+        .solution-block { background: #e8f5e9; border-left: 5px solid var(--green); padding: 25px; border-radius: 0 8px 8px 0; display: none; margin-top: 30px;}
+        
+        .hint-block h3, .solution-block h3 { margin-bottom: 15px; font-size: 20px; }
+        .hint-block h3 { color: #d35400; }
+        .solution-block h3 { color: var(--green); }
+
+        /* Игровое поле */
+        .game-area { background: #e3f2fd; border: 2px dashed #64b5f6; padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center; position: relative; }
+        .game-area h3 { color: var(--blue); margin-bottom: 10px; }
+        .game-area p { font-size: 14px; color: #555; margin-bottom: 15px; }
+        
+        .canvas-container { position: relative; width: 300px; height: 300px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); }
+        
+        /* Точки (чисто визуально, для canvas) */
+        .dot { position: absolute; width: 20px; height: 20px; background: #2c3e50; border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+        
+        /* Координаты точек (отступы 50px) */
+        .dot-1 { top: 50px; left: 50px; } .dot-2 { top: 50px; left: 150px; } .dot-3 { top: 50px; left: 250px; }
+        .dot-4 { top: 150px; left: 50px; } .dot-5 { top: 150px; left: 150px; } .dot-6 { top: 150px; left: 250px; }
+        .dot-7 { top: 250px; left: 50px; } .dot-8 { top: 250px; left: 150px; } .dot-9 { top: 250px; left: 250px; }
+
+        canvas { position: absolute; top: 0; left: 0; cursor: crosshair; }
+
+        .show-hint { display: block; animation: fadeIn 0.5s ease; }
+        .show-solution { display: block; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; margin: 0 10px; }
+            .header-bar { padding: 15px 20px; flex-direction: column; gap: 10px; }
+        }
+
+        @media print {
+            body { background: white; }
+            .header-bar, .controls, .game-area { display: none !important; }
+            .container { box-shadow: none; padding: 0; max-width: 100%; }
+            .hint-block, .solution-block { display: block !important; border: 1px solid #ccc; page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <a href="index.html" class="back-link">← К списку задач</a>
+        <div class="controls">
+            <button class="btn btn-outline" onclick="toggleHint()">💡 Подсказка</button>
+            <button class="btn btn-outline" onclick="toggleSolution()">✅ Решение</button>
+            <button class="btn btn-solid" onclick="window.print()">🖨 Печать</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="task-header">
+            <div class="meta">Логика · Геометрия</div>
+            <h1>Соединить 9 точек</h1>
+        </div>
+
+        <div class="task-content">
+            <p>Перед вами 9 точек, расположенных в виде квадрата 3x3.</p>
+            <p><b>Задача:</b> Соедините все 9 точек <b>четырьмя прямыми линиями</b>, не отрывая карандаша от бумаги (линию нужно вести непрерывно).</p>
+            <br>
+            <p>Попробуйте решить её прямо на экране с помощью мышки или пальца!</p>
+        </div>
+
+        <!-- ИНТЕРАКТИВНАЯ ИГРА -->
+        <div class="game-area">
+            <h3>🎮 Попробуйте сами</h3>
+            <p>Зажмите левую кнопку мыши и ведите линию. Отпустите — линия зафиксируется. У вас есть 4 линии.</p>
+            <div class="canvas-container" id="canvasContainer">
+                <!-- Точки -->
+                <div class="dot dot-1"></div><div class="dot dot-2"></div><div class="dot dot-3"></div>
+                <div class="dot dot-4"></div><div class="dot dot-5"></div><div class="dot dot-6"></div>
+                <div class="dot dot-7"></div><div class="dot dot-8"></div><div class="dot dot-9"></div>
+                <!-- Холст для рисования -->
+                <canvas id="gameCanvas" width="300" height="300"></canvas>
+            </div>
+            <button class="btn btn-outline" style="margin-top: 15px; border-color: #c62828; color: #c62828;" onclick="resetCanvas()">Сбросить</button>
+        </div>
+
+        <!-- Скрытая подсказка -->
+        <div id="hint" class="hint-block">
+            <h3>💡 Подсказка</h3>
+            <p>Главная ошибка — пытаться остаться внутри воображаемого квадрата из точек. Чтобы решить задачу, линии должны <b>выйти за пределы квадрата</b>!</p>
+        </div>
+
+        <!-- Скрытое решение (ТЕКСТОВОЕ) -->
+        <div id="solution" class="solution-block">
+            <h3>✅ Решение</h3>
+            <p>Главный секрет: чтобы соединить все 9 точек, линии должны <b>выйти за пределы воображаемого квадрата</b>. Попробуйте повторить эти шаги на листке бумаги:</p>
+            
+            <div style="background: white; border: 2px solid #d35400; padding: 20px; border-radius: 8px; margin: 20px 0; font-size: 17px;">
+                <p style="margin-bottom: 15px;"><b>Шаг 1.</b> Поставьте карандаш в <b>нижнюю левую</b> точку. Ведите линию строго вверх через левую среднюю до верхней левой точки. <b>Продолжайте вести линию вверх, пока не выйдете за пределы квадрата</b> (примерно на расстояние одной точки).</p>
+                
+                <p style="margin-bottom: 15px;"><b>Шаг 2.</b> Не отрывая карандаша, ведите диагональ вниз-вправо. Линия должна пройти ровно через <b>центральную точку</b> и правую нижнюю. <b>Продолжайте вести линию вниз-вправо, пока не выйдете за пределы квадрата</b> (примерно на расстояние одной точки).</p>
+                
+                <p style="margin-bottom: 15px;"><b>Шаг 3.</b> Теперь ведите линию строго влево. Она пройдет через нижнюю правую и нижнюю среднюю точки, и выйдет за левый край квадрата.</p>
+                
+                <p><b>Шаг 4.</b> Из этой точки ведите диагональ вверх-вправо. Линия пройдет через левую среднюю и центральную точки, и закончится ровно в <b>верхней правой</b> точке.</p>
+            </div>
+            
+            <p style="color: #666; font-size: 15px; margin-top: 15px;"><i>Совет: если не получается с первого раза, возьмите лист бумаги в клетку и попробуйте нарисовать это по шагам. Ключ к успеху — не бояться выходить за рамки!</i></p>
+        </div>
+    </div>
+
+    <script>
+        function toggleHint() {
+            document.getElementById('hint').classList.toggle('show-hint');
+        }
+
+        function toggleSolution() {
+            document.getElementById('solution').classList.toggle('show-solution');
+        }
+
+        // --- ЛОГИКА РИСОВАНИЯ НА CANVAS ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let linesDrawn = 0;
+        const maxLines = 4;
+
+        ctx.strokeStyle = '#2980b9';
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+
+        // Начало рисования
+        canvas.addEventListener('mousedown', (e) => {
+            if (linesDrawn >= maxLines) return;
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        });
+
+        // Процесс рисования
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
+        });
+
+        // Конец рисования
+        canvas.addEventListener('mouseup', () => {
+            if (isDrawing) {
+                isDrawing = false;
+                linesDrawn++;
+            }
+        });
+
+        // Поддержка тач-экранов
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (linesDrawn >= maxLines) return;
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            ctx.beginPath();
+            ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+            ctx.stroke();
+        });
+
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            if (isDrawing) {
+                isDrawing = false;
+                linesDrawn++;
+            }
+        });
+
+        // Сброс
+        function resetCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            linesDrawn = 0;
+        }
+    </script>
+</body>
+</html>
