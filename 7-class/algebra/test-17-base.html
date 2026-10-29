@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Кусочно-заданные функции (стандартная)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #000; }
+  .toolbar { max-width: 800px; margin: 0 auto 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .toolbar a, .toolbar button { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; color: #fff; background: #4a90e2; transition: background .2s; }
+  .toolbar a:hover, .toolbar button:hover { background: #357ab8; }
+  .sheet { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.12); padding: 40px; }
+  .sheet-header { border-left: 10px solid #4a90e2; padding-left: 18px; margin-bottom: 22px; }
+  .sheet-header h1 { font-family: 'Times New Roman', Times, serif; font-size: 22px; margin: 0; color: #000; }
+  h2.variant-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 17px; margin: 26px 0 12px; color: #4a90e2; }
+  .task { font-family: 'Times New Roman', Times, serif; font-size: 17px; line-height: 1.6; color: #000; margin: 12px 0 4px; }
+  .answer-line { display: block; border-bottom: 1px solid #000; height: 26px; margin: 6px 0 4px; max-width: 380px; }
+  .answer-line.short { max-width: 160px; }
+  .teacher-answers { display: none; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #4a90e2; background: #e8f1fb; border-left: 4px solid #4a90e2; padding: 6px 12px; margin: 4px 0 16px; border-radius: 4px; }
+  .page-break { page-break-after: always; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .teacher-answers { display: none !important; }
+    .sheet { box-shadow: none; border-radius: 0; max-width: 800px; margin: 0 auto; padding: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+<div class="sheet">
+  <div class="sheet-header">
+    <h1>Проверочная работа — Кусочно-заданные функции (10–15 минут)</h1>
+  </div>
+
+  <h2 class="variant-title">Вариант 1</h2>
+
+  <div class="task">1. Функция задана формулой:<br>
+  \( y = \begin{cases} 2x, & \text{если } x \le 1, \\ x + 3, & \text{если } x > 1. \end{cases} \)<br>
+  Найдите \( y \) при \( x = 0 \).</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">x = 0 ≤ 1, значит y = 2·0 = 0</div>
+
+  <div class="task">2. Для той же функции найдите \( y \) при \( x = 3 \).</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">x = 3 > 1, значит y = 3 + 3 = 6</div>
+
+  <div class="task">3. Постройте график функции:<br>
+  \( y = \begin{cases} -x, & \text{если } x < 0, \\ x, & \text{если } x \ge 0. \end{cases} \)<br>
+  Опишите, из каких частей он состоит.</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">График состоит из двух лучей: при x < 0 — луч y = −x (убывает), при x ≥ 0 — луч y = x (возрастает). Вместе образуют «уголок» с вершиной в (0; 0).</div>
+
+  <div class="task">4. Функция задана формулой:<br>
+  \( y = \begin{cases} x^2, & \text{если } -2 \le x \le 2, \\ 4, & \text{если } x > 2. \end{cases} \)<br>
+  Найдите \( y \) при \( x = -1 \) и при \( x = 5 \).</div>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">При x = −1: y = (−1)² = 1; при x = 5: y = 4</div>
+
+  <div class="task">5. При каком значении \( x \) функция из задания 1 принимает значение \( y = 5 \)?</div>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">Если x ≤ 1: 2x = 5 → x = 2,5 — не подходит (2,5 > 1). Если x > 1: x + 3 = 5 → x = 2 — подходит. Ответ: x = 2.</div>
+
+  <div class="page-break"></div>
+
+  <h2 class="variant-title">Вариант 2</h2>
+
+  <div class="task">1. Функция задана формулой:<br>
+  \( y = \begin{cases} 3x, & \text{если } x \le 2, \\ x - 1, & \text{если } x > 2. \end{cases} \)<br>
+  Найдите \( y \) при \( x = 1 \).</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">x = 1 ≤ 2, значит y = 3·1 = 3</div>
+
+  <div class="task">2. Для той же функции найдите \( y \) при \( x = 4 \).</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">x = 4 > 2, значит y = 4 − 1 = 3</div>
+
+  <div class="task">3. Постройте график функции:<br>
+  \( y = \begin{cases} 2x, & \text{если } x < 1, \\ -x + 3, & \text{если } x \ge 1. \end{cases} \)<br>
+  Опишите, из каких частей он состоит.</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">График состоит из двух частей: при x < 1 — луч y = 2x (возрастает), при x ≥ 1 — луч y = −x + 3 (убывает). В точке x = 1 значения не совпадают (y = 2 при x < 1 стремится к 2, а при x ≥ 1 y = 2) — график непрерывен в этой точке.</div>
+
+  <div class="task">4. Функция задана формулой:<br>
+  \( y = \begin{cases} -x, & \text{если } -3 \le x \le 0, \\ x^2, & \text{если } x > 0. \end{cases} \)<br>
+  Найдите \( y \) при \( x = -2 \) и при \( x = 3 \).</div>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">При x = −2: y = −(−2) = 2; при x = 3: y = 3² = 9</div>
+
+  <div class="task">5. При каком значении \( x \) функция из задания 1 принимает значение \( y = 6 \)?</div>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">Если x ≤ 2: 3x = 6 → x = 2 — подходит. Если x > 2: x − 1 = 6 → x = 7 — подходит. Ответ: x = 2 или x = 7.</div>
+</div>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
