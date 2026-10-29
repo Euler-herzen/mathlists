@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Рабочие листы: Функции и графики (7 класс)</title>
+<style>
+    /* Базовые стили */
+    body {
+        font-family: 'Times New Roman', Times, serif; /* Шрифт как в учебнике */
+        background-color: #f0f2f5;
+        color: #000;
+        margin: 0;
+        padding: 20px;
+        line-height: 1.5;
+    }
+
+    /* Панель управления (не печатается) */
+    .controls {
+        max-width: 800px;
+        margin: 0 auto 20px auto;
+        background: #fff;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: Arial, sans-serif;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+    .btn-primary { background: #4a90e2; color: white; }
+    .btn-primary:hover { background: #357abd; }
+    .btn-outline { background: white; border: 2px solid #4a90e2; color: #4a90e2; }
+    
+    /* Контейнер для А4 */
+    .page {
+        background: white;
+        max-width: 800px;
+        margin: 0 auto 20px auto;
+        padding: 40px 50px;
+        box-sizing: border-box;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Заголовки */
+    .header { text-align: center; margin-bottom: 20px; }
+    .header h2 { margin: 0 0 10px 0; font-size: 22px; }
+    .header p { margin: 0; font-size: 16px; color: #333; }
+    .student-info { margin-bottom: 25px; font-size: 16px; display: flex; justify-content: space-between;}
+
+    /* Блоки заданий */
+    .block-title {
+        font-weight: bold;
+        font-size: 16px;
+        margin: 25px 0 15px 0;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-family: Arial, sans-serif;
+        text-transform: uppercase;
+    }
+    .bg-green { background: #e8f5e9; color: #2e7d32; border-left: 5px solid #2e7d32; }
+    .bg-yellow { background: #fff8e1; color: #f57f17; border-left: 5px solid #f57f17; }
+    .bg-red { background: #ffebee; color: #c62828; border-left: 5px solid #c62828; }
+
+    /* Элементы заданий */
+    .task { margin-bottom: 15px; }
+    .task-text { font-size: 16px; margin-bottom: 5px; }
+    .answer-line { display: inline-block; border-bottom: 1px solid #000; min-width: 80px; margin: 0 5px; }
+    
+    /* Таблицы */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        font-size: 16px;
+    }
+    th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+    th { background: #f9f9f9; }
+
+    /* Оси координат (рисуем через CSS, чтобы не вставлять картинки) */
+    .axis-container { margin: 15px 0; display: flex; flex-direction: column; gap: 15px; }
+    .axis {
+        width: 100%;
+        height: 30px;
+        position: relative;
+        border-bottom: 1px solid #000;
+        background: linear-gradient(to right, transparent 49.5%, #000 49.5%, #000 50.5%, transparent 50.5%);
+    }
+    .axis::before { content: "→"; position: absolute; right: -5px; bottom: -10px; font-size: 20px; }
+    .axis::after { content: "x"; position: absolute; right: -15px; top: -20px; font-weight: bold; }
+
+    /* Ответы для учителя (скрыты по умолчанию) */
+    .teacher-answers { display: none; color: #d32f2f; font-weight: bold; font-size: 14px; margin-top: 5px; }
+    .show-answers .teacher-answers { display: block; }
+
+    /* Стили для печати */
+    @media print {
+        body { background: white; padding: 0; }
+        .controls { display: none; } /* Скрываем кнопки при печати */
+        .page { box-shadow: none; padding: 0; margin: 0; max-width: 100%; }
+        .task { page-break-inside: avoid; }
+        .page-break { page-break-after: always; }
+        .teacher-answers { display: none !important; } /* Ответы никогда не печатаем */
+    }
+</style>
+</head>
+<body>
+
+<!-- Панель управления -->
+<div class="controls">
+    <div>
+        <strong style="font-size: 18px; color: #333;">Рабочие листы (7 класс)</strong><br>
+        <span style="font-size: 13px; color: #666;">§11-12. Функции и графики</span>
+    </div>
+    <div>
+        <button class="btn btn-outline" onclick="toggleAnswers()">👁 Показать ответы</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨 Печать / PDF</button>
+    </div>
+</div>
+
+<!-- ================= ЛИСТ 1 ================= -->
+<div class="page">
+    <div class="header">
+        <h2>Рабочий лист №1. Числовые промежутки</h2>
+        <p>Введение нового материала</p>
+    </div>
+    
+    <div class="student-info">
+        <span>ФИО: _________________________________________</span>
+        <span>Класс: _____</span>
+    </div>
+
+    <!-- Блок 1 -->
+    <div class="block-title bg-green">🟢 Блок 1. База (для всех). Вспоминаем и тренируем</div>
+    
+    <div class="task">
+        <div class="task-text"><strong>1.1.</strong> Запишите в виде неравенства:</div>
+        <div>а) \(x\) больше 5: <span class="answer-line"></span> &nbsp;&nbsp; б) \(x\) меньше или равно -2: <span class="answer-line"></span></div>
+        <div class="teacher-answers">Ответ: а) x > 5; б) x ≤ -2</div>
+    </div>
+
+    <div class="task">
+        <div class="task-text"><strong>1.2.</strong> Заполните пустые ячейки таблицы:</div>
+        <table>
+            <tr><th>Неравенство</th><th>Название промежутка</th><th>Запись скобками</th></tr>
+            <tr><td>\(x > 3\)</td><td>Открытый луч</td><td>\((3; +\infty)\)</td></tr>
+            <tr><td>\(x \le 4\)</td><td></td><td></td></tr>
+            <tr><td>\(-1 \le x \le 5\)</td><td>Отрезок</td><td></td></tr>
+            <tr><td>\(0 < x < 2\)</td><td></td><td>\((0; 2)\)</td></tr>
+        </table>
+        <div class="teacher-answers">Ответ: x ≤ 4 — луч (-∞; 4]; отрезок [-1; 5]; 0 < x < 2 — интервал.</div>
+    </div>
+
+    <div class="task">
+        <div class="task-text"><strong>1.3.</strong> Заштрихуйте нужную часть на координатной прямой:</div>
+        <div class="axis-container">
+            <div>а) \([2; 5]\) <div class="axis"></div></div>
+            <div>б) \((-\infty; -1)\) <div class="axis"></div></div>
+        </div>
+    </div>
+
+    <!-- Блок 2 -->
+    <div class="block-title bg-yellow">🟡 Блок 2. Практика (для средних и сильных)</div>
+    
+    <div class="task">
+        <div class="task-text"><strong>2.1.</strong> Изобразите на координатной прямой промежуток:</div>
+        <div class="axis-container">
+            <div>а) \([-4; 1)\) <div class="axis"></div></div>
+            <div>б) \((2; +\infty)\) <div class="axis"></div></div>
+        </div>
+    </div>
+
+    <div class="task">
+        <div class="task-text"><strong>2.2.</strong> Найдите пересечение промежутков \([1; 6]\) и \((3; 8]\).</div>
+        <div>Ответ: <span class="answer-line" style="min-width: 100px;"></span></div>
+        <div class="teacher-answers">Ответ: (3; 6]</div>
+    </div>
+
+    <!-- Блок 3 -->
+    <div class="block-title bg-red">🔴 Блок 3. Олимпиадное (для сильных). Подсказка: |a| — расстояние от 0 до a</div>
+    
+    <div class="task">
+        <div class="task-text"><strong>3.1.</strong> Запишите в виде промежутка множество чисел \(x\), для которых расстояние до точки 0 больше или равно 2.</div>
+        <div>Ответ: <span class="answer-line" style="min-width: 100px;"></span></div>
+        <div class="teacher-answers">Ответ: (-∞; -2] ∪ [2; +∞)</div>
+    </div>
+
+    <div class="task">
+        <div class="task-text"><strong>3.2.</strong> Известно, что \(x \in [2; 5]\), а \(y \in [-1; 3]\). Какой промежуток занимает выражение \(x + y\)?<br>
+        <em>Подсказка: сложите наименьшие значения \(x\) и \(y\), затем наибольшие.</em></div>
+        <div>Ответ: <span class="answer-line" style="min-width: 100px;"></span></div>
+        <div class="teacher-answers">Ответ: [1; 8]</div>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ================= ЛИСТ 3 ================= -->
+<div class="page">
+    <div class="header">
+        <h2>Рабочий лист №3. Что такое функция</h2>
+        <p>Введение нового материала</p>
+    </div>
+    
+    <div class="student-info">
+        <span>ФИО: _________________________________________</span>
+        <span>Класс: _____</span>
+    </div>
+
+    <!-- Блок 1 -->
+    <div class="block-title bg-green">🟢 Блок 1. База (для всех)</div>
+    
+    <div class="task">
+        <div class="task-text"><strong>1.1.</strong> Вставьте пропущенные слова.</div>
+        <div>Независимую переменную обычно обозначают буквой <span class="answer-line"></span> и называют <span class="answer-line" style="min-width: 120px;"></span>.</div>
+        <div>Зависимую переменную обозначают буквой <span class="answer-line"></span> и называют <span class="answer-line" style="min-width: 120px;"></span>.</div>
+        <div class="teacher-answers">Ответ: x, аргумент; y, функция.</div>
+    </div>
+
+    <div class="task">
+        <div class="task-text"><strong>1.2.</strong> Ученик купил тетради по 40 рублей за штуку. Если он купил \(n\) тетрадей, то заплатил \(m\) рублей.</div>
+        <div>Формула зависимости \(m\) от \(n\): <span class="answer-line" style="min-width: 150px;"></span></div>
+        <div>Аргумент: <span class="answer-line" style="min-width: 50px;"></span> &nbsp; Функция: <span class="answer-line" style="min-width: 50px;"></span></div>
+        <div class="teacher-answers">Ответ: m = 40n; n - аргумент, m - функция.</div>
+    </div>
+
+    <!-- Блок 2 -->
+    <div class="block-title bg-yellow">🟡 Блок 2. Практика (для средних и сильных)</div>
+    
+    <div class="task">
+        <div class="task-text"><strong>2.1.</strong> Поезд движется со скоростью 70 км/ч. Пройденный путь \(s\) (км) за \(t\) часов вычисляется по формуле \(s(t) = 70t\).</div>
+        <div>а) Найдите \(s(2)\) = <span class="answer-line"></span> &nbsp; \(s(3,5)\) = <span class="answer-line"></span></div>
+        <div>б) Какое время \(t\) нужно, чтобы пройти 140 км? <span class="answer-line"></span></div>
+        <div class="teacher-answers">Ответ: а) 140, 245. б) t = 2.</div>
+    </div>
+
+    <div class="task">
+        <div class="task-text"><strong>2.2.</strong> Функция задана таблицей зависимости стоимости проезда (\(m\)) от зоны (\(n\)).</div>
+        <table style="width: 50%; margin: 10px auto;">
+            <tr><th>n</th><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+            <tr><th>m</th><td>26</td><td>52</td><td>78</td><td>104</td></tr>
+        </table>
+        <div>Найдите значение функции, если аргумент равен 3: <span class="answer-line"></span></div>
+        <div class="teacher-answers">Ответ: 78</div>
+    </div>
+
+    <!-- Блок 3 -->
+    <div class="block-title bg-red">🔴 Блок 3. Олимпиадное (для сильных)</div>
+    
+    <div class="task">
+        <div class="task-text"><strong>3.1.</strong> Каждому натуральному числу \(n\) ставится в соответствие остаток \(r\) от деления этого числа на 4.</div>
+        <div>а) Найдите \(r(10)\) = <span class="answer-line" style="min-width: 50px;"></span>, \(r(15)\) = <span class="answer-line" style="min-width: 50px;"></span></div>
+        <div>б) Какие числа служат значениями этой функции? (Перечислите): <span class="answer-line" style="min-width: 150px;"></span></div>
+        <div class="teacher-answers">Ответ: а) 2; 3. б) 0, 1, 2, 3.</div>
+    </div>
+
+    <div class="task">
+        <div class="task-text"><strong>3.2.</strong> Может ли одна и та же точка на графике функции иметь две разные ординаты (\(y\))? Объясните одним предложением, опираясь на определение функции.</div>
+        <div style="height: 40px; border-bottom: 1px solid #ccc; margin-top: 10px;"></div>
+        <div style="height: 40px; border-bottom: 1px solid #ccc;"></div>
+        <div class="teacher-answers">Ответ: Нет. Каждому значению аргумента (x) соответствует единственное значение функции (y).</div>
+    </div>
+</div>
+
+<script>
+    // Функция переключения ответов
+    function toggleAnswers() {
+        const body = document.body;
+        body.classList.toggle('show-answers');
+        const btn = document.querySelector('.btn-outline');
+        if (body.classList.contains('show-answers')) {
+            btn.textContent = '🙈 Скрыть ответы';
+            btn.style.backgroundColor = '#ffebee';
+        } else {
+            btn.textContent = '👁 Показать ответы';
+            btn.style.backgroundColor = 'white';
+        }
+    }
+</script>
+
+<!-- Подключение MathJax для красивых формул (если есть интернет) -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</body>
+</html>
