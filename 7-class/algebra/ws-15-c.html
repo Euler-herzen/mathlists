@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Рабочий лист В — Прямая пропорциональность (продвинутый)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #000; }
+  .toolbar { max-width: 800px; margin: 0 auto 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .toolbar a, .toolbar button { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; color: #fff; background: #4a90e2; transition: background .2s; }
+  .toolbar a:hover, .toolbar button:hover { background: #357ab8; }
+  .sheet { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.12); padding: 40px; }
+  .sheet-header { border-left: 10px solid #c62828; padding-left: 18px; margin-bottom: 26px; }
+  .sheet-header h1 { font-family: 'Times New Roman', Times, serif; font-size: 24px; margin: 0 0 10px; color: #000; }
+  .meta { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; color: #333; line-height: 1.7; }
+  .meta span { margin-right: 18px; white-space: nowrap; }
+  .student-info { margin-top: 14px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; display: flex; flex-wrap: wrap; gap: 24px; }
+  .student-info .line { border-bottom: 1px solid #000; display: inline-block; min-width: 180px; }
+  h2.task-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; margin: 30px 0 10px; color: #c62828; }
+  .task { font-family: 'Times New Roman', Times, serif; font-size: 17px; line-height: 1.6; color: #000; margin-bottom: 6px; }
+  .answer-line { display: block; border-bottom: 1px solid #000; height: 26px; margin: 8px 0 4px; max-width: 420px; }
+  .answer-line.short { max-width: 180px; }
+  .hint { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #7a4a00; background: #fff8e1; border-left: 4px solid #f0ad4e; padding: 6px 12px; margin: 6px 0 8px; border-radius: 4px; }
+  .teacher-answers { display: none; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #c62828; background: #fdeaea; border-left: 4px solid #c62828; padding: 6px 12px; margin: 4px 0 18px; border-radius: 4px; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .teacher-answers { display: none !important; }
+    .sheet { box-shadow: none; border-radius: 0; max-width: 800px; margin: 0 auto; padding: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+<div class="sheet">
+  <div class="sheet-header">
+    <h1>Рабочий лист В — Продвинутый уровень ★</h1>
+    <div class="meta">
+      <span><strong>Класс:</strong> 7</span>
+      <span><strong>Предмет:</strong> Алгебра</span>
+      <span><strong>Тема:</strong> Прямая пропорциональность и её график</span>
+      <span><strong>Уровень:</strong> Продвинутый</span>
+    </div>
+    <div class="student-info">
+      <div>ФИО ученика: <span class="line"></span></div>
+      <div>Класс: <span class="line" style="min-width:80px"></span></div>
+    </div>
+  </div>
+
+  <h2 class="task-title">Задание 1 ★. Параметр и расположение графика</h2>
+  <div class="task">При каких значениях \( k \) график функции \( y = kx \) проходит через III и I координатные четверти?</div>
+  <div class="hint">Подсказка: подумайте, при каком знаке \( k \) значения \( y \) и \( x \) имеют одинаковые знаки.</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">k > 0</div>
+
+  <h2 class="task-title">Задание 2 ★. Две точки и восстановление формулы</h2>
+  <div class="task">Известно, что график прямой пропорциональности проходит через точки \( A(2; 5) \) и \( B(-4; -10) \). Докажите, что это одна и та же прямая пропорциональность, и запишите её формулу.</div>
+  <div class="hint">Подсказка: найдите \( k \) из каждой точки и сравните результаты.</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">Из A: k = 5/2 = 2,5. Из B: k = −10/(−4) = 2,5. Коэффициенты равны, значит точки лежат на одной прямой y = 2,5x.</div>
+
+  <h2 class="task-title">Задание 3 ★. Прямая пропорциональность и площадь</h2>
+  <div class="task">Площадь прямоугольника с постоянной шириной \( 4 \text{ см} \) прямо пропорциональна его длине. Задайте формулу зависимости площади \( S \) от длины \( a \). Является ли эта зависимость прямой пропорциональностью? Найдите \( S \) при \( a = 7 \).</div>
+  <div class="hint">Подсказка: \( S = 4a \). Сравните с видом \( y = kx \).</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">S = 4a — да, прямая пропорциональность (k = 4). При a = 7: S = 28 см².</div>
+
+  <h2 class="task-title">Задание 4 ★. Сравнение коэффициентов по графикам</h2>
+  <div class="task">На координатной плоскости изображены две прямые, проходящие через начало координат: первая образует с осью \( Ox \) угол \( 30^\circ \), вторая — угол \( 60^\circ \). У какой прямой коэффициент \( k \) больше? Ответ обоснуйте.</div>
+  <div class="hint">Подсказка: \( k = \tan \alpha \), где \( \alpha \) — угол наклона прямой к оси \( Ox \).</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">k₁ = tan 30° ≈ 0,58; k₂ = tan 60° ≈ 1,73. У второй прямой коэффициент больше (1,73 > 0,58).</div>
+
+  <h2 class="task-title">Задание 5 ★. Задача с параметром</h2>
+  <div class="task">Функция задана формулой \( y = (a - 1)x \). При каком значении \( a \) график функции не проходит через начало координат? Объясните.</div>
+  <div class="hint">Подсказка: график \( y = kx \) всегда проходит через начало координат при \( k \neq 0 \). А что при \( k = 0 \)?</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">При a = 1 формула принимает вид y = 0·x, то есть y = 0 — это ось Ox, она проходит через начало координат. Значит, такого a нет: при любом a график проходит через (0; 0). (Либо: при a = 1 это уже не прямая пропорциональность, но начало координат всё равно принадлежит графику.)</div>
+
+  <h2 class="task-title">Задание 6 ★. Олимпиадная задача</h2>
+  <div class="task">Прямая пропорциональность \( y = kx \) проходит через точку пересечения прямых \( y = 2x - 3 \) и \( y = -x + 6 \). Найдите \( k \).</div>
+  <div class="hint">Подсказка: сначала найдите точку пересечения двух прямых, приравняв их правые части.</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">2x − 3 = −x + 6 → 3x = 9 → x = 3; y = 2·3 − 3 = 3. Точка (3; 3). Тогда 3 = k·3 → k = 1. Ответ: k = 1.</div>
+</div>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
