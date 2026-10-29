@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Рабочий лист Б — Прямая пропорциональность</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #000; }
+  .toolbar { max-width: 800px; margin: 0 auto 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .toolbar a, .toolbar button { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; color: #fff; background: #4a90e2; transition: background .2s; }
+  .toolbar a:hover, .toolbar button:hover { background: #357ab8; }
+  .sheet { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.12); padding: 40px; }
+  .sheet-header { border-left: 10px solid #4a90e2; padding-left: 18px; margin-bottom: 26px; }
+  .sheet-header h1 { font-family: 'Times New Roman', Times, serif; font-size: 24px; margin: 0 0 10px; color: #000; }
+  .meta { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; color: #333; line-height: 1.7; }
+  .meta span { margin-right: 18px; white-space: nowrap; }
+  .student-info { margin-top: 14px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; display: flex; flex-wrap: wrap; gap: 24px; }
+  .student-info .line { border-bottom: 1px solid #000; display: inline-block; min-width: 180px; }
+  h2.task-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; margin: 30px 0 10px; color: #4a90e2; }
+  .task { font-family: 'Times New Roman', Times, serif; font-size: 17px; line-height: 1.6; color: #000; margin-bottom: 6px; }
+  .answer-line { display: block; border-bottom: 1px solid #000; height: 26px; margin: 8px 0 4px; max-width: 420px; }
+  .answer-line.short { max-width: 180px; }
+  .teacher-answers { display: none; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #4a90e2; background: #e8f1fb; border-left: 4px solid #4a90e2; padding: 6px 12px; margin: 4px 0 18px; border-radius: 4px; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .teacher-answers { display: none !important; }
+    .sheet { box-shadow: none; border-radius: 0; max-width: 800px; margin: 0 auto; padding: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+<div class="sheet">
+  <div class="sheet-header">
+    <h1>Рабочий лист Б — Стандартный уровень</h1>
+    <div class="meta">
+      <span><strong>Класс:</strong> 7</span>
+      <span><strong>Предмет:</strong> Алгебра</span>
+      <span><strong>Тема:</strong> Прямая пропорциональность и её график</span>
+      <span><strong>Уровень:</strong> Стандартный</span>
+    </div>
+    <div class="student-info">
+      <div>ФИО ученика: <span class="line"></span></div>
+      <div>Класс: <span class="line" style="min-width:80px"></span></div>
+    </div>
+  </div>
+
+  <h2 class="task-title">Задание 1. Найдите коэффициент \( k \)</h2>
+  <div class="task">Известно, что функция \( y = kx \) проходит через точку \( M(-3; 9) \). Найдите \( k \) и запишите формулу функции.</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">9 = k · (−3) → k = −3. Формула: y = −3x</div>
+
+  <h2 class="task-title">Задание 2. Принадлежность точек графику</h2>
+  <div class="task">Дана функция \( y = -2x \). Какие из точек принадлежат её графику?</div>
+  <div class="task">\( A(1; -2) \), \( B(-2; 4) \), \( C(3; 6) \), \( D(0; 0) \)</div>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">A: −2 = −2·1 ✓; B: 4 = −2·(−2) ✓; C: 6 ≠ −6 ✗; D: 0 = 0 ✓. Принадлежат A, B, D.</div>
+
+  <h2 class="task-title">Задание 3. Постройте графики и сравните</h2>
+  <div class="task">В одной системе координат постройте графики \( y = 2x \) и \( y = -2x \). Как расположены эти прямые?</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">Обе проходят через начало координат; прямые симметричны относительно оси Oy (или: образуют разные углы наклона, y = 2x — возрастает, y = −2x — убывает).</div>
+
+  <h2 class="task-title">Задание 4. Задача на прямую пропорциональность</h2>
+  <div class="task">Масса стального бруска прямо пропорциональна его объёму. Брусок объёмом \( 5 \text{ см}^3 \) имеет массу \( 39 \text{ г} \). Найдите массу бруска объёмом \( 8 \text{ см}^3 \).</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">k = 39/5 = 7,8 г/см³. m = 7,8 · 8 = 62,4 г</div>
+
+  <h2 class="task-title">Задание 5. Определите формулу по графику</h2>
+  <div class="task">График прямой пропорциональности проходит через точку \( (4; -8) \). Запишите формулу \( y = kx \).</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">−8 = k · 4 → k = −2. y = −2x</div>
+
+  <h2 class="task-title">Задание 6. Сравните значения функции</h2>
+  <div class="task">Дана функция \( y = 5x \). Сравните \( y(2) \) и \( y(-3) \).</div>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">y(2) = 10; y(−3) = −15; 10 > −15</div>
+
+  <h2 class="task-title">Задание 7. Найдите \( x \) по значению \( y \)</h2>
+  <div class="task">Функция \( y = -4x \). Найдите \( x \), если \( y = 12 \).</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">12 = −4x → x = −3</div>
+</div>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
