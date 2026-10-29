@@ -9,18 +9,20 @@
             --primary: #4a90e2;
             --bg: #f4f7f6;
             --text: #2c3e50;
-            --level-a: #2e7d32; /* Зеленый */
-            --level-b: #4a90e2; /* Синий */
-            --level-c: #c62828; /* Красный */
-            --purple: #8e44ad;  /* Для техкарт */
-            --orange: #f57f17;  /* Для проверочных */
+            --level-a: #2e7d32;
+            --level-b: #4a90e2;
+            --level-c: #c62828;
+            --purple: #8e44ad;
+            --orange: #f57f17;
+            --base-color: #f39c12;
+            --adv-color: #d35400;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
 
         /* Меню слева */
         .sidebar { width: 260px; background: white; padding: 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.05); position: fixed; height: 100vh; overflow-y: auto; }
-        .back-link { display: block; margin-bottom: 20px; color: #888; text-decoration: none; font-size: 14px; transition: 0.2s;}
+        .back-link { display: block; margin-bottom: 20px; color: #888; text-decoration: none; font-size: 14px; }
         .back-link:hover { color: var(--primary); }
         .nav-item { display: block; padding: 12px 15px; color: var(--text); text-decoration: none; border-radius: 8px; margin-bottom: 5px; cursor: pointer; font-weight: 600; transition: 0.2s;}
         .nav-item:hover { background: #f0f4f8; }
@@ -28,23 +30,21 @@
 
         /* Контент */
         .main-content { margin-left: 260px; padding: 40px; width: calc(100% - 260px); max-width: 1200px; }
-        
         .subject-section { display: none; }
         .subject-section.active-subject { display: block; }
-
         .section-header { margin-bottom: 30px; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
         .section-header h2 { font-size: 28px; }
         
-        /* Подразделы (Рабочие, Проверочные, Техкарты) */
+        /* Подразделы */
         .sub-category { margin-bottom: 40px; }
-        .sub-category h3 { font-size: 20px; margin-bottom: 20px; color: #444; display: flex; align-items: center; gap: 10px;}
+        .sub-category h3 { font-size: 20px; margin-bottom: 20px; color: #444; }
 
+        /* Сетка и карточки */
         .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        
         .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.2s;}
         .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
         
-        /* Цветовые маркеры для карточек */
+        /* Цветовые маркеры */
         .card-ws { border-top: 5px solid var(--primary); }
         .card-test { border-top: 5px solid var(--orange); }
         .card-map { border-top: 5px solid var(--purple); }
@@ -52,37 +52,17 @@
         .card-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
         .card-desc { font-size: 13px; color: #666; margin-bottom: 15px; flex-grow: 1; }
 
-        /* Кнопки уровней */
+        /* Кнопки */
         .btn-group { display: flex; gap: 5px; margin-top: auto; }
-        .btn-level { flex: 1; padding: 8px 5px; border-radius: 6px; font-size: 12px; font-weight: 600; color: white; text-align: center; text-decoration: none; transition: 0.2s; border: none; cursor: pointer;}
+        .btn-level { flex: 1; padding: 10px 5px; border-radius: 6px; font-size: 13px; font-weight: 600; color: white; text-align: center; text-decoration: none; transition: 0.2s; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;}
+        
         .btn-a { background: var(--level-a); }
         .btn-b { background: var(--level-b); }
         .btn-c { background: var(--level-c); }
-                /* Стили для кнопок проверочных работ */
-        .btn-base { 
-            background: #f39c12; 
-            color: white; 
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            font-size: 14px;
-        }
-        .btn-base:hover { background: #e67e22; }
-        
-        .btn-adv { 
-            background: #d35400; 
-            color: white; 
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            font-size: 14px;
-        }
-        .btn-adv:hover { background: #a04000; }
         .btn-map { background: var(--purple); width: 100%;}
+        
+        .btn-base { background: var(--base-color); }
+        .btn-adv { background: var(--adv-color); }
 
         .empty-state { text-align: center; padding: 30px; background: #f9f9f9; border-radius: 12px; border: 2px dashed #ccc; color: #888; grid-column: 1 / -1;}
 
@@ -112,174 +92,127 @@
         <div id="algebra" class="subject-section active-subject">
             <div class="section-header"><h2>7 Класс · Алгебра</h2></div>
             
-            <!-- 1. РАБОЧИЕ ЛИСТЫ -->
             <div class="sub-category">
                 <h3>📝 Рабочие листы</h3>
-                <div class="grid-container">
-                    <!-- ПРИМЕР КАРТОЧКИ РАБОЧЕГО ЛИСТА -->
-                    <div class="card card-ws">
-                        <div class="card-title">§ 11. Числовые промежутки</div>
-                        <div class="card-desc">Введение нового материала.</div>
-                        <div class="btn-group">
-                            <a href="algebra/ws-11-a.html" class="btn-level btn-a">🟢 Слабый</a>
-                            <a href="algebra/ws-11-b.html" class="btn-level btn-b">🔵 Средний</a>
-                            <a href="algebra/ws-11-c.html" class="btn-level btn-c">🔴 Сильный</a>
-                        </div>
-                    </div>
-                    <!-- Здесь добавляйте новые карточки рабочих листов -->
-                </div>
+                <div class="grid-container" id="algebra-ws"></div>
             </div>
 
-            <!-- 2. ПРОВЕРОЧНЫЕ РАБОТЫ -->
             <div class="sub-category">
                 <h3>📊 Проверочные работы</h3>
-                <div class="grid-container">
-                    <!-- ПРИМЕР КАРТОЧКИ ПРОВЕРОЧНОЙ -->
-                    <div class="card card-test">
-                        <div class="card-title">Проверочная: Промежутки</div>
-                        <div class="card-desc">Самостоятельная работа на 15 минут.</div>
-                        <div class="btn-group">
-                            <a href="algebra/test-11-a.html" class="btn-level btn-a">🟢 Слабый</a>
-                            <a href="algebra/test-11-b.html" class="btn-level btn-b">🔵 Средний</a>
-                            <a href="algebra/test-11-c.html" class="btn-level btn-c">🔴 Сильный</a>
-                        </div>
-                    </div>
-                    <!-- Здесь добавляйте новые карточки проверочных -->
-                </div>
+                <div class="grid-container" id="algebra-test"></div>
             </div>
 
-            <!-- 3. ТЕХНОЛОГИЧЕСКИЕ КАРТЫ -->
             <div class="sub-category">
                 <h3>📋 Технологические карты уроков</h3>
-                <div class="grid-container">
-                    <!-- ПРИМЕР КАРТОЧКИ ТЕХКАРТЫ -->
-                    <div class="card card-map">
-                        <div class="card-title">Урок: Числовые промежутки</div>
-                        <div class="card-desc">Полный конспект урока с целями и этапами.</div>
-                        <div class="btn-group">
-                            <a href="algebra/map-11.html" class="btn-level btn-map">📄 Открыть карту</a>
-                        </div>
-                    </div>
-                    <!-- Здесь добавляйте новые карточки техкарт -->
-                </div>
+                <div class="grid-container" id="algebra-map"></div>
             </div>
         </div>
 
-        <!-- ГЕОМЕТРИЯ (Заглушка) -->
+        <!-- ГЕОМЕТРИЯ -->
         <div id="geometry" class="subject-section">
             <div class="section-header"><h2>7 Класс · Геометрия</h2></div>
-            
             <div class="sub-category">
                 <h3>📝 Рабочие листы</h3>
-                <div class="grid-container">
-                    <div class="empty-state">Рабочие листы по геометрии скоро появятся.</div>
-                </div>
-            </div>
-            
-            <div class="sub-category">
-                <h3>📊 Проверочные работы</h3>
-                <div class="grid-container">
-                    <div class="empty-state">Проверочные работы по геометрии скоро появятся.</div>
-                </div>
+                <div class="grid-container" id="geometry-ws"></div>
             </div>
         </div>
 
-          <!-- ВЕРОЯТНОСТЬ -->
+        <!-- ВЕРОЯТНОСТЬ -->
         <div id="probability" class="subject-section">
             <div class="section-header"><h2>7 Класс · Вероятность и статистика</h2></div>
-            
-            <!-- 1. РАБОЧИЕ ЛИСТЫ -->
             <div class="sub-category">
                 <h3>📝 Рабочие листы</h3>
-                <div class="grid-container">
-                    
-                    <!-- НОВАЯ КАРТОЧКА УРОКА -->
-                    <div class="card card-ws">
-                        <div class="card-title">Случайные события</div>
-                        <div class="card-desc">Введение в теорию вероятностей.</div>
-                        <div class="btn-group">
-                            <a href="probability/ws-1-a.html" class="btn-level btn-a">🟢 Слабый</a>
-                            <a href="probability/ws-1-b.html" class="btn-level btn-b">🔵 Средний</a>
-                            <a href="probability/ws-1-c.html" class="btn-level btn-c">🔴 Сильный</a>
-                        </div>
-                    </div>
-                    <!-- Конец карточки -->
-                    <!-- Карточка для урока №9 -->
-                    <div class="card card-ws">
-                        <div class="card-title">§ 9. Наименьшее и наибольшее значения. Размах</div>
-                        <div class="card-desc">Описание темы урока. Выберите уровень.</div>
-                        <div class="btn-group">
-                            <!-- Обратите внимание на пути href -->
-                            <a href="probability/ws-9-a.html" class="btn-level btn-a">🟢 Слабый</a>
-                            <a href="probability/ws-9-b.html" class="btn-level btn-b">🔵 Средний</a>
-                            <a href="probability/ws-9-c.html" class="btn-level btn-c">🔴 Сильный</a>
-                        </div>
-                    </div>
-                     <!-- Карточка для урока №10 -->
-                    <div class="card card-ws">
-                        <div class="card-title">§ 10. Обозначения в статистике. Свойства среднего</div>
-                        <div class="card-desc">Описание темы урока. Выберите уровень.</div>
-                        <div class="btn-group">
-                            <!-- Обратите внимание на пути href -->
-                            <a href="probability/ws-10-a.html" class="btn-level btn-a">🟢 Слабый</a>
-                            <a href="probability/ws-10-b.html" class="btn-level btn-b">🔵 Средний</a>
-                            <a href="probability/ws-10-c.html" class="btn-level btn-c">🔴 Сильный</a>
-                        </div>
-                    </div>
-                </div>
+                <div class="grid-container" id="probability-ws"></div>
             </div>
-
-            <!-- 2. ПРОВЕРОЧНЫЕ РАБОТЫ -->
             <div class="sub-category">
                 <h3>📊 Проверочные работы</h3>
-                <div class="grid-container">
-                    
-                    <!-- Параграф 9. Размах -->
-                    <div class="card card-test">
-                        <div class="card-title">§ 9 Наименьшее и наибольшее значения. Размах</div>
-                        <div class="card-desc">Самостоятельная работа на 10-15 минут. Выберите уровень:</div>
-                        <div class="btn-group">
-                            <!-- Уровень 1: Базовый -->
-                            <a href="probability/test-9-base.html" class="btn-level btn-base">🟡 Базовый</a>
-                            <!-- Уровень 2: Повышенный -->
-                            <a href="probability/test-9-adv.html" class="btn-level btn-adv">🟠 Повышенный</a>
-                        </div>
-                    </div>
-                    <!-- Параграф 10 -->
-                    <div class="card card-test">
-                        <div class="card-title">§ 10. Обозначения в статистике. Свойства среднего</div>
-                        <div class="card-desc">Самостоятельная работа на 10-15 минут. Выберите уровень:</div>
-                        <div class="btn-group">
-                            <!-- Уровень 1: Базовый -->
-                            <a href="probability/test-10-base.html" class="btn-level btn-base">🟡 Базовый</a>
-                            <!-- Уровень 2: Повышенный -->
-                            <a href="probability/test-10-adv.html" class="btn-level btn-adv">🟠 Повышенный</a>
-                        </div>
-                    </div>
-            <!-- 3. ТЕХНОЛОГИЧЕСКИЕ КАРТЫ -->
-            <div class="sub-category">
-                <h3>📋 Технологические карты уроков</h3>
-                <div class="grid-container">
-                    <div class="empty-state">Технологические карты скоро появятся.</div>
-                </div>
+                <div class="grid-container" id="probability-test"></div>
             </div>
         </div>
 
     </div>
 
     <script>
-        // Переключение предметов (Алгебра / Геометрия / Вероятность)
+        // === БАЗА ДАННЫХ УРОКОВ (ВОТ СЮДА ВЫ ДОБАВЛЯЕТЕ НОВЫЕ СТРОЧКИ) ===
+        
+        // 1. Рабочие листы Алгебры
+        const algebraWS = [
+            { title: "§ 11. Числовые промежутки", desc: "Введение нового материала.", path: "algebra/ws-11" },
+            { title: "§ 12. Что такое функция", desc: "Понятие зависимости и аргумента.", path: "algebra/ws-12" },
+            // Чтобы добавить новый лист, просто скопируйте строчку выше и измените данные:
+            // { title: "§ 13. Линейная функция", desc: "График и свойства.", path: "algebra/ws-13" },
+        ];
+
+        // 2. Рабочие листы Вероятности
+        const probabilityWS = [
+            { title: "§ 9. Случайные события", desc: "Введение в теорию вероятностей.", path: "probability/ws-9" },
+        ];
+
+        // 3. Проверочные работы Вероятности (2 уровня)
+        const probabilityTest = [
+            { title: "Проверочная: Случайные события", desc: "Контроль знаний.", path: "probability/test-9" },
+        ];
+
+
+        // === ФУНКЦИИ АВТОМАТИЧЕСКОЙ ОТРИСОВКИ (МЕНЯТЬ НЕ НУЖНО) ===
+
+        // Функция создания карточки рабочего листа (3 уровня)
+        function createWSCard(item) {
+            return `
+                <div class="card card-ws">
+                    <div class="card-title">${item.title}</div>
+                    <div class="card-desc">${item.desc}</div>
+                    <div class="btn-group">
+                        <a href="${item.path}-a.html" class="btn-level btn-a">🟢 Слабый</a>
+                        <a href="${item.path}-b.html" class="btn-level btn-b">🔵 Средний</a>
+                        <a href="${item.path}-c.html" class="btn-level btn-c">🔴 Сильный</a>
+                    </div>
+                </div>`;
+        }
+
+        // Функция создания карточки проверочной (2 уровня)
+        function createTestCard(item) {
+            return `
+                <div class="card card-test">
+                    <div class="card-title">${item.title}</div>
+                    <div class="card-desc">${item.desc}</div>
+                    <div class="btn-group">
+                        <a href="${item.path}-base.html" class="btn-level btn-base">🟡 Базовый</a>
+                        <a href="${item.path}-adv.html" class="btn-level btn-adv">🟠 Повышенный</a>
+                    </div>
+                </div>`;
+        }
+
+        // Рендер данных в HTML
+        function renderData() {
+            // Рендер Алгебры
+            const algWsContainer = document.getElementById('algebra-ws');
+            algWsContainer.innerHTML = algebraWS.length ? algebraWS.map(createWSCard).join('') : '<div class="empty-state">Рабочие листы скоро появятся.</div>';
+            
+            document.getElementById('algebra-test').innerHTML = '<div class="empty-state">Проверочные работы скоро появятся.</div>';
+            document.getElementById('algebra-map').innerHTML = '<div class="empty-state">Технологические карты скоро появятся.</div>';
+
+            // Рендер Вероятности
+            const probWsContainer = document.getElementById('probability-ws');
+            probWsContainer.innerHTML = probabilityWS.length ? probabilityWS.map(createWSCard).join('') : '<div class="empty-state">Рабочие листы скоро появятся.</div>';
+
+            const probTestContainer = document.getElementById('probability-test');
+            probTestContainer.innerHTML = probabilityTest.length ? probabilityTest.map(createTestCard).join('') : '<div class="empty-state">Проверочные работы скоро появятся.</div>';
+
+            // Рендер Геометрии
+            document.getElementById('geometry-ws').innerHTML = '<div class="empty-state">Рабочие листы по геометрии скоро появятся.</div>';
+        }
+
+        // Запуск при загрузке
+        renderData();
+
+        // Переключение предметов
         function showSubject(subjectId, btnElement) {
-            // Скрыть все разделы
             document.querySelectorAll('.subject-section').forEach(el => el.classList.remove('active-subject'));
-            // Показать нужный
             document.getElementById(subjectId).classList.add('active-subject');
             
-            // Подсветить меню
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             btnElement.classList.add('active');
-            
-            // Прокрутить наверх при смене предмета
             window.scrollTo(0,0);
         }
     </script>
