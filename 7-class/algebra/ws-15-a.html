@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Рабочий лист А — Прямая пропорциональность</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #000; }
+  .toolbar { max-width: 800px; margin: 0 auto 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .toolbar a, .toolbar button { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; color: #fff; background: #4a90e2; transition: background .2s; }
+  .toolbar a:hover, .toolbar button:hover { background: #357ab8; }
+  .sheet { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.12); padding: 40px; }
+  .sheet-header { border-left: 10px solid #2e7d32; padding-left: 18px; margin-bottom: 26px; }
+  .sheet-header h1 { font-family: 'Times New Roman', Times, serif; font-size: 24px; margin: 0 0 10px; color: #000; }
+  .meta { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; color: #333; line-height: 1.7; }
+  .meta span { margin-right: 18px; white-space: nowrap; }
+  .student-info { margin-top: 14px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; display: flex; flex-wrap: wrap; gap: 24px; }
+  .student-info .line { border-bottom: 1px solid #000; display: inline-block; min-width: 180px; }
+  h2.task-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; margin: 30px 0 10px; color: #2e7d32; }
+  .task { font-family: 'Times New Roman', Times, serif; font-size: 17px; line-height: 1.6; color: #000; margin-bottom: 6px; }
+  .answer-line { display: block; border-bottom: 1px solid #000; height: 26px; margin: 8px 0 4px; max-width: 420px; }
+  .answer-line.short { max-width: 180px; }
+  .teacher-answers { display: none; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #2e7d32; background: #e8f5e9; border-left: 4px solid #2e7d32; padding: 6px 12px; margin: 4px 0 18px; border-radius: 4px; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .teacher-answers { display: none !important; }
+    .sheet { box-shadow: none; border-radius: 0; max-width: 800px; margin: 0 auto; padding: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+<div class="sheet">
+  <div class="sheet-header">
+    <h1>Рабочий лист А — Базовый уровень</h1>
+    <div class="meta">
+      <span><strong>Класс:</strong> 7</span>
+      <span><strong>Предмет:</strong> Алгебра</span>
+      <span><strong>Тема:</strong> Прямая пропорциональность и её график</span>
+      <span><strong>Уровень:</strong> Базовый</span>
+    </div>
+    <div class="student-info">
+      <div>ФИО ученика: <span class="line"></span></div>
+      <div>Класс: <span class="line" style="min-width:80px"></span></div>
+    </div>
+  </div>
+
+  <h2 class="task-title">Задание 1. Является ли функция прямой пропорциональностью?</h2>
+  <div class="task">Запишите «да» или «нет»:</div>
+  <div class="task">а) \( y = 4x \)</div>
+  <span class="answer-line short"></span>
+  <div class="task">б) \( y = x + 3 \)</div>
+  <span class="answer-line short"></span>
+  <div class="task">в) \( y = -2x \)</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">а) да; б) нет; в) да</div>
+
+  <h2 class="task-title">Задание 2. Найдите значение функции</h2>
+  <div class="task">Дана функция \( y = 3x \). Найдите \( y \), если:</div>
+  <div class="task">а) \( x = 2 \)</div>
+  <span class="answer-line short"></span>
+  <div class="task">б) \( x = -4 \)</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">а) y = 6; б) y = −12</div>
+
+  <h2 class="task-title">Задание 3. Найдите коэффициент пропорциональности</h2>
+  <div class="task">Функция задана формулой \( y = kx \). Найдите \( k \), если известно, что при \( x = 3 \) значение \( y = 12 \).</div>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">12 = k · 3 → k = 4</div>
+
+  <h2 class="task-title">Задание 4. Принадлежит ли точка графику?</h2>
+  <div class="task">Принадлежит ли точка \( A(2; 6) \) графику функции \( y = 3x \)? Запишите проверку.</div>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">6 = 3 · 2 — верно, точка принадлежит графику</div>
+
+  <h2 class="task-title">Задание 5. Заполните таблицу для функции \( y = -2x \)</h2>
+  <div class="task">При \( x = -1 \): \( y = \) ______</div>
+  <span class="answer-line short"></span>
+  <div class="task">При \( x = 0 \): \( y = \) ______</div>
+  <span class="answer-line short"></span>
+  <div class="task">При \( x = 3 \): \( y = \) ______</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">y = 2; y = 0; y = −6</div>
+
+  <h2 class="task-title">Задание 6. Постройте график</h2>
+  <div class="task">Постройте график функции \( y = 2x \). Заполните таблицу и отметьте две точки.</div>
+  <div class="task">\( x = 0 \), \( y = \) ______</div>
+  <span class="answer-line short"></span>
+  <div class="task">\( x = 2 \), \( y = \) ______</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">Точки: (0; 0) и (2; 4). Прямая через начало координат.</div>
+
+  <h2 class="task-title">Задание 7. Определите знак коэффициента \( k \)</h2>
+  <div class="task">График прямой пропорциональности проходит через II и IV координатные четверти. Какой знак имеет коэффициент \( k \)?</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">k < 0 (отрицательный)</div>
+</div>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
