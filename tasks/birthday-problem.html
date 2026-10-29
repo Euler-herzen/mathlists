@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Парадокс дней рождения | Интересные задачи</title>
+    <style>
+        :root {
+            --primary: #d35400;
+            --bg: #f4f7f6;
+            --text: #2c3e50;
+            --green: #27ae60;
+            --blue: #2980b9;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* Верхняя панель */
+        .header-bar { background: white; padding: 15px 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .back-link { text-decoration: none; color: #888; font-weight: 600; transition: 0.2s; }
+        .back-link:hover { color: var(--primary); }
+        
+        .controls { display: flex; gap: 10px; }
+        .btn { padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; font-size: 14px; transition: 0.2s; }
+        .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-solid { background: var(--primary); color: white; }
+        .btn-solid:hover { background: #e67e22; }
+
+        /* Основной контент */
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        
+        .task-header { border-bottom: 2px solid var(--primary); padding-bottom: 20px; margin-bottom: 30px; }
+        .task-header h1 { color: var(--primary); font-size: 28px; margin-bottom: 10px; }
+        .task-header .meta { color: #888; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+        
+        .task-content { font-size: 18px; margin-bottom: 30px; }
+        .task-content b { color: #2c3e50; }
+
+        /* Блоки */
+        .hint-block { background: #fff8e1; border-left: 5px solid #f39c12; padding: 15px 20px; border-radius: 0 8px 8px 0; margin-bottom: 20px; display: none; }
+        .solution-block { background: #e8f5e9; border-left: 5px solid var(--green); padding: 25px; border-radius: 0 8px 8px 0; display: none; }
+        
+        .hint-block h3, .solution-block h3 { margin-bottom: 15px; font-size: 20px; }
+        .hint-block h3 { color: #d35400; }
+        .solution-block h3 { color: var(--green); }
+
+        /* Калькулятор */
+        .calculator { background: #e3f2fd; border: 2px dashed #64b5f6; padding: 25px; border-radius: 10px; margin-top: 30px; text-align: center; }
+        .calculator h3 { color: var(--blue); margin-bottom: 15px; }
+        .calc-controls { display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 15px; flex-wrap: wrap; }
+        .calc-controls input { padding: 10px; border: 2px solid #ccc; border-radius: 6px; font-size: 16px; width: 120px; text-align: center; font-weight: bold; }
+        .calc-result { font-size: 22px; font-weight: bold; margin-top: 15px; color: var(--text); }
+        .calc-result span { color: var(--green); font-size: 28px; display: block; margin-top: 5px;}
+        .calc-bar { background: #ddd; height: 30px; border-radius: 15px; overflow: hidden; margin-top: 15px; position: relative; }
+        .calc-bar-fill { background: var(--green); height: 100%; width: 0%; transition: width 0.5s ease; }
+        .calc-bar-text { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+
+        /* Таблица */
+        .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 15px; }
+        .data-table th, .data-table td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+        .data-table th { background: #f0fdf4; color: #1b5e20; }
+
+        .show-hint { display: block; animation: fadeIn 0.5s ease; }
+        .show-solution { display: block; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Код */
+        pre { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 8px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 14px; margin: 15px 0; }
+        code { font-family: 'Courier New', monospace; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; margin: 0 10px; }
+            .header-bar { padding: 15px 20px; flex-direction: column; gap: 10px; }
+        }
+
+        @media print {
+            body { background: white; }
+            .header-bar, .controls, .calculator { display: none !important; }
+            .container { box-shadow: none; padding: 0; max-width: 100%; }
+            .hint-block, .solution-block { display: block !important; border: 1px solid #ccc; page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <a href="index.html" class="back-link">← К списку задач</a>
+        <div class="controls">
+            <button class="btn btn-outline" onclick="toggleHint()">💡 Подсказка</button>
+            <button class="btn btn-outline" onclick="toggleSolution()">✅ Решение</button>
+            <button class="btn btn-solid" onclick="window.print()">🖨 Печать</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="task-header">
+            <div class="meta">Вероятность · Комбинаторика</div>
+            <h1>Парадокс дней рождения</h1>
+        </div>
+
+        <div class="task-content">
+            <p>В классе учится <b>N человек</b>. Какова вероятность того, что хотя бы у двух из них день рождения совпадает (число и месяц)?</p>
+            <p>На первый взгляд кажется, что для этого нужно очень много людей. Но математика говорит об обратном.</p>
+            <br>
+            <p><b>Ваша задача:</b> Выведите формулу и найдите вероятность для 30 человек с точностью до десятитысячных долей процента.</p>
+        </div>
+
+        <!-- ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР -->
+        <div class="calculator">
+            <h3>🎮 Калькулятор вероятности</h3>
+            <p style="font-size: 14px; margin-bottom: 15px;">Введите количество человек (от 2 до 365), чтобы увидеть точную вероятность.</p>
+            <div class="calc-controls">
+                <input type="number" id="peopleCount" value="30" min="2" max="365" oninput="calculateProbability()">
+                <span style="font-size: 16px;">человек</span>
+            </div>
+            <div class="calc-result">Вероятность совпадения: <span id="probValue">0%</span></div>
+            <div class="calc-bar">
+                <div class="calc-bar-fill" id="probBar"></div>
+                <div class="calc-bar-text" id="probBarText">0%</div>
+            </div>
+        </div>
+
+        <!-- Скрытая подсказка -->
+        <div id="hint" class="hint-block">
+            <h3>💡 Подсказка</h3>
+            <p>Считать вероятность того, что дни рождения совпадут, сложно. Проще найти вероятность <b>противоположного события</b>: того, что у всех людей дни рождения <b>разные</b>. А затем вычесть её из единицы: \(P(совпадение) = 1 - P(все разные)\).</p>
+        </div>
+
+        <!-- Скрытое решение -->
+        <div id="solution" class="solution-block">
+            <h3>✅ Решение и формула</h3>
+            <p><b>Теория:</b> Будем считать, что в году 365 дней (високосные года игнорируем для простоты).</p>
+            <p>Первый человек может родиться в любой из 365 дней. Второй — в любой из оставшихся 364 дней (чтобы не совпасть с первым). Третий — в любой из 363 дней и т.д.</p>
+            <p>Вероятность того, что у N человек дни рождения <b>разные</b>:</p>
+            <p style="text-align: center; font-size: 20px; margin: 15px 0;">\(P_{разные} = \frac{365}{365} \cdot \frac{364}{365} \cdot \frac{363}{365} \cdots \frac{365 - N + 1}{365}\)</p>
+            <p>Тогда искомая вероятность совпадения:</p>
+            <p style="text-align: center; font-size: 20px; margin: 15px 0;">\(P_{совпадение} = 1 - P_{разные}\)</p>
+            
+            <p><b>Точные значения для некоторых N:</b></p>
+            <table class="data-table">
+                <tr>
+                    <th>Количество человек (N)</th>
+                    <th>Вероятность совпадения</th>
+                </tr>
+                <tr><td>10</td><td>11,6948%</td></tr>
+                <tr><td>20</td><td>41,1438%</td></tr>
+                <tr><td>30</td><td>70,6316%</td></tr>
+                <tr><td>40</td><td>89,1232%</td></tr>
+                <tr><td>50</td><td>97,0374%</td></tr>
+                <tr><td>70</td><td>99,9159%</td></tr>
+            </table>
+            
+            <p><b>Пример кода на Python:</b></p>
+            <pre><code>def birthday_probability(n):
+    if n > 365: return 1.0
+    p_no_match = 1.0
+    for i in range(n):
+        p_no_match *= (365 - i) / 365
+    return 1 - p_no_match
+
+# Вывод с точностью до 4 знаков после запятой
+for n in [10, 20, 30, 50, 70]:
+    print(f"{n} человек: {birthday_probability(n)*100:.4f}%")
+</code></pre>
+        </div>
+    </div>
+
+    <!-- Подключение MathJax для формул -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        function toggleHint() {
+            document.getElementById('hint').classList.toggle('show-hint');
+            if (typeof MathJax !== 'undefined') MathJax.typesetPromise();
+        }
+
+        function toggleSolution() {
+            document.getElementById('solution').classList.toggle('show-solution');
+            if (typeof MathJax !== 'undefined') MathJax.typesetPromise();
+        }
+
+        // Логика калькулятора с высокой точностью
+        function calculateProbability() {
+            const n = parseInt(document.getElementById('peopleCount').value);
+            
+            if (isNaN(n) || n < 2) {
+                document.getElementById('probValue').textContent = "0.0000%";
+                document.getElementById('probBar').style.width = "0%";
+                document.getElementById('probBarText').textContent = "0%";
+                return;
+            }
+
+            if (n > 365) {
+                document.getElementById('probValue').textContent = "100.0000%";
+                document.getElementById('probBar').style.width = "100%";
+                document.getElementById('probBarText').textContent = "100%";
+                return;
+            }
+
+            // Вычисление вероятности
+            let pNoMatch = 1.0;
+            for (let i = 0; i < n; i++) {
+                pNoMatch *= (365 - i) / 365;
+            }
+            let pMatch = 1 - pNoMatch;
+            
+            // Точность до 4 знаков (десятитысячные)
+            let percentStr = (pMatch * 100).toFixed(4); 
+            
+            document.getElementById('probValue').textContent = percentStr.replace('.', ',') + "%";
+            
+            // Анимация полоски (для визуала берем целое число процентов)
+            const bar = document.getElementById('probBar');
+            const barText = document.getElementById('probBarText');
+            let visualPercent = Math.min(100, Math.max(0, pMatch * 100));
+            
+            bar.style.width = visualPercent + "%";
+            barText.textContent = visualPercent.toFixed(1) + "%";
+            
+            if (pMatch > 0.5) {
+                bar.style.background = "#27ae60";
+            } else {
+                bar.style.background = "#d35400";
+            }
+        }
+
+        window.addEventListener('load', () => {
+            calculateProbability();
+            if (typeof MathJax !== 'undefined') MathJax.typesetPromise();
+        });
+    </script>
+</body>
+</html>
