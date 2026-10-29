@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Лист Б — Стандартный уровень</title>
+<style>
+  :root{ --accent:#4a90e2; }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    margin:0; padding:0; background:#f4f6f8; color:#000;
+  }
+  .toolbar{
+    position:sticky; top:0; z-index:10;
+    display:flex; gap:12px; justify-content:space-between;
+    padding:12px 20px; background:#ffffff; border-bottom:1px solid #d9dee3;
+  }
+  .toolbar a, .toolbar button{
+    font-family:'Segoe UI', Arial, sans-serif;
+    font-size:15px; cursor:pointer;
+    padding:9px 16px; border-radius:8px; border:1px solid var(--accent);
+    background:#fff; color:var(--accent); text-decoration:none;
+    transition:background .15s, color .15s;
+  }
+  .toolbar a:hover, .toolbar button:hover{ background:var(--accent); color:#fff; }
+  .sheet{
+    max-width:800px; margin:24px auto; background:#fff;
+    padding:40px; border-left:8px solid var(--accent);
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+  }
+  h1{
+    font-family:'Times New Roman', Times, serif;
+    font-size:26px; margin:0 0 6px; color:var(--accent);
+  }
+  .subtitle{
+    font-size:15px; color:#333; margin-bottom:18px;
+  }
+  .meta{
+    display:grid; grid-template-columns:1fr 1fr; gap:6px 24px;
+    font-size:15px; margin-bottom:22px; padding:14px 16px;
+    border:1px solid #cfd6dc; border-radius:6px; background:#fafbfc;
+  }
+  .meta span b{ font-weight:600; }
+  .student{
+    display:flex; flex-wrap:wrap; gap:8px 26px;
+    font-size:15px; margin-bottom:26px; padding-bottom:14px;
+    border-bottom:1px dashed #b9c2ca;
+  }
+  .student .line{ flex:1 1 220px; display:flex; align-items:flex-end; gap:6px; }
+  .student .line i{ font-style:normal; white-space:nowrap; }
+  .student .line .fill{ flex:1; border-bottom:1px solid #333; height:20px; }
+  .task{
+    font-family:'Times New Roman', Times, serif;
+    font-size:17px; line-height:1.55; margin-bottom:24px;
+    color:#000;
+  }
+  .task .num{
+    font-weight:bold; color:var(--accent); margin-right:6px;
+  }
+  .task .hint{
+    display:block; font-size:14px; color:#444; margin-top:6px;
+    padding:6px 10px; border-left:3px solid var(--accent); background:#f7faf7;
+  }
+  .answer-line{
+    display:inline-block; min-width:120px; border-bottom:1px solid #333;
+    height:18px; margin:0 4px; vertical-align:bottom;
+  }
+  table.data-table {
+    width: 100%; border-collapse: collapse; margin: 10px 0;
+    font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px;
+  }
+  table.data-table th, table.data-table td {
+    border: 1px solid #666; padding: 8px; text-align: center;
+  }
+  table.data-table th { background: #eaeaea; font-weight: 600; }
+  .teacher-answers{
+    display:none; margin-top:10px; padding:8px 12px;
+    border:1px dashed #999; background:#f4f4f4;
+    font-family:'Segoe UI', Arial, sans-serif; font-size:14px; color:#222;
+  }
+  .note{
+    font-family:'Segoe UI', Arial, sans-serif; font-size:13px; color:#555;
+    margin-top:30px; border-top:1px solid #dfe3e7; padding-top:10px;
+  }
+  @media print{
+    body{ background:#fff; }
+    .toolbar{ display:none !important; }
+    .sheet{
+      max-width:800px; margin:0 auto; padding:40px;
+      box-shadow:none; border-left:8px solid var(--accent);
+    }
+    .task{ color:#000; }
+    .teacher-answers{ display:none; }
+    .answer-line{ border-bottom:1px solid #000; }
+    table.data-table th { background: #f0f0f0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button type="button" onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<div class="sheet">
+  <h1>Рабочий лист — Стандартный уровень</h1>
+  <div class="subtitle">Наименьшее и наибольшее значения. Размах</div>
+
+  <div class="meta">
+    <span><b>Класс:</b> 7</span>
+    <span><b>Предмет:</b> Вероятность и статистика</span>
+    <span><b>Тема:</b> § 9. Наименьшее и наибольшее значения. Размах</span>
+    <span><b>Уровень:</b> Стандартный</span>
+  </div>
+
+  <div class="student">
+    <div class="line"><i>ФИО:</i><span class="fill"></span></div>
+    <div class="line"><i>Класс:</i><span class="fill"></span></div>
+    <div class="line"><i>Дата:</i><span class="fill"></span></div>
+  </div>
+
+  <div class="task">
+    <span class="num">1.</span> Ученик получил за четверть оценки: \(5, 4, 3, 5, 4, 4, 5, 3\). Найди наибольшую и наименьшую оценки, а также размах оценок.
+    <br>Наибольшая: <span class="answer-line"></span> Наименьшая: <span class="answer-line"></span> Размах: <span class="answer-line"></span>
+    <div class="teacher-answers">Правильный ответ: наибольшая 5; наименьшая 3; размах \(5 - 3 = 2\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">2.</span> Запиши числовой набор: \(10, 12, 15, 20, 18\). Найди:
+    <br>а) наименьшее значение <span class="answer-line"></span>
+    <br>б) наибольшее значение <span class="answer-line"></span>
+    <br>в) размах <span class="answer-line"></span>
+    <div class="teacher-answers">Правильный ответ: а) 10; б) 20; в) 10.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">3.</span> Размах числового набора равен \(45\). Наибольшее значение равно \(80\). Найди наименьшее значение.
+    <span class="answer-line"></span>
+    <div class="teacher-answers">Правильный ответ: \(80 - 45 = 35\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">4.</span> Даны длины прыжков (в см) трех спортсменов:
+    <table class="data-table">
+      <tr><th>Спортсмен</th><td>Пётр</td><td>Иван</td><td>Алексей</td></tr>
+      <tr><th>Прыжок 1</th><td>215</td><td>197</td><td>203</td></tr>
+      <tr><th>Прыжок 2</th><td>228</td><td>205</td><td>212</td></tr>
+      <tr><th>Прыжок 3</th><td>208</td><td>212</td><td>227</td></tr>
+    </table>
+    Определи для каждого спортсмена наибольший и наименьший результат и размах его прыжков.
+    <br>Пётр: размах <span class="answer-line"></span>
+    <br>Иван: размах <span class="answer-line"></span>
+    <br>Алексей: размах <span class="answer-line"></span>
+    <div class="teacher-answers">Правильный ответ: Пётр: \(228 - 208 = 20\); Иван: \(212 - 197 = 15\); Алексей: \(227 - 203 = 24\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">5.</span> В ряду чисел \(12, 15, 18, 21, x\) размах равен \(25\). Какие значения может принимать \(x\)?
+    <span class="answer-line"></span>
+    <div class="teacher-answers">Правильный ответ: Если \(x\) наибольшее, то \(x - 12 = 25 \Rightarrow x = 37\). Если \(x\) наименьшее, то \(21 - x = 25 \Rightarrow x = -4\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">6.</span> В таблице приведена среднесуточная температура за неделю. Найди размах температур.
+    <table class="data-table">
+      <tr><th>День</th><td>Пн</td><td>Вт</td><td>Ср</td><td>Чт</td><td>Пт</td><td>Сб</td><td>Вс</td></tr>
+      <tr><th>Температура, °C</th><td>-5</td><td>-2</td><td>0</td><td>3</td><td>1</td><td>-1</td><td>-4</td></tr>
+    </table>
+    Размах: <span class="answer-line"></span>
+    <div class="teacher-answers">Правильный ответ: наибольшее 3; наименьшее -5; размах \(3 - (-5) = 8\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">7.</span> Как изменится размах числового набора, если каждое число набора умножить на \(2\)?
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Правильный ответ: размах увеличится в 2 раза (т.е. умножится на 2).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">8.</span> Ученик измерял время решения задач (в минутах) в течение недели и получил такие данные: \(12, 8, 15, 8, 20, 10, 9\). Найди наибольшее, наименьшее значения и размах. Насколько минут разница между самым долгим и самым быстрым решением?
+    <span class="answer-line"></span>
+    <div class="teacher-answers">Правильный ответ: наибольшее 20, наименьшее 8, размах \(20 - 8 = 12\) минут.</div>
+  </div>
+</div>
+
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(', '\\)']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
