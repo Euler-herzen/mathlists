@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Лист А — Базовый уровень</title>
+<style>
+  :root{ --accent:#2e7d32; }
+  *{ box-sizing:border-box; }
+  body{ font-family:'Segoe UI', Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; color:#000; }
+  .toolbar{ position:sticky; top:0; z-index:10; display:flex; gap:12px; justify-content:space-between; padding:12px 20px; background:#ffffff; border-bottom:1px solid #d9dee3; }
+  .toolbar a, .toolbar button{ font-family:'Segoe UI', Arial, sans-serif; font-size:15px; cursor:pointer; padding:9px 16px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); text-decoration:none; transition:background .15s, color .15s; }
+  .toolbar a:hover, .toolbar button:hover{ background:var(--accent); color:#fff; }
+  .sheet{ max-width:800px; margin:24px auto; background:#fff; padding:40px; border-left:8px solid var(--accent); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+  h1{ font-family:'Times New Roman', Times, serif; font-size:26px; margin:0 0 6px; color:var(--accent); }
+  .subtitle{ font-size:15px; color:#333; margin-bottom:18px; }
+  .meta{ display:grid; grid-template-columns:1fr 1fr; gap:6px 24px; font-size:15px; margin-bottom:22px; padding:14px 16px; border:1px solid #cfd6dc; border-radius:6px; background:#fafbfc; }
+  .meta span b{ font-weight:600; }
+  .student{ display:flex; flex-wrap:wrap; gap:8px 26px; font-size:15px; margin-bottom:26px; padding-bottom:14px; border-bottom:1px dashed #b9c2ca; }
+  .student .line{ flex:1 1 220px; display:flex; align-items:flex-end; gap:6px; }
+  .student .line i{ font-style:normal; white-space:nowrap; }
+  .student .line .fill{ flex:1; border-bottom:1px solid #333; height:20px; }
+  .task{ font-family:'Times New Roman', Times, serif; font-size:17px; line-height:1.55; margin-bottom:24px; color:#000; }
+  .task .num{ font-weight:bold; color:var(--accent); margin-right:6px; }
+  .task .hint{ display:block; font-size:14px; color:#444; margin-top:6px; padding:6px 10px; border-left:3px solid var(--accent); background:#f7faf7; font-family:'Segoe UI', Arial, sans-serif; }
+  .answer-line{ display:inline-block; min-width:120px; border-bottom:1px solid #333; height:18px; margin:0 4px; vertical-align:bottom; }
+  .teacher-answers{ display:none; margin-top:10px; padding:8px 12px; border:1px dashed #999; background:#f4f4f4; font-family:'Segoe UI', Arial, sans-serif; font-size:14px; color:#222; }
+  .note{ font-family:'Segoe UI', Arial, sans-serif; font-size:13px; color:#555; margin-top:30px; border-top:1px solid #dfe3e7; padding-top:10px; }
+  @media print{
+    body{ background:#fff; }
+    .toolbar{ display:none !important; }
+    .sheet{ max-width:800px; margin:0 auto; padding:40px; box-shadow:none; border-left:8px solid var(--accent); }
+    .task{ color:#000; }
+    .teacher-answers{ display:none; }
+    .answer-line{ border-bottom:1px solid #000; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button type="button" onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<div class="sheet">
+  <h1>Рабочий лист — Базовый уровень</h1>
+  <div class="subtitle">Точность и погрешность измерений</div>
+
+  <div class="meta">
+    <span><b>Класс:</b> 7</span>
+    <span><b>Предмет:</b> Вероятность и статистика</span>
+    <span><b>Тема:</b> § 12. Точность и погрешность измерений</span>
+    <span><b>Уровень:</b> Базовый</span>
+  </div>
+
+  <div class="student">
+    <div class="line"><i>ФИО:</i><span class="fill"></span></div>
+    <div class="line"><i>Класс:</i><span class="fill"></span></div>
+    <div class="line"><i>Дата:</i><span class="fill"></span></div>
+  </div>
+
+  <div class="task">
+    <span class="num">1.</span> Дай определение.
+    <br>Погрешность измерения — это <span class="answer-line" style="min-width:250px;"></span>
+    <span class="hint">Подсказка: это отклонение измеренного значения от истинного.</span>
+    <div class="teacher-answers">Отклонение измеренного значения величины от её истинного значения.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">2.</span> Запиши двойным неравенством границы, в которых находится истинное значение массы \(m\), если на весах показано \(52\) кг, а допустимая погрешность \(\pm 1\) кг.
+    <br><span class="answer-line" style="min-width:100px;"></span> \(\le m \le\) <span class="answer-line" style="min-width:100px;"></span>
+    <span class="hint">Подсказка: погрешность \(\pm 1\) означает, что истинное значение может быть на 1 меньше или на 1 больше показанного.</span>
+    <div class="teacher-answers">\(51 \le m \le 53\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">3.</span> В таблице указаны допустимые погрешности весов (III класс точности):
+    <br>от 20 до 200 кг: \(\pm 1\) кг;
+    <br>от 200 до 2000 кг: \(\pm 2\) кг.
+    <br>Весы показали \(180\) кг. В каком диапазоне находится истинная масса груза?
+    <br><span class="answer-line" style="min-width:100px;"></span> \(\le m \le\) <span class="answer-line" style="min-width:100px;"></span>
+    <div class="teacher-answers">Так как 180 попадает в диапазон 20–200, погрешность \(\pm 1\) кг. Истинная масса от 179 до 181 кг.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">4.</span> На рулоне обоев написано: «Длина \(10\) м \(\pm 2\%\). Какая может быть истинная длина рулона?
+    <br>от <span class="answer-line" style="min-width:80px;"></span> м до <span class="answer-line" style="min-width:80px;"></span> м.
+    <span class="hint">Подсказка: найди \(2\%\) от 10 метров (это \(0,2\) м) и отложи в обе стороны.</span>
+    <div class="teacher-answers">\(2\%\) от 10 = 0,2 м. От \(9,8\) до \(10,2\) м.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">5.</span> Спидометр автомобиля показывает \(80\) км/ч. По паспорту допустимая погрешность спидометра при такой скорости — не более \(+5\) км/ч (в большую сторону). В каком диапазоне находится истинная скорость автомобиля?
+    <br><span class="answer-line" style="min-width:100px;"></span> \(\le v \le\) <span class="answer-line" style="min-width:100px;"></span>
+    <span class="hint">Подсказка: обрати внимание, что погрешность допускается только в большую сторону (чтобы водитель не превышал скорость). Значит, спидометр не может занижать скорость.</span>
+    <div class="teacher-answers">Так как спидометр не занижает скорость, истинная скорость не больше 80, но и не меньше 75. \(75 \le v \le 80\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">6.</span> Почему рост человека обычно измеряют с точностью до \(1\) см, а не до \(1\) мм?
+    <span class="answer-line" style="min-width:250px;"></span>
+    <span class="hint">Подсказка: подумай, меняется ли рост человека в течение суток и нужна ли такая точность в быту.</span>
+    <div class="teacher-answers">Рост человека меняется в течение дня (утром больше, вечером меньше), поэтому миллиметровая точность не имеет смысла. Для одежды и мебели достаточно сантиметров.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">7.</span> При измерении длины стола рулеткой получили \(120\) см. Погрешность измерения \(\pm 0,5\) см. Может ли истинная длина стола быть равной \(121\) см?
+    <span class="answer-line" style="min-width:100px;"></span>
+    <span class="hint">Подсказка: проверь, попадает ли число 121 в интервал допустимых значений.</span>
+    <div class="teacher-answers">Нет, так как истинная длина от \(119,5\) до \(120,5\) см, а 121 выходит за эти границы.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">8.</span> На упаковке сахара написано: «\(1\) кг \(\pm 10\) г». Запиши двойным неравенством возможную массу сахара в граммах.
+    <br><span class="answer-line" style="min-width:100px;"></span> г \(\le m \le\) <span class="answer-line" style="min-width:100px;"></span> г.
+    <div class="teacher-answers">\(1\) кг = 1000 г. От \(990\) до \(1010\) г.</div>
+  </div>
+
+  <div class="note">Лист А. Базовый уровень. Критерий: верно выполнены 5–8 заданий — материал усвоен.</div>
+</div>
+
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
