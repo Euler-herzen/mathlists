@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Продвинутая</title>
+<style>
+  :root{ --accent:#c62828; }
+  *{ box-sizing:border-box; }
+  body{ font-family:'Segoe UI', Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; color:#000; }
+  .toolbar{ position:sticky; top:0; z-index:10; display:flex; gap:12px; justify-content:space-between; padding:12px 20px; background:#ffffff; border-bottom:1px solid #d9dee3; }
+  .toolbar a, .toolbar button{ font-family:'Segoe UI', Arial, sans-serif; font-size:15px; cursor:pointer; padding:9px 16px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); text-decoration:none; transition:background .15s, color .15s; }
+  .toolbar a:hover, .toolbar button:hover{ background:var(--accent); color:#fff; }
+  .sheet{ max-width:800px; margin:24px auto; background:#fff; padding:40px; border-left:8px solid var(--accent); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+  .task{ font-family:'Times New Roman', Times, serif; font-size:17px; line-height:1.55; margin-bottom:24px; color:#000; }
+  .task .num{ font-weight:bold; color:var(--accent); margin-right:6px; }
+  .answer-line{ display:inline-block; min-width:120px; border-bottom:1px solid #333; height:18px; margin:0 4px; vertical-align:bottom; }
+  .teacher-answers{ display:none; margin-top:10px; padding:8px 12px; border:1px dashed #999; background:#f4f4f4; font-family:'Segoe UI', Arial, sans-serif; font-size:14px; color:#222; }
+  .variant-title { text-align: center; font-family: 'Segoe UI', Arial, sans-serif; font-weight: bold; font-size: 18px; margin-bottom: 20px; color: #333; }
+  @media print{
+    body{ background:#fff; }
+    .toolbar{ display:none !important; }
+    .sheet{ max-width:800px; margin:0 auto; padding:40px; box-shadow:none; border-left:8px solid var(--accent); }
+    .task{ color:#000; }
+    .teacher-answers{ display:none; }
+    .answer-line{ border-bottom:1px solid #000; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button type="button" onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="variant-title">Продвинутый уровень *</div>
+
+  <div class="task">
+    <span class="num">1*.</span> В наборе из \(n\) чисел среднее арифметическое равно \(x\). Одно из чисел этого набора увеличили на \(10\). Как изменится среднее арифметическое? Запишите ответ в виде формулы.
+    <span class="answer-line" style="min-width:200px;"></span>
+    <div class="teacher-answers">Новое среднее будет \(x + \frac{10}{n}\). Оно увеличится на \(\frac{10}{n}\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">2*.</span> Даны два набора. В первом наборе из \(4\) чисел среднее равно \(9\), во втором наборе из \(6\) чисел среднее равно \(14\). Найдите среднее арифметическое объединённого набора из \(10\) чисел.
+    <span class="answer-line"></span>
+    <div class="teacher-answers">Сумма первого: \(4 \cdot 9 = 36\). Сумма второго: \(6 \cdot 14 = 84\). Общая сумма: \(120\). Среднее: \(120 : 10 = 12\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">3*.</span> Среднее арифметическое набора из \(7\) чисел равно \(12\). К набору добавили число \(x\), после чего среднее арифметическое стало равно \(13\). Найдите \(x\).
+    <span class="answer-line"></span>
+    <div class="teacher-answers">Сумма 7 чисел: \(84\). Сумма 8 чисел: \(8 \cdot 13 = 104\). \(x = 104 - 84 = 20\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">4*.</span> Докажите, что если все числа набора умножить на \(-2\), то среднее арифметическое нового набора будет равно среднему арифметическому исходного набора, умноженному на \(-2\).
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Пусть исходные числа \(x_1, \dots, x_n\), среднее \(\bar{x}\). Новые числа: \(-2x_1, \dots, -2x_n\). Их среднее: \(\frac{-2x_1 + \dots + (-2x_n)}{n} = -2 \cdot \frac{x_1 + \dots + x_n}{n} = -2\bar{x}\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">5*.</span> Может ли среднее арифметическое набора быть равным наибольшему числу этого набора, если не все числа в наборе одинаковы? Ответ обоснуйте.
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Нет. Если хотя бы одно число меньше максимального, то среднее будет строго меньше максимального (так как среднее — это "взвешенная" точка между min и max). Равенство возможно только если все числа одинаковы.</div>
+  </div>
+</div>
+
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
