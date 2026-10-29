@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Лист Б — Стандартный уровень</title>
+<style>
+  :root{ --accent:#4a90e2; }
+  *{ box-sizing:border-box; }
+  body{ font-family:'Segoe UI', Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; color:#000; }
+  .toolbar{ position:sticky; top:0; z-index:10; display:flex; gap:12px; justify-content:space-between; padding:12px 20px; background:#ffffff; border-bottom:1px solid #d9dee3; }
+  .toolbar a, .toolbar button{ font-family:'Segoe UI', Arial, sans-serif; font-size:15px; cursor:pointer; padding:9px 16px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); text-decoration:none; transition:background .15s, color .15s; }
+  .toolbar a:hover, .toolbar button:hover{ background:var(--accent); color:#fff; }
+  .sheet{ max-width:800px; margin:24px auto; background:#fff; padding:40px; border-left:8px solid var(--accent); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+  h1{ font-family:'Times New Roman', Times, serif; font-size:26px; margin:0 0 6px; color:var(--accent); }
+  .subtitle{ font-size:15px; color:#333; margin-bottom:18px; }
+  .meta{ display:grid; grid-template-columns:1fr 1fr; gap:6px 24px; font-size:15px; margin-bottom:22px; padding:14px 16px; border:1px solid #cfd6dc; border-radius:6px; background:#fafbfc; }
+  .meta span b{ font-weight:600; }
+  .student{ display:flex; flex-wrap:wrap; gap:8px 26px; font-size:15px; margin-bottom:26px; padding-bottom:14px; border-bottom:1px dashed #b9c2ca; }
+  .student .line{ flex:1 1 220px; display:flex; align-items:flex-end; gap:6px; }
+  .student .line i{ font-style:normal; white-space:nowrap; }
+  .student .line .fill{ flex:1; border-bottom:1px solid #333; height:20px; }
+  .task{ font-family:'Times New Roman', Times, serif; font-size:17px; line-height:1.55; margin-bottom:24px; color:#000; }
+  .task .num{ font-weight:bold; color:var(--accent); margin-right:6px; }
+  .task .hint{ display:block; font-size:14px; color:#444; margin-top:6px; padding:6px 10px; border-left:3px solid var(--accent); background:#f7faf7; font-family:'Segoe UI', Arial, sans-serif; }
+  .answer-line{ display:inline-block; min-width:120px; border-bottom:1px solid #333; height:18px; margin:0 4px; vertical-align:bottom; }
+  .teacher-answers{ display:none; margin-top:10px; padding:8px 12px; border:1px dashed #999; background:#f4f4f4; font-family:'Segoe UI', Arial, sans-serif; font-size:14px; color:#222; }
+  @media print{
+    body{ background:#fff; }
+    .toolbar{ display:none !important; }
+    .sheet{ max-width:800px; margin:0 auto; padding:40px; box-shadow:none; border-left:8px solid var(--accent); }
+    .task{ color:#000; }
+    .teacher-answers{ display:none; }
+    .answer-line{ border-bottom:1px solid #000; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button type="button" onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<div class="sheet">
+  <h1>Рабочий лист — Стандартный уровень</h1>
+  <div class="subtitle">Точность и погрешность измерений</div>
+
+  <div class="meta">
+    <span><b>Класс:</b> 7</span>
+    <span><b>Предмет:</b> Вероятность и статистика</span>
+    <span><b>Тема:</b> § 12. Точность и погрешность измерений</span>
+    <span><b>Уровень:</b> Стандартный</span>
+  </div>
+
+  <div class="student">
+    <div class="line"><i>ФИО:</i><span class="fill"></span></div>
+    <div class="line"><i>Класс:</i><span class="fill"></span></div>
+    <div class="line"><i>Дата:</i><span class="fill"></span></div>
+  </div>
+
+  <div class="task">
+    <span class="num">1.</span> В таблице дана допустимая погрешность весов III класса точности. Весы показали \(2450\) кг. Найдите границы истинной массы груза.
+    <div style="font-family:'Segoe UI', Arial, sans-serif; font-size:15px; margin: 10px 0;">
+      <table style="width:100%; border-collapse:collapse; text-align:center;">
+        <tr><th style="border:1px solid #666; padding:6px; background:#eaeaea;">Нагрузка, кг</th><th style="border:1px solid #666; padding:6px; background:#eaeaea;">Погрешность, кг</th></tr>
+        <tr><td style="border:1px solid #666; padding:6px;">от 20 до 200</td><td style="border:1px solid #666; padding:6px;">\(\pm 1\)</td></tr>
+        <tr><td style="border:1px solid #666; padding:6px;">от 200 до 2000</td><td style="border:1px solid #666; padding:6px;">\(\pm 2\)</td></tr>
+        <tr><td style="border:1px solid #666; padding:6px;">от 2000 до 3000</td><td style="border:1px solid #666; padding:6px;">\(\pm 3\)</td></tr>
+      </table>
+    </div>
+    <span class="answer-line" style="min-width:100px;"></span> \(\le m \le\) <span class="answer-line" style="min-width:100px;"></span>
+    <div class="teacher-answers">2450 попадает в диапазон 2000–3000, погрешность \(\pm 3\). От \(2447\) до \(2453\) кг.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">2.</span> Автомобильный спидометр при скорости \(110\) км/ч имеет допустимую погрешность \(\pm 7\) км/ч. В каком диапазоне находится истинная скорость?
+    <br><span class="answer-line" style="min-width:100px;"></span> \(\le v \le\) <span class="answer-line" style="min-width:100px;"></span>
+    <div class="teacher-answers">\(103 \le v \le 117\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">3.</span> Моток провода имеет длину \(50\) м \(\pm 4\%\). Найдите границы истинной длины провода.
+    <br><span class="answer-line" style="min-width:100px;"></span> \(\le l \le\) <span class="answer-line" style="min-width:100px;"></span>
+    <span class="hint">Подсказка: сначала найди \(4\%\) от 50 (это \(2\) м).</span>
+    <div class="teacher-answers">\(4\%\) от 50 = 2. От \(48\) до \(52\) м.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">4.</span> Пачка масла весит \(200\) г с точностью \(\pm 5\%\). Может ли истинная масса масла быть \(215\) г?
+    <span class="answer-line" style="min-width:150px;"></span>
+    <span class="hint">Подсказка: найди \(5\%\) от 200 (это \(10\) г) и определи верхнюю границу.</span>
+    <div class="teacher-answers">\(5\%\) от 200 = 10 г. Диапазон от 190 до 210 г. 215 г выходит за пределы, значит, нет.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">5.</span> Температуру воздуха на улице измеряют с точностью до \(1^\circ\)C. Термометр показал \(23^\circ\)C. Запишите двойным неравенством интервал, в котором находится истинная температура \(t\).
+    <br><span class="answer-line" style="min-width:100px;"></span> \(\le t \le\) <span class="answer-line" style="min-width:100px;"></span>
+    <div class="teacher-answers">\(22 \le t \le 24\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">6.</span> Почему в магазинах электроники телевизоры измеряют с точностью до дюйма (диагональ), а детали для самолетов — с точностью до сотых долей миллиметра?
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Точность должна соответствовать практическим нуждам и цене ошибки. Для телевизора важна примерная диагональ, а для авиации даже малая ошибка может привести к катастрофе.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">7.</span> В паспорте часов написано, что их суточный ход составляет \(+3\) секунды (то есть часы могут убежать вперед на 3 секунды в сутки). За сколько дней часы убегут вперед ровно на 1 минуту?
+    <span class="answer-line"></span>
+    <span class="hint">Подсказка: в одной минуте 60 секунд.</span>
+    <div class="teacher-answers">\(60 : 3 = 20\) дней.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">8.</span> Расстояние между городами по спутнику равно \(153,4\) км. На дорожном указателе написано «153 км». Какова абсолютная погрешность указателя?
+    <span class="answer-line"></span>
+    <div class="teacher-answers">\(|153,4 - 153| = 0,4\) км.</div>
+  </div>
+</div>
+
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
