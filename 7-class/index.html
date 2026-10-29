@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7 Класс | Методическая копилка</title>
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --bg: #f4f7f6;
+            --text: #2c3e50;
+            --level-a: #2e7d32;
+            --level-b: #4a90e2;
+            --level-c: #c62828;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
+
+        /* Меню слева */
+        .sidebar { width: 260px; background: white; padding: 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.05); position: fixed; height: 100vh; }
+        .back-link { display: block; margin-bottom: 20px; color: #888; text-decoration: none; font-size: 14px; }
+        .back-link:hover { color: var(--primary); }
+        .nav-item { display: block; padding: 12px 15px; color: var(--text); text-decoration: none; border-radius: 8px; margin-bottom: 5px; cursor: pointer; font-weight: 600; }
+        .nav-item:hover, .nav-item.active { background: #eef2f5; color: var(--primary); }
+
+        /* Контент */
+        .main-content { margin-left: 260px; padding: 40px; width: calc(100% - 260px); max-width: 1200px; }
+        .section-header { margin-bottom: 30px; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        .section-header h2 { font-size: 28px; }
+        
+        .sub-category { margin-bottom: 40px; display: none; }
+        .sub-category.active-sub { display: block; }
+        .sub-category h3 { font-size: 20px; margin-bottom: 20px; color: #444; }
+
+        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); display: flex; flex-direction: column; }
+        .card-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+        .card-desc { font-size: 13px; color: #666; margin-bottom: 15px; flex-grow: 1; }
+
+        .btn-group { display: flex; gap: 5px; margin-top: auto; }
+        .btn-level { flex: 1; padding: 8px 5px; border-radius: 6px; font-size: 12px; font-weight: 600; color: white; text-align: center; text-decoration: none; transition: 0.2s; }
+        .btn-a { background: var(--level-a); }
+        .btn-b { background: var(--level-b); }
+        .btn-c { background: var(--level-c); }
+        
+        .empty-state { text-align: center; padding: 30px; background: #f9f9f9; border-radius: 12px; border: 2px dashed #ccc; color: #888; }
+
+        @media (max-width: 1100px) { .grid-container { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .main-content { margin-left: 0; width: 100%; padding: 20px; }
+            .grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <a href="../index.html" class="back-link">← На главную</a>
+        <a class="nav-item active" onclick="showSubject('algebra', this)">📐 Алгебра</a>
+        <a class="nav-item" onclick="showSubject('geometry', this)">📏 Геометрия</a>
+        <a class="nav-item" onclick="showSubject('probability', this)">🎲 Вероятность и статистика</a>
+    </div>
+
+    <div class="main-content">
+        <!-- АЛГЕБРА -->
+        <div id="algebra" class="subject-section active-subject">
+            <div class="section-header"><h2>7 Класс · Алгебра</h2></div>
+            
+            <div class="sub-category active-sub">
+                <h3>📝 Рабочие листы</h3>
+                <div class="grid-container">
+                    <!-- Карточка-шаблон для листа -->
+                    <div class="card">
+                        <div class="card-title">§ 11. Числовые промежутки</div>
+                        <div class="card-desc">Выберите уровень сложности:</div>
+                        <div class="btn-group">
+                            <a href="algebra/ws-11-a.html" class="btn-level btn-a">🟢 Слабый</a>
+                            <a href="algebra/ws-11-b.html" class="btn-level btn-b">🔵 Средний</a>
+                            <a href="algebra/ws-11-c.html" class="btn-level btn-c">🔴 Сильный</a>
+                        </div>
+                    </div>
+                    <!-- Здесь вы будете добавлять новые карточки -->
+                </div>
+            </div>
+
+            <div class="sub-category">
+                <h3>📊 Проверочные работы</h3>
+                <div class="empty-state">Проверочные работы появятся позже.</div>
+            </div>
+
+            <div class="sub-category">
+                <h3>📋 Технологическая карта урока</h3>
+                <div class="empty-state">Технологические карты появятся позже.</div>
+            </div>
+        </div>
+
+        <!-- ГЕОМЕТРИЯ (пустая заготовка) -->
+        <div id="geometry" class="subject-section">
+            <div class="section-header"><h2>7 Класс · Геометрия</h2></div>
+            <div class="empty-state">Материалы по геометрии в разработке.</div>
+        </div>
+
+        <!-- ВЕРОЯТНОСТЬ (пустая заготовка) -->
+        <div id="probability" class="subject-section">
+            <div class="section-header"><h2>7 Класс · Вероятность и статистика</h2></div>
+            <div class="empty-state">Материалы по вероятности в разработке.</div>
+        </div>
+    </div>
+
+    <script>
+        // Переключение предметов (Алгебра / Геометрия / Вероятность)
+        function showSubject(subjectId, btnElement) {
+            // Скрыть все разделы
+            document.querySelectorAll('.subject-section').forEach(el => el.classList.remove('active-subject'));
+            // Показать нужный
+            document.getElementById(subjectId).classList.add('active-subject');
+            
+            // Подсветить меню
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            btnElement.classList.add('active');
+            
+            // Сбросить подкатегории (показывать только рабочие листы при входе)
+            document.querySelectorAll('.sub-category').forEach(el => el.classList.remove('active-sub'));
+            document.querySelector('.sub-category').classList.add('active-sub');
+        }
+    </script>
+</body>
+</html>
