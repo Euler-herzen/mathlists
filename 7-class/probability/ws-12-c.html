@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Лист В — Продвинутый уровень</title>
+<style>
+  :root{ --accent:#c62828; }
+  *{ box-sizing:border-box; }
+  body{ font-family:'Segoe UI', Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; color:#000; }
+  .toolbar{ position:sticky; top:0; z-index:10; display:flex; gap:12px; justify-content:space-between; padding:12px 20px; background:#ffffff; border-bottom:1px solid #d9dee3; }
+  .toolbar a, .toolbar button{ font-family:'Segoe UI', Arial, sans-serif; font-size:15px; cursor:pointer; padding:9px 16px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); text-decoration:none; transition:background .15s, color .15s; }
+  .toolbar a:hover, .toolbar button:hover{ background:var(--accent); color:#fff; }
+  .sheet{ max-width:800px; margin:24px auto; background:#fff; padding:40px; border-left:8px solid var(--accent); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+  h1{ font-family:'Times New Roman', Times, serif; font-size:26px; margin:0 0 6px; color:var(--accent); }
+  .subtitle{ font-size:15px; color:#333; margin-bottom:18px; }
+  .meta{ display:grid; grid-template-columns:1fr 1fr; gap:6px 24px; font-size:15px; margin-bottom:22px; padding:14px 16px; border:1px solid #cfd6dc; border-radius:6px; background:#fafbfc; }
+  .meta span b{ font-weight:600; }
+  .student{ display:flex; flex-wrap:wrap; gap:8px 26px; font-size:15px; margin-bottom:26px; padding-bottom:14px; border-bottom:1px dashed #b9c2ca; }
+  .student .line{ flex:1 1 220px; display:flex; align-items:flex-end; gap:6px; }
+  .student .line i{ font-style:normal; white-space:nowrap; }
+  .student .line .fill{ flex:1; border-bottom:1px solid #333; height:20px; }
+  .task{ font-family:'Times New Roman', Times, serif; font-size:17px; line-height:1.55; margin-bottom:24px; color:#000; }
+  .task .num{ font-weight:bold; color:var(--accent); margin-right:6px; }
+  .task .hint{ display:block; font-size:14px; color:#444; margin-top:6px; padding:6px 10px; border-left:3px solid var(--accent); background:#fcf4f4; font-family:'Segoe UI', Arial, sans-serif; }
+  .answer-line{ display:inline-block; min-width:120px; border-bottom:1px solid #333; height:18px; margin:0 4px; vertical-align:bottom; }
+  .teacher-answers{ display:none; margin-top:10px; padding:8px 12px; border:1px dashed #999; background:#f4f4f4; font-family:'Segoe UI', Arial, sans-serif; font-size:14px; color:#222; }
+  @media print{
+    body{ background:#fff; }
+    .toolbar{ display:none !important; }
+    .sheet{ max-width:800px; margin:0 auto; padding:40px; box-shadow:none; border-left:8px solid var(--accent); }
+    .task{ color:#000; }
+    .teacher-answers{ display:none; }
+    .answer-line{ border-bottom:1px solid #000; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button type="button" onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<div class="sheet">
+  <h1>Рабочий лист — Продвинутый уровень *</h1>
+  <div class="subtitle">Точность и погрешность измерений</div>
+
+  <div class="meta">
+    <span><b>Класс:</b> 7</span>
+    <span><b>Предмет:</b> Вероятность и статистика</span>
+    <span><b>Тема:</b> § 12. Точность и погрешность измерений</span>
+    <span><b>Уровень:</b> Олимпиадный</span>
+  </div>
+
+  <div class="student">
+    <div class="line"><i>ФИО:</i><span class="fill"></span></div>
+    <div class="line"><i>Класс:</i><span class="fill"></span></div>
+    <div class="line"><i>Дата:</i><span class="fill"></span></div>
+  </div>
+
+  <div class="task">
+    <span class="num">1*.</span> Истинное значение величины равно \(x\). Измерение показало \(a\) с абсолютной погрешностью \(\Delta\). Запишите двойное неравенство, связывающее \(x, a\) и \(\Delta\).
+    <span class="answer-line" style="min-width:200px;"></span>
+    <div class="teacher-answers">\(a - \Delta \le x \le a + \Delta\) (или \(|x - a| \le \Delta\)).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">2*.</span> Длина стола измерена с точностью до \(1\) см и равна \(120\) см. Ширина измерена с точностью до \(1\) см и равна \(60\) см. Оцените, в каких пределах может находиться площадь стола \(S\).
+    <span class="answer-line" style="min-width:200px;"></span>
+    <span class="hint">Подсказка: найди минимально возможную площадь (\(119 \cdot 59\)) и максимально возможную (\(121 \cdot 61\)).</span>
+    <div class="teacher-answers">Мин: \(119 \cdot 59 = 7021\) см². Макс: \(121 \cdot 61 = 7381\) см². \(7021 \le S \le 7381\) см².</div>
+  </div>
+
+  <div class="task">
+    <span class="num">3*.</span> Масса детали по документам равна \(500\) г с относительной погрешностью не более \(2\%\). При взвешивании получили \(510\) г. Можно ли утверждать, что деталь бракованная (выходит за пределы допуска)?
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Допуск \(2\%\) от 500 = 10 г. Значит, истинная масса должна быть от 490 до 510 г. 510 г находится на верхней границе, значит, деталь не бракованная (находится в пределах допуска).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">4*.</span> При измерении температуры в комнате термометр показывает \(20^\circ\)C. Относительная погрешность измерения составляет \(2,5\%\). Может ли истинная температура быть \(19,2^\circ\)C?
+    <span class="answer-line" style="min-width:200px;"></span>
+    <span class="hint">Подсказка: относительная погрешность в процентах считается от измеренного значения.</span>
+    <div class="teacher-answers">\(2,5\%\) от 20 = 0,5. Абсолютная погрешность \(0,5^\circ\). Диапазон от 19,5 до 20,5. Значение 19,2 не входит в диапазон, значит, не может.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">5*.</span> Два спортсмена измеряют время забега на 100 м с помощью разных секундомеров. Первый секундомер имеет абсолютную погрешность \(0,5\) с, второй — \(0,1\) с. Может ли быть так, что показания первого секундомера точнее (то есть ближе к истинному времени), чем показания второго?
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Да, это возможно. Погрешность — это максимально допустимое отклонение, но случайная ошибка может оказаться разной. Первый секундомер мог случайно показать почти точное время (ошибка, например, 0,01 с), а второй мог ошибиться на 0,1 с.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">6*.</span> В компании производят подшипники с номинальным диаметром \(10\) мм. Допуск на диаметр составляет \(\pm 0,05\) мм. Какое из двух утверждений верное и почему?
+    <br>1) Все подшипники с диаметром \(10,06\) мм являются браком.
+    <br>2) Ни один подшипник с диаметром \(9,96\) мм не является браком.
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Верно 1-е. Допуск означает, что диаметр должен быть от \(9,95\) до \(10,05\) мм. Диаметр \(10,06\) выходит за границы (брак). Диаметр \(9,96\) попадает в допустимый интервал, поэтому 2-е утверждение (что он не брак) неверно по формулировке, он как раз НЕ брак. То есть верно только первое.</div>
+  </div>
+</div>
+
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
