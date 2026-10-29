@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Степень с натуральным показателем (продвинутая)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #000; }
+  .toolbar { max-width: 800px; margin: 0 auto 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .toolbar a, .toolbar button { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; color: #fff; background: #c62828; transition: background .2s; }
+  .toolbar a:hover, .toolbar button:hover { background: #a02020; }
+  .sheet { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.12); padding: 40px; }
+  .sheet-header { border-left: 10px solid #c62828; padding-left: 18px; margin-bottom: 22px; }
+  .sheet-header h1 { font-family: 'Times New Roman', Times, serif; font-size: 22px; margin: 0; color: #000; }
+  .task { font-family: 'Times New Roman', Times, serif; font-size: 17px; line-height: 1.6; color: #000; margin: 14px 0 4px; }
+  .answer-line { display: block; border-bottom: 1px solid #000; height: 26px; margin: 6px 0 4px; max-width: 420px; }
+  .answer-line.short { max-width: 160px; }
+  .teacher-answers { display: none; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #c62828; background: #fdeaea; border-left: 4px solid #c62828; padding: 6px 12px; margin: 4px 0 18px; border-radius: 4px; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .teacher-answers { display: none !important; }
+    .sheet { box-shadow: none; border-radius: 0; max-width: 800px; margin: 0 auto; padding: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+<div class="sheet">
+  <div class="sheet-header">
+    <h1>Проверочная работа — Степень с натуральным показателем ★</h1>
+  </div>
+
+  <div class="task">1 ★. Сравните \( (-3)^4 \) и \( -3^4 \). Объясните разницу.</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">(−3)⁴ = 81 (основание −3, чётная степень → положительно); −3⁴ = −(3⁴) = −81. Разный порядок действий: в первом случае степень относится к отрицательному числу, во втором — знак «минус» перед степенью.</div>
+
+  <div class="task">2 ★. При каких натуральных \( n \) верно равенство \( 2^n = 32 \)?</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">2⁵ = 32, значит n = 5.</div>
+
+  <div class="task">3 ★. Вычислите: \( \frac{(-2)^5 + (-2)^4}{(-2)^3} \).</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">(−2)⁵ = −32; (−2)⁴ = 16; сумма = −16; (−2)³ = −8; −16 : (−8) = 2. Ответ: 2.</div>
+
+  <div class="task">4 ★. Какое число больше: \( 2^{10} \) или \( 10^2 \)? А \( 3^{10} \) и \( 10^3 \)? Ответ обоснуйте.</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">2¹⁰ = 1024 > 100 = 10². 3¹⁰ = 59049 > 1000 = 10³. В обоих случаях степень с натуральным показателем больше (при достаточно большом показателе).</div>
+
+  <div class="task">5 ★. Докажите, что \( (-1)^n = 1 \), если \( n \) — чётное, и \( (-1)^n = -1 \), если \( n \) — нечётное.</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">При чётном n произведение чётного числа множителей (−1) даёт 1; при нечётном — нечётное число множителей (−1) даёт −1. Это следует из правила знаков при умножении.</div>
+</div>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
