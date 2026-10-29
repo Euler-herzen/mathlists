@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Стандартная</title>
+<style>
+  :root{ --accent:#4a90e2; }
+  *{ box-sizing:border-box; }
+  body{ font-family:'Segoe UI', Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; color:#000; }
+  .toolbar{ position:sticky; top:0; z-index:10; display:flex; gap:12px; justify-content:space-between; padding:12px 20px; background:#ffffff; border-bottom:1px solid #d9dee3; }
+  .toolbar a, .toolbar button{ font-family:'Segoe UI', Arial, sans-serif; font-size:15px; cursor:pointer; padding:9px 16px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); text-decoration:none; transition:background .15s, color .15s; }
+  .toolbar a:hover, .toolbar button:hover{ background:var(--accent); color:#fff; }
+  .sheet{ max-width:800px; margin:24px auto; background:#fff; padding:40px; border-left:8px solid var(--accent); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+  .task{ font-family:'Times New Roman', Times, serif; font-size:17px; line-height:1.55; margin-bottom:24px; color:#000; }
+  .task .num{ font-weight:bold; color:var(--accent); margin-right:6px; }
+  .answer-line{ display:inline-block; min-width:120px; border-bottom:1px solid #333; height:18px; margin:0 4px; vertical-align:bottom; }
+  .teacher-answers{ display:none; margin-top:10px; padding:8px 12px; border:1px dashed #999; background:#f4f4f4; font-family:'Segoe UI', Arial, sans-serif; font-size:14px; color:#222; }
+  .variant-title { text-align: center; font-family: 'Segoe UI', Arial, sans-serif; font-weight: bold; font-size: 18px; margin-bottom: 20px; color: #333; }
+  @media print{
+    body{ background:#fff; }
+    .toolbar{ display:none !important; }
+    .sheet{ max-width:800px; margin:0 auto; padding:40px; box-shadow:none; border-left:8px solid var(--accent); }
+    .task{ color:#000; }
+    .teacher-answers{ display:none; }
+    .answer-line{ border-bottom:1px solid #000; }
+    .page-break { page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button type="button" onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<!-- ВАРИАНТ 1 -->
+<div class="sheet">
+  <div class="variant-title">Вариант 1</div>
+
+  <div class="task">
+    <span class="num">1.</span> Какие из перечисленных величин являются случайными (подвержены случайной изменчивости)? Выпиши их номера.
+    <br>1) Число дней в неделе
+    <br>2) Температура воздуха в полдень
+    <br>3) Масса купленного батона хлеба
+    <br>4) Количество учеников в вашем классе
+    <span class="answer-line" style="min-width:100px;"></span>
+    <div class="teacher-answers">2, 3.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">2.</span> В таблице даны результаты измерения напряжения (В): \(218, 222, 215, 225, 220\).
+    <br>Найдите размах напряжения.
+    <span class="answer-line"></span>
+    <div class="teacher-answers">\(225 - 215 = 10\) В.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">3.</span> Масса пяти шоколадных батончиков (в граммах): \(49, 51, 50, 50, 52\).
+    <br>Найдите среднюю массу одного батончика.
+    <span class="answer-line"></span>
+    <div class="teacher-answers">\((49+51+50+50+52):5 = 252:5 = 50,4\) г.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">4.</span> Назови две причины, почему урожайность пшеницы в разные годы отличается.
+    <br>1) <span class="answer-line" style="min-width:200px;"></span>
+    <br>2) <span class="answer-line" style="min-width:200px;"></span>
+    <div class="teacher-answers">Например: погодные условия (осадки, засуха), количество удобрений.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">5.</span> В двух магазинах замерили цены на один и тот же смартфон. В первом магазине цены (в рублях): \(10000, 10500, 9800\). Во втором: \(10200, 10200, 10200\).
+    <br>В каком магазине цена более стабильна (имеет меньший размах)?
+    <span class="answer-line"></span>
+    <div class="teacher-answers">Во втором (размах 0, так как все цены одинаковые). В первом размах \(10500 - 9800 = 700\).</div>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ВАРИАНТ 2 -->
+<div class="sheet">
+  <div class="variant-title">Вариант 2</div>
+
+  <div class="task">
+    <span class="num">1.</span> Какие из перечисленных величин являются случайными (подвержены случайной изменчивости)? Выпиши их номера.
+    <br>1) Количество дней в феврале
+    <br>2) Количество выпавших осадков за день
+    <br>3) Время в пути до школы
+    <br>4) Скорость света в вакууме
+    <span class="answer-line" style="min-width:100px;"></span>
+    <div class="teacher-answers">2, 3.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">2.</span> В таблице даны результаты измерения напряжения (В): \(210, 230, 225, 215, 220\).
+    <br>Найдите размах напряжения.
+    <span class="answer-line"></span>
+    <div class="teacher-answers">\(230 - 210 = 20\) В.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">3.</span> Масса пяти шоколадных батончиков (в граммах): \(48, 50, 49, 51, 52\).
+    <br>Найдите среднюю массу одного батончика.
+    <span class="answer-line"></span>
+    <div class="teacher-answers">\((48+50+49+51+52):5 = 250:5 = 50\) г.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">4.</span> Назови две причины, почему масса шоколадных батончиков на фабрике может немного отличаться.
+    <br>1) <span class="answer-line" style="min-width:200px;"></span>
+    <br>2) <span class="answer-line" style="min-width:200px;"></span>
+    <div class="teacher-answers">Например: неточность оборудования, разное количество начинки.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">5.</span> В двух классах замерили время решения задачи (в минутах). В 7 «А»: \(5, 8, 6\). В 7 «Б»: \(4, 9, 6\).
+    <br>В каком классе разброс времени больше (размах больше)?
+    <span class="answer-line"></span>
+    <div class="teacher-answers">В 7 «Б» (размах \(9 - 4 = 5\)). В 7 «А» размах \(8 - 5 = 3\).</div>
+  </div>
+</div>
+
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
