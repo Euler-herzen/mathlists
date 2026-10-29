@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Стандартная</title>
+<style>
+  :root{ --accent:#4a90e2; }
+  *{ box-sizing:border-box; }
+  body{ font-family:'Segoe UI', Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; color:#000; }
+  .toolbar{ position:sticky; top:0; z-index:10; display:flex; gap:12px; justify-content:space-between; padding:12px 20px; background:#ffffff; border-bottom:1px solid #d9dee3; }
+  .toolbar a, .toolbar button{ font-family:'Segoe UI', Arial, sans-serif; font-size:15px; cursor:pointer; padding:9px 16px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); text-decoration:none; transition:background .15s, color .15s; }
+  .toolbar a:hover, .toolbar button:hover{ background:var(--accent); color:#fff; }
+  .sheet{ max-width:800px; margin:24px auto; background:#fff; padding:40px; border-left:8px solid var(--accent); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+  .task{ font-family:'Times New Roman', Times, serif; font-size:17px; line-height:1.55; margin-bottom:24px; color:#000; }
+  .task .num{ font-weight:bold; color:var(--accent); margin-right:6px; }
+  .answer-line{ display:inline-block; min-width:120px; border-bottom:1px solid #333; height:18px; margin:0 4px; vertical-align:bottom; }
+  .teacher-answers{ display:none; margin-top:10px; padding:8px 12px; border:1px dashed #999; background:#f4f4f4; font-family:'Segoe UI', Arial, sans-serif; font-size:14px; color:#222; }
+  .variant-title { text-align: center; font-family: 'Segoe UI', Arial, sans-serif; font-weight: bold; font-size: 18px; margin-bottom: 20px; color: #333; }
+  @media print{
+    body{ background:#fff; }
+    .toolbar{ display:none !important; }
+    .sheet{ max-width:800px; margin:0 auto; padding:40px; box-shadow:none; border-left:8px solid var(--accent); }
+    .task{ color:#000; }
+    .teacher-answers{ display:none; }
+    .answer-line{ border-bottom:1px solid #000; }
+    .page-break { page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button type="button" onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<!-- ВАРИАНТ 1 -->
+<div class="sheet">
+  <div class="variant-title">Вариант 1</div>
+
+  <div class="task">
+    <span class="num">1.</span> Запишите двойным неравенством границы истинного значения массы \(m\), если весы показали \(45\) кг, а погрешность составляет \(\pm 2\) кг.
+    <br><span class="answer-line" style="min-width:80px;"></span> \(\le m \le\) <span class="answer-line" style="min-width:80px;"></span>
+    <div class="teacher-answers">\(43 \le m \le 47\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">2.</span> Длина кабеля равна \(100\) м с относительной погрешностью \(\pm 5\%\). Может ли истинная длина кабеля быть равна \(94\) м?
+    <span class="answer-line"></span>
+    <div class="teacher-answers">\(5\%\) от 100 = 5 м. Диапазон от 95 до 105 м. 94 м не входит в диапазон, значит, не может.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">3.</span> Спидометр автомобиля показывает \(90\) км/ч. Допустимая погрешность спидометра при такой скорости: не более \(+6\) км/ч. Найдите максимальную и минимальную возможную истинную скорость.
+    <br>Мин: <span class="answer-line"></span> Макс: <span class="answer-line"></span>
+    <div class="teacher-answers">Спидометр не занижает скорость. Истинная скорость от \(84\) до \(90\) км/ч.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">4.</span> Почему для измерения роста человека достаточно точности до \(1\) см, а для измерения длины гвоздя — до \(1\) мм?
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Точность должна быть соизмерима с величиной и практической задачей. 1 см для роста — это доли процента, а для гвоздя 1 см — это огромная часть его длины.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">5.</span> Ученик измерил длину парты линейкой и получил \(120\) см. Точность измерения \(\pm 0,5\) см. Укажите интервал, в котором находится истинная длина парты \(L\).
+    <br><span class="answer-line" style="min-width:80px;"></span> \(\le L \le\) <span class="answer-line" style="min-width:80px;"></span>
+    <div class="teacher-answers">\(119,5 \le L \le 120,5\).</div>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ВАРИАНТ 2 -->
+<div class="sheet">
+  <div class="variant-title">Вариант 2</div>
+
+  <div class="task">
+    <span class="num">1.</span> Запишите двойным неравенством границы истинного значения массы \(m\), если весы показали \(80\) кг, а погрешность составляет \(\pm 1,5\) кг.
+    <br><span class="answer-line" style="min-width:80px;"></span> \(\le m \le\) <span class="answer-line" style="min-width:80px;"></span>
+    <div class="teacher-answers">\(78,5 \le m \le 81,5\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">2.</span> Длина рулона ткани равна \(50\) м с относительной погрешностью \(\pm 4\%\). Может ли истинная длина ткани быть равна \(53\) м?
+    <span class="answer-line"></span>
+    <div class="teacher-answers">\(4\%\) от 50 = 2 м. Диапазон от 48 до 52 м. 53 м не входит в диапазон, значит, не может.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">3.</span> Спидометр автомобиля показывает \(60\) км/ч. Допустимая погрешность спидометра при такой скорости: не более \(+4\) км/ч. Найдите максимальную и минимальную возможную истинную скорость.
+    <br>Мин: <span class="answer-line"></span> Макс: <span class="answer-line"></span>
+    <div class="teacher-answers">От \(56\) до \(60\) км/ч.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">4.</span> Температуру измеряют с точностью до \(0,5^\circ\)C. Запишите двойным неравенством интервал истинной температуры \(t\), если термометр показал \(18,5^\circ\)C.
+    <br><span class="answer-line" style="min-width:80px;"></span> \(\le t \le\) <span class="answer-line" style="min-width:80px;"></span>
+    <div class="teacher-answers">\(18,0 \le t \le 19,0\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">5.</span> На упаковке масла написано: «Масса нетто \(200\) г \(\pm 5\%\)». Какова максимальная возможная масса масла в упаковке?
+    <span class="answer-line"></span>
+    <div class="teacher-answers">\(5\%\) от 200 = 10 г. Максимальная масса \(210\) г.</div>
+  </div>
+</div>
+
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
