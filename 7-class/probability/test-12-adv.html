@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Продвинутая</title>
+<style>
+  :root{ --accent:#c62828; }
+  *{ box-sizing:border-box; }
+  body{ font-family:'Segoe UI', Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; color:#000; }
+  .toolbar{ position:sticky; top:0; z-index:10; display:flex; gap:12px; justify-content:space-between; padding:12px 20px; background:#ffffff; border-bottom:1px solid #d9dee3; }
+  .toolbar a, .toolbar button{ font-family:'Segoe UI', Arial, sans-serif; font-size:15px; cursor:pointer; padding:9px 16px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); text-decoration:none; transition:background .15s, color .15s; }
+  .toolbar a:hover, .toolbar button:hover{ background:var(--accent); color:#fff; }
+  .sheet{ max-width:800px; margin:24px auto; background:#fff; padding:40px; border-left:8px solid var(--accent); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+  .task{ font-family:'Times New Roman', Times, serif; font-size:17px; line-height:1.55; margin-bottom:24px; color:#000; }
+  .task .num{ font-weight:bold; color:var(--accent); margin-right:6px; }
+  .answer-line{ display:inline-block; min-width:120px; border-bottom:1px solid #333; height:18px; margin:0 4px; vertical-align:bottom; }
+  .teacher-answers{ display:none; margin-top:10px; padding:8px 12px; border:1px dashed #999; background:#f4f4f4; font-family:'Segoe UI', Arial, sans-serif; font-size:14px; color:#222; }
+  .variant-title { text-align: center; font-family: 'Segoe UI', Arial, sans-serif; font-weight: bold; font-size: 18px; margin-bottom: 20px; color: #333; }
+  @media print{
+    body{ background:#fff; }
+    .toolbar{ display:none !important; }
+    .sheet{ max-width:800px; margin:0 auto; padding:40px; box-shadow:none; border-left:8px solid var(--accent); }
+    .task{ color:#000; }
+    .teacher-answers{ display:none; }
+    .answer-line{ border-bottom:1px solid #000; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button type="button" onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="variant-title">Продвинутый уровень *</div>
+
+  <div class="task">
+    <span class="num">1*.</span> Длина комнаты измерена с точностью до \(0,1\) м и равна \(5,0\) м. Ширина равна \(3,0\) м с той же точностью. В каких пределах может находиться площадь комнаты \(S\)?
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Мин: \(4,9 \cdot 2,9 = 14,21\) м². Макс: \(5,1 \cdot 3,1 = 15,81\) м². \(14,21 \le S \le 15,81\) м².</div>
+  </div>
+
+  <div class="task">
+    <span class="num">2*.</span> В лаборатории измерили массу образца на аналитических весах и получили \(2,50\) г с точностью \(\pm 0,01\) г. Затем образец взвесили на обычных весах и получили \(2,6\) г с точностью \(\pm 0,1\) г. Могут ли истинные массы (по результатам этих двух измерений) совпадать?
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Да. Первое измерение: от \(2,49\) до \(2,51\) г. Второе: от \(2,5\) до \(2,7\) г. Пересечение: от \(2,5\) до \(2,51\) г. Значит, истинная масса может быть, например, \(2,50\) г.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">3*.</span> Известно, что истинное значение величины \(x\) удовлетворяет неравенству \(19,8 \le x \le 20,2\). Запишите это в виде измерения с абсолютной погрешностью (т.е. в виде \(a \pm \Delta\)).
+    <span class="answer-line" style="min-width:150px;"></span>
+    <div class="teacher-answers">Центр интервала: \((19,8+20,2):2 = 20\). Половина длины: \(0,2\). Ответ: \(20 \pm 0,2\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">4*.</span> Абсолютная погрешность измерения длины стола равна \(0,5\) см, а измеренное значение — \(80\) см. Чему равна относительная погрешность измерения (в процентах)?
+    <span class="answer-line"></span>
+    <span class="hint">Подсказка: относительная погрешность = \(\frac{\Delta}{a} \cdot 100\%\).</span>
+    <div class="teacher-answers">\(\frac{0,5}{80} \cdot 100\% = 0,625\%\).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">5*.</span> Может ли относительная погрешность быть больше \(100\%\)? Приведите пример или объясните, почему не может (если измеренная величина положительна).
+    <span class="answer-line" style="min-width:250px;"></span>
+    <div class="teacher-answers">Может. Если измеренное значение очень мало, а погрешность прибора велика. Например, измеряем массу пера на грубых весах: показало \(1\) г, а погрешность \(\pm 2\) г. Относительная погрешность \(200\%\).</div>
+  </div>
+</div>
+
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
