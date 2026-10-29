@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Прямая пропорциональность (продвинутая)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #000; }
+  .toolbar { max-width: 800px; margin: 0 auto 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .toolbar a, .toolbar button { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; color: #fff; background: #c62828; transition: background .2s; }
+  .toolbar a:hover, .toolbar button:hover { background: #a02020; }
+  .sheet { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.12); padding: 40px; }
+  .sheet-header { border-left: 10px solid #c62828; padding-left: 18px; margin-bottom: 22px; }
+  .sheet-header h1 { font-family: 'Times New Roman', Times, serif; font-size: 22px; margin: 0; color: #000; }
+  .task { font-family: 'Times New Roman', Times, serif; font-size: 17px; line-height: 1.6; color: #000; margin: 14px 0 4px; }
+  .answer-line { display: block; border-bottom: 1px solid #000; height: 26px; margin: 6px 0 4px; max-width: 420px; }
+  .answer-line.short { max-width: 160px; }
+  .teacher-answers { display: none; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #c62828; background: #fdeaea; border-left: 4px solid #c62828; padding: 6px 12px; margin: 4px 0 18px; border-radius: 4px; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .teacher-answers { display: none !important; }
+    .sheet { box-shadow: none; border-radius: 0; max-width: 800px; margin: 0 auto; padding: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+<div class="sheet">
+  <div class="sheet-header">
+    <h1>Проверочная работа — Прямая пропорциональность ★</h1>
+  </div>
+
+  <div class="task">1 ★. При каких значениях \( k \) график функции \( y = kx \) проходит через II и IV координатные четверти?</div>
+  <span class="answer-line short"></span>
+  <div class="teacher-answers">k < 0</div>
+
+  <div class="task">2 ★. График прямой пропорциональности проходит через точки \( A(2; 6) \) и \( B(-3; -9) \). Докажите, что это одна и та же прямая пропорциональность, и запишите её формулу.</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">Из A: k = 6/2 = 3. Из B: k = −9/(−3) = 3. Коэффициенты равны → y = 3x.</div>
+
+  <div class="task">3 ★. Прямая пропорциональность \( y = kx \) проходит через точку пересечения прямых \( y = x + 4 \) и \( y = 3x - 2 \). Найдите \( k \).</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">x + 4 = 3x − 2 → 2x = 6 → x = 3; y = 3 + 4 = 7. Точка (3; 7). Тогда 7 = k · 3 → k = 7/3.</div>
+
+  <div class="task">4 ★. Функция задана формулой \( y = (a - 2)x \). При каком значении \( a \) она не является прямой пропорциональностью? Объясните.</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">При a = 2 получаем y = 0 — это не прямая пропорциональность (коэффициент k должен быть ≠ 0).</div>
+
+  <div class="task">5 ★. Площадь прямоугольника с постоянной шириной \( 6 \) см прямо пропорциональна его длине. Задайте формулу \( S(a) \). Найдите \( S \) при \( a = 9 \) см. Является ли зависимость прямой пропорциональностью?</div>
+  <span class="answer-line"></span>
+  <span class="answer-line"></span>
+  <div class="teacher-answers">S = 6a — да, прямая пропорциональность (k = 6). При a = 9: S = 54 см².</div>
+</div>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
