@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Одночлен и его стандартный вид (продвинутая)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #000; }
+  .toolbar { max-width: 800px; margin: 0 auto 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .toolbar a, .toolbar button { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; color: #fff; background: #c62828; transition: background .2s; }
+  .toolbar a:hover, .toolbar button:hover { background: #a02020; }
+  .sheet { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.12); padding: 40px; }
+  .sheet-header { border-left: 10px solid #c62828; padding-left: 18px; margin-bottom: 22px; }
+  .sheet-header h1 { font-family: 'Times New Roman', Times, serif; font-size: 22px; margin: 0; color: #000; }
+  .task { font-family: 'Times New Roman', Times, serif; font-size: 17px; line-height: 1.6; color: #000; margin: 14px 0 4px; }
+  .teacher-answers { display: none; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #c62828; background: #fdeaea; border-left: 4px solid #c62828; padding: 6px 12px; margin: 4px 0 18px; border-radius: 4px; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .teacher-answers { display: none !important; }
+    .sheet { box-shadow: none; border-radius: 0; max-width: 800px; margin: 0 auto; padding: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+<div class="sheet">
+  <div class="sheet-header">
+    <h1>Проверочная работа — Одночлен и его стандартный вид ★</h1>
+  </div>
+
+  <div class="task">1 ★. Приведите одночлен \( (-3a^2b)^2 \cdot 2ab^3 \) к стандартному виду и укажите его степень.</div>
+  <div class="teacher-answers">(−3)²a⁴b² · 2ab³ = 9a⁴b² · 2ab³ = 18a⁵b⁵. Степень: 5 + 5 = 10.</div>
+
+  <div class="task">2 ★. При каком значении \( k \) одночлен \( 5x^k y^3 \) имеет степень 8?</div>
+  <div class="teacher-answers">k + 3 = 8 → k = 5.</div>
+
+  <div class="task">3 ★. Найдите значение одночлена \( -2a^3b^2 \) при \( a = -1, b = 2 \).</div>
+  <div class="teacher-answers">−2 · (−1)³ · 2² = −2 · (−1) · 4 = 8.</div>
+
+  <div class="task">4 ★. Представьте одночлен \( 12x^4y^2 \) в виде произведения двух одночленов стандартного вида тремя разными способами.</div>
+  <div class="teacher-answers">Например: 3x² · 4x²y²; 6x³y · 2xy; 12x · x³y² (вариантов много).</div>
+
+  <div class="task">5 ★. Является ли одночленом выражение \( \frac{3x^2}{y} \)? Ответ обоснуйте.</div>
+  <div class="teacher-answers">Нет, так как содержит деление на переменную y — это не одночлен (одночлен — произведение чисел, переменных и их степеней).</div>
+</div>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
