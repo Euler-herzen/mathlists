@@ -12,34 +12,28 @@
             background-color: #f4f7f6;
             color: #2c3e50;
             display: flex;
-            align-items: center;
             justify-content: center;
             min-height: 100vh;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             padding: 40px 20px;
             text-align: center;
         }
-        .logo {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-        h1 {
-            font-size: 32px;
-            margin-bottom: 15px;
-            color: #4a90e2;
-        }
-        p {
+        .logo { font-size: 48px; margin-bottom: 10px; }
+        h1 { font-size: 32px; margin-bottom: 15px; color: #4a90e2; }
+        .subtitle {
             font-size: 18px;
             color: #666;
             margin-bottom: 40px;
             line-height: 1.5;
         }
+        
+        /* Сетка */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
         .class-card {
@@ -51,6 +45,9 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: 0.3s;
             border-top: 6px solid #4a90e2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .class-card:hover {
             transform: translateY(-5px);
@@ -59,6 +56,15 @@
         }
         .class-card h2 { font-size: 28px; margin-bottom: 10px; }
         .class-card span { font-size: 14px; color: #888; }
+
+        /* Специальная карточка для интересных задач */
+        .task-card-main {
+            border-top: 6px solid #d35400; /* Оранжевый цвет */
+        }
+        .task-card-main:hover {
+            box-shadow: 0 10px 25px rgba(211, 84, 0, 0.2);
+            color: #d35400;
+        }
     </style>
 </head>
 <body>
@@ -66,9 +72,10 @@
     <div class="container">
         <div class="logo">📐</div>
         <h1>Методическая копилка</h1>
-        <p>Выберите класс, чтобы перейти к материалам по Алгебре, Геометрии и Вероятности.</p>
+        <p class="subtitle">Выберите класс или раздел с интересными задачами.</p>
 
         <div class="grid">
+            <!-- Классы -->
             <a href="7-class/index.html" class="class-card">
                 <h2>7 Класс</h2>
                 <span>Алгебра · Геометрия · Вероятность</span>
@@ -88,6 +95,12 @@
             <a href="11-class/index.html" class="class-card">
                 <h2>11 Класс</h2>
                 <span>Алгебра · Геометрия · Вероятность</span>
+            </a>
+
+            <!-- Карточка "Интересные задачи" -->
+            <a href="tasks/index.html" class="class-card task-card-main">
+                <h2>💡 Интересные задачи</h2>
+                <span>Олимпиадные и логические задачи</span>
             </a>
         </div>
     </div>
