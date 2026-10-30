@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Умножение одночленов. Возведение в степень (базовая)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #000; }
+  .toolbar { max-width: 800px; margin: 0 auto 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .toolbar a, .toolbar button { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; color: #fff; background: #4a90e2; transition: background .2s; }
+  .toolbar a:hover, .toolbar button:hover { background: #357ab8; }
+  .sheet { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.12); padding: 30px 40px; }
+  h2.variant-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; margin: 12px 0 6px; color: #4a90e2; }
+  .task { font-family: 'Times New Roman', Times, serif; font-size: 15px; line-height: 1.45; color: #000; margin: 8px 0 2px; }
+  .teacher-answers { display: none; font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; color: #4a90e2; background: #e8f1fb; border-left: 4px solid #4a90e2; padding: 5px 10px; margin: 2px 0 10px; border-radius: 4px; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .teacher-answers { display: none !important; }
+    .sheet { box-shadow: none; border-radius: 0; max-width: 800px; margin: 0 auto; padding: 15px 40px; }
+    .task { font-size: 14px; margin: 6px 0 1px; line-height: 1.35; }
+    h2.variant-title { margin: 8px 0 4px; font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+<div class="sheet">
+  <h2 class="variant-title">Вариант 1</h2>
+
+  <div class="task">1. Выполните умножение: \( 3a^2b \cdot 4ab^3 \).</div>
+  <div class="teacher-answers">12a³b⁴</div>
+
+  <div class="task">2. Возведите в степень: \( (2x^3y)^2 \).</div>
+  <div class="teacher-answers">4x⁶y²</div>
+
+  <div class="task">3. Упростите: \( (-3m^2n)^3 \).</div>
+  <div class="teacher-answers">−27m⁶n³</div>
+
+  <div class="task">4. Представьте в виде одночлена стандартного вида: \( (0,5a^2b)^2 \cdot 8a^3b \).</div>
+  <div class="teacher-answers">0,25a⁴b² · 8a³b = 2a⁷b³</div>
+
+  <div class="task">5. Найдите значение выражения \( (2x^2)^3 \cdot x \) при \( x = -1 \).</div>
+  <div class="teacher-answers">8x⁶ · x = 8x⁷; при x = −1: 8 · (−1) = −8</div>
+
+  <div class="task">6. При каком значении \( k \) одночлен \( 7x^ky^2 \) имеет степень 9?</div>
+  <div class="teacher-answers">k + 2 = 9 → k = 7</div>
+
+  <div class="task">7. Известно, что \( 2a^3 = b \). Чему равно \( 8a^9 \)?</div>
+  <div class="teacher-answers">8a⁹ = (2a³)³ = b³</div>
+
+  <h2 class="variant-title">Вариант 2</h2>
+
+  <div class="task">1. Выполните умножение: \( 5x^3y \cdot 2x^2y^4 \).</div>
+  <div class="teacher-answers">10x⁵y⁵</div>
+
+  <div class="task">2. Возведите в степень: \( (3a^2b^3)^2 \).</div>
+  <div class="teacher-answers">9a⁴b⁶</div>
+
+  <div class="task">3. Упростите: \( (-2p^3q)^4 \).</div>
+  <div class="teacher-answers">16p¹²q⁴</div>
+
+  <div class="task">4. Представьте в виде одночлена стандартного вида: \( (0,2x^3y)^2 \cdot 25xy^2 \).</div>
+  <div class="teacher-answers">0,04x⁶y² · 25xy² = x⁷y⁴</div>
+
+  <div class="task">5. Найдите значение выражения \( (3a^3)^2 \cdot a \) при \( a = -2 \).</div>
+  <div class="teacher-answers">9a⁶ · a = 9a⁷; при a = −2: 9 · (−128) = −1152</div>
+
+  <div class="task">6. При каком значении \( n \) одночлен \( 4x^3y^n \) имеет степень 10?</div>
+  <div class="teacher-answers">3 + n = 10 → n = 7</div>
+
+  <div class="task">7. Известно, что \( 3x^2 = y \). Чему равно \( 27x^6 \)?</div>
+  <div class="teacher-answers">27x⁶ = (3x²)³ = y³</div>
+</div>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
