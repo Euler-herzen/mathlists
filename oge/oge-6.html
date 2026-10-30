@@ -80,14 +80,24 @@
             .header-bar { padding: 15px 20px; flex-direction: column; gap: 10px; }
         }
 
-        /* Печать */
+        /* --- ПЕЧАТЬ --- */
         @media print {
             body { background: white; }
-            .header-bar, .controls, .generator-block, .answer-btn { display: none !important; }
-            .container { box-shadow: none; padding: 0; max-width: 100%; }
-            .gen-sheet { border: none; padding: 0; display: block !important; }
-            .gen-answer-key.show-print { display: block !important; }
-            .answer-text { display: block !important; border: none; background: none; padding: 0; }
+            /* Скрываем шапку, кнопки, теорию и статичные задачи */
+            .header-bar, .controls, .task-header, .theory-block, .task-content, .gen-buttons { display: none !important; }
+            
+            /* Делаем контейнер прозрачным */
+            .container { box-shadow: none; padding: 0; max-width: 100%; margin: 0; }
+            .generator-block { background: none; border: none; padding: 0; margin: 0; }
+            
+            /* Показываем сам бланк */
+            .gen-sheet { display: block !important; border: none; padding: 0; margin: 0; }
+            
+            /* По умолчанию ответы скрыты. Если добавить класс show-print, они появятся */
+            .gen-answer-key { display: none !important; }
+            .gen-answer-key.show-print { display: block !important; border-top: 2px dashed #ccc; margin-top: 20px; padding-top: 20px; background: none;}
+            
+            .gen-task-item { page-break-inside: avoid; }
         }
     </style>
     
@@ -100,7 +110,7 @@
     <div class="header-bar">
         <a href="index.html" class="back-link">← К списку заданий</a>
         <div class="controls">
-            <button class="btn btn-solid" onclick="window.print()">🖨 Печать</button>
+            <button class="btn btn-solid" onclick="printSheet()">🖨 Печать</button>
         </div>
     </div>
 
@@ -174,7 +184,6 @@
         function gcd(a, b) { return b ? gcd(b, a % b) : a; }
         function lcm(a, b) { return a * b / gcd(a, b); }
 
-        // Перевод десятичной дроби в обыкновенную (для точного ответа)
         function toFraction(x) {
             if (Number.isInteger(x)) return x.toString();
             let tolerance = 1.0E-6;
@@ -197,7 +206,6 @@
             let answer = "";
 
             if (type === 0) {
-                // 1. Сложение/вычитание дробей
                 const den1 = [2, 3, 4, 5, 6, 7][Math.floor(Math.random() * 6)];
                 const den2 = [2, 3, 4, 5, 6, 7, 8][Math.floor(Math.random() * 7)];
                 if (den1 === den2) return createTask(); 
@@ -223,7 +231,6 @@
                 answer = `\\(\\frac{${simplifiedNum}}{${simplifiedDen}}\\)`;
 
             } else if (type === 1) {
-                // 2. Десятичные дроби
                 const a = (Math.random() * 5 + 1).toFixed(1);
                 const b = (Math.random() * 4 + 2).toFixed(1);
                 let c = (Math.random() * 2 + 1).toFixed(1);
@@ -234,7 +241,6 @@
                 const den = parseFloat(b) - parseFloat(c);
                 const ans = parseFloat(a) / den;
                 
-                // Выводим и дробь, и точный десятичный вид (если он не бесконечный)
                 answer = `\\(${toFraction(ans)}\\)`;
                 if (Number.isInteger(ans)) {
                     answer += ` или ${ans}`;
@@ -243,7 +249,6 @@
                 }
 
             } else {
-                // 3. Степени
                 const base = [-1, -2, -3, 0.1, 0.01][Math.floor(Math.random() * 5)];
                 const power = [2, 3, 4][Math.floor(Math.random() * 3)];
                 const mult = (Math.random() * 10 + 1).toFixed(1);
@@ -317,6 +322,31 @@
                 answerKey.style.display = 'none';
                 btn.textContent = '👁 Показать ответы';
             }
+        }
+
+        // --- ПЕЧАТЬ ---
+        function printSheet() {
+            const sheet = document.getElementById('gen-sheet');
+            if (sheet.style.display === 'none') {
+                alert('Сначала сгенерируйте задачи!');
+                return;
+            }
+
+            const answerKey = document.getElementById('gen-answer-key');
+            
+            // Если ответы открыты на экране, добавляем класс для печати
+            if (answerKey.style.display === 'block') {
+                answerKey.classList.add('show-print');
+            } else {
+                answerKey.classList.remove('show-print');
+            }
+
+            window.print();
+            
+            // После печати убираем класс (чтобы не мешал в следующий раз)
+            setTimeout(() => {
+                answerKey.classList.remove('show-print');
+            }, 500);
         }
 
         // --- СТАТИЧНЫЕ ЗАДАЧИ ---
