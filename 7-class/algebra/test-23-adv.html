@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Функции y = x² и y = x³ (продвинутая)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #000; }
+  .toolbar { max-width: 800px; margin: 0 auto 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .toolbar a, .toolbar button { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; color: #fff; background: #c62828; transition: background .2s; }
+  .toolbar a:hover, .toolbar button:hover { background: #a02020; }
+  .sheet { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.12); padding: 40px; }
+  .sheet-header { border-left: 10px solid #c62828; padding-left: 18px; margin-bottom: 22px; }
+  .sheet-header h1 { font-family: 'Times New Roman', Times, serif; font-size: 22px; margin: 0; color: #000; }
+  .task { font-family: 'Times New Roman', Times, serif; font-size: 17px; line-height: 1.6; color: #000; margin: 14px 0 4px; }
+  .teacher-answers { display: none; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #c62828; background: #fdeaea; border-left: 4px solid #c62828; padding: 6px 12px; margin: 4px 0 18px; border-radius: 4px; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .teacher-answers { display: none !important; }
+    .sheet { box-shadow: none; border-radius: 0; max-width: 800px; margin: 0 auto; padding: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+<div class="sheet">
+  <div class="sheet-header">
+    <h1>Проверочная работа — Функции y = x² и y = x³ ★</h1>
+  </div>
+
+  <div class="task">1 ★. Графики функций \( y = x^2 + ax + b \) и \( y = x^2 + cx + d \) пересекаются в точке с координатами \( (1; 1) \). Сравните \( a^5 + d^6 \) и \( c^6 - b^5 \). [citation:3]</div>
+  <div class="teacher-answers">Из условия: 1 + a + b = 1 и 1 + c + d = 1, откуда a = −b, c = −d. Тогда a⁵ + d⁶ = (−b)⁵ + d⁶ = −b⁵ + d⁶, а c⁶ − b⁵ = (−d)⁶ − b⁵ = d⁶ − b⁵. Выражения равны.</div>
+
+  <div class="task">2 ★. При каких значениях \( a \) график функции \( y = ax^2 \) проходит через точку пересечения графиков \( y = x^2 \) и \( y = 2x - 1 \)?</div>
+  <div class="teacher-answers">x² = 2x − 1 → x² − 2x + 1 = 0 → (x − 1)² = 0 → x = 1, y = 1. Точка (1; 1). Тогда 1 = a · 1² → a = 1.</div>
+
+  <div class="task">3 ★. Существуют ли такие натуральные \( m \) и \( n \), для которых верно равенство \( (-2a^n b^n)^m + (3a^m b^m)^n = a^6 b^6 \)? [citation:3]</div>
+  <div class="teacher-answers">Левая часть: (−2)^m a^(nm) b^(nm) + 3^n a^(mn) b^(mn) = a^(mn) b^(mn) · ((−2)^m + 3^n). Для равенства a⁶b⁶ нужно mn = 6 и (−2)^m + 3^n = 1. Проверка делителей 6: (m;n) = (2;3): 4 + 27 = 31 ≠ 1; (3;2): −8 + 9 = 1 — подходит. Ответ: да, m = 3, n = 2.</div>
+
+  <div class="task">4 ★. Постройте эскиз графика функции \( y = x^2 - 4x + 3 \), используя преобразования графика \( y = x^2 \). Найдите координаты вершины и точки пересечения с осями.</div>
+  <div class="teacher-answers">y = (x − 2)² − 1. Вершина (2; −1). Пересечение с Oy: (0; 3). С Ox: x² − 4x + 3 = 0 → x = 1, x = 3; точки (1; 0), (3; 0).</div>
+
+  <div class="task">5 ★. При каких значениях \( k \) прямая \( y = kx \) имеет с графиком \( y = x^2 \) ровно одну общую точку?</div>
+  <div class="teacher-answers">x² = kx → x² − kx = 0 → x(x − k) = 0. Одна точка при k = 0 (касание в начале координат; прямая y = 0 совпадает с осью Ox).</div>
+
+  <div class="task">6 ★. Докажите, что график функции \( y = x^3 \) симметричен относительно начала координат.</div>
+  <div class="teacher-answers">Если точка (x₀; y₀) принадлежит графику, то y₀ = x₀³. Тогда точка (−x₀; −y₀) даёт: (−x₀)³ = −x₀³ = −y₀ — тоже принадлежит графику. Значит, график симметричен относительно начала координат.</div>
+
+  <div class="task">7 ★. Найдите все значения \( x \), при которых значения функции \( y = x^3 \) больше значений функции \( y = x^2 \).</div>
+  <div class="teacher-answers">x³ > x² → x²(x − 1) > 0. При x ≠ 0 x² > 0, значит x − 1 > 0 → x > 1. Ответ: x > 1.</div>
+</div>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
