@@ -26,10 +26,14 @@
         .back-link { text-decoration: none; color: #888; font-weight: 600; transition: 0.2s; }
         .back-link:hover { color: var(--primary); }
         
-        .controls { display: flex; gap: 10px; }
+        .controls { display: flex; gap: 10px; flex-wrap: wrap;}
         .btn { padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; font-size: 15px; transition: 0.2s; text-decoration: none; }
         .btn-solid { background: var(--primary); color: white; }
         .btn-solid:hover { background: #138d75; }
+        .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-orange { background: #f39c12; color: white; }
+        .btn-orange:hover { background: #d68910; }
 
         /* Контейнер */
         .container { max-width: 850px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
@@ -47,19 +51,21 @@
         /* Генератор */
         .generator-block { background: #f0f3f4; border: 2px dashed #bdc3c7; padding: 25px; border-radius: 10px; text-align: center; margin-bottom: 40px; }
         .generator-block h3 { color: var(--blue); margin-bottom: 15px; }
-        .gen-task { font-size: 22px; margin: 20px 0; min-height: 40px; font-weight: 500; }
-        .gen-buttons { display: flex; gap: 10px; justify-content: center; }
-        .btn-gen { background: #3498db; color: white; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; font-size: 15px; }
-        .btn-gen:hover { background: #2980b9; }
-        .btn-sol { background: #f39c12; color: white; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; font-size: 15px; display: none; }
-        .btn-sol:hover { background: #d68910; }
+        .gen-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;}
         
-        .gen-solution { display: none; background: #e8f5e9; border: 1px solid var(--green); padding: 15px; border-radius: 8px; margin-top: 15px; text-align: left; }
+        /* Бланк сгенерированных задач */
+        .gen-sheet { display: none; background: white; padding: 20px; border-radius: 8px; text-align: left; margin-top: 20px; border: 1px solid #ddd; }
+        .gen-task-item { font-size: 18px; margin-bottom: 15px; display: flex; gap: 10px; }
+        .gen-task-num { font-weight: bold; color: var(--primary); }
+        .gen-answer-key { display: none; margin-top: 20px; padding-top: 20px; border-top: 2px dashed #ccc; background: #e8f5e9; padding: 15px; border-radius: 8px;}
+        .gen-answer-key h4 { color: var(--green); margin-bottom: 10px; }
+        .gen-answer-item { display: inline-block; width: 20%; font-size: 16px; margin-bottom: 5px; }
 
         /* Задачи для самостоятельного решения */
-        .task-content { font-size: 17px; }
+        .task-content { font-size: 17px; margin-top: 40px;}
         .task-list { margin-left: 20px; }
         .task-list li { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed #eee; }
+        
         .answer-btn { background: #e8f5e9; color: var(--green); border: 1px solid var(--green); padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 13px; margin-left: 10px; }
         .answer-btn:hover { background: var(--green); color: white; }
         .answer-text { display: none; margin-top: 10px; padding: 10px; background: #e8f5e9; border-left: 3px solid var(--green); border-radius: 0 4px 4px 0; color: #1b5e20; }
@@ -68,6 +74,7 @@
         @media (max-width: 600px) {
             .container { padding: 20px; margin: 0 10px; }
             .header-bar { padding: 15px 20px; flex-direction: column; gap: 10px; }
+            .gen-answer-item { width: 50%; }
         }
 
         /* Печать */
@@ -75,6 +82,8 @@
             body { background: white; }
             .header-bar, .controls, .generator-block, .answer-btn { display: none !important; }
             .container { box-shadow: none; padding: 0; max-width: 100%; }
+            .gen-sheet { border: none; padding: 0; display: block !important; }
+            .gen-answer-key.show-print { display: block !important; }
             .answer-text { display: block !important; border: none; background: none; padding: 0; }
         }
     </style>
@@ -101,118 +110,86 @@
         <div class="theory-block">
             <h3>📖 Теория (шпаргалка)</h3>
             <ul>
-                <li><b>Сложение/вычитание дробей:</b> приводим к общему знаменателю. Например, \(\frac{a}{b} + \frac{c}{d} = \frac{a \cdot d + c \cdot b}{b \cdot d}\).</li>
-                <li><b>Умножение дробей:</b> числитель на числитель, знаменатель на знаменатель. \(\frac{a}{b} \cdot \frac{c}{d} = \frac{a \cdot c}{b \cdot d}\).</li>
-                <li><b>Деление дробей:</b> умножаем первую дробь на перевернутую вторую. \(\frac{a}{b} : \frac{c}{d} = \frac{a}{b} \cdot \frac{d}{c}\).</li>
-                <li><b>Свойства степеней:</b> 
-                    <br>\(a^m \cdot a^n = a^{m+n}\)
-                    <br>\(\frac{a^m}{a^n} = a^{m-n}\)
-                    <br>\((a^m)^n = a^{m \cdot n}\)
-                    <br>\(a^{-n} = \frac{1}{a^n}\)
-                </li>
-                <li><b>Десятичные дроби:</b> при умножении на \(10^n\) запятая переносится вправо на \(n\) знаков, при делении — влево.</li>
+                <li><b>Сложение/вычитание дробей:</b> приводим к общему знаменателю.</li>
+                <li><b>Умножение/деление:</b> при делении переворачиваем вторую дробь.</li>
+                <li><b>Степени:</b> \(a^m \cdot a^n = a^{m+n}\); \(\frac{a^m}{a^n} = a^{m-n}\); \((a^m)^n = a^{m \cdot n}\); \(a^{-n} = \frac{1}{a^n}\).</li>
+                <li><b>Десятичные дроби:</b> при умножении на \(10^n\) запятая вправо, при делении — влево.</li>
             </ul>
         </div>
 
         <!-- ГЕНЕРАТОР -->
         <div class="generator-block">
-            <h3>🎮 Генератор задач</h3>
-            <p>Нажмите кнопку, чтобы получить случайную задачу из прототипов ФИПИ.</p>
-            
-            <div class="gen-task" id="gen-task-text">Нажмите «Сгенерировать»</div>
+            <h3>🎮 Генератор вариантов</h3>
+            <p>Создайте готовый вариант из 10 задач (прототипы ФИПИ).</p>
             
             <div class="gen-buttons">
-                <button class="btn-gen" onclick="generateTask()">🔄 Сгенерировать задачу</button>
-                <button class="btn-sol" id="gen-sol-btn" onclick="toggleGenSolution()">💡 Показать решение</button>
+                <button class="btn btn-orange" onclick="generateSheet()">🔄 Сгенерировать 10 задач</button>
+                <button class="btn btn-outline" id="btn-toggle-answers" onclick="toggleAnswers()" style="display: none;">👁 Показать ответы</button>
             </div>
 
-            <div class="gen-solution" id="gen-solution"></div>
+            <!-- Бланк -->
+            <div class="gen-sheet" id="gen-sheet">
+                <div id="gen-tasks-list"></div>
+                <div class="gen-answer-key" id="gen-answer-key">
+                    <h4>Ответы для учителя:</h4>
+                    <div id="gen-answers-list" style="display: flex; flex-wrap: wrap;"></div>
+                </div>
+            </div>
         </div>
 
         <!-- СТАТИЧНЫЕ ЗАДАЧИ -->
         <div class="task-content">
-            <h3>✍️ Задачи для самостоятельного решения</h3>
-            <p style="font-size: 15px; color: #666; margin-bottom: 20px;">Решите задачи в тетради и проверьте себя.</p>
+            <h3>✍️ Примеры из ФИПИ (для самостоятельного решения)</h3>
             
             <ol class="task-list">
-                <!-- Задача 1 -->
                 <li>
                     Найдите значение выражения: \(\frac{3}{4} - \frac{2}{5}\)
                     <button class="answer-btn" onclick="toggleAnswer('ans1')">Показать ответ</button>
-                    <div id="ans1" class="answer-text"><b>Ответ:</b> \(0,35\) (или \(\frac{7}{20}\))</div>
+                    <div id="ans1" class="answer-text"><b>Ответ:</b> \(0,35\)</div>
                 </li>
-
-                <!-- Задача 2 -->
                 <li>
                     Найдите значение выражения: \((\frac{1}{12} - \frac{17}{15}) \cdot \frac{10}{3}\)
                     <button class="answer-btn" onclick="toggleAnswer('ans2')">Показать ответ</button>
                     <div id="ans2" class="answer-text"><b>Ответ:</b> \(-3,6\)</div>
                 </li>
-
-                <!-- Задача 3 -->
                 <li>
                     Найдите значение выражения: \(\frac{3,6}{5,9 - 1,1}\)
                     <button class="answer-btn" onclick="toggleAnswer('ans3')">Показать ответ</button>
                     <div id="ans3" class="answer-text"><b>Ответ:</b> \(0,75\)</div>
                 </li>
-
-                <!-- Задача 4 -->
                 <li>
                     Найдите значение выражения: \(0,4 \cdot (-10)^2 + 54\)
                     <button class="answer-btn" onclick="toggleAnswer('ans4')">Показать ответ</button>
                     <div id="ans4" class="answer-text"><b>Ответ:</b> \(94\)</div>
-                </li>
-
-                <!-- Задача 5 -->
-                <li>
-                    Найдите значение выражения: \((1,3 \cdot 10^{-2}) \cdot (6 \cdot 10^{-3})\)
-                    <button class="answer-btn" onclick="toggleAnswer('ans5')">Показать ответ</button>
-                    <div id="ans5" class="answer-text"><b>Ответ:</b> \(7,8 \cdot 10^{-5}\) (или \(0,000078\))</div>
                 </li>
             </ol>
         </div>
     </div>
 
     <script>
-        // --- ЛОГИКА ГЕНЕРАТОРА ---
-        
-        let currentAnswer = "";
-        let currentSolution = "";
+        // --- УТИЛИТЫ ---
+        function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+        function lcm(a, b) { return a * b / gcd(a, b); }
 
-        function gcd(a, b) {
-            return b ? gcd(b, a % b) : a;
-        }
-
-        function lcm(a, b) {
-            return a * b / gcd(a, b);
-        }
-
-        function generateTask() {
-            const type = Math.floor(Math.random() * 3); // 0, 1 или 2
-            const taskTextEl = document.getElementById('gen-task-text');
-            const solBtn = document.getElementById('gen-sol-btn');
-            const solBlock = document.getElementById('gen-solution');
-            
-            // Скрываем старое решение
-            solBlock.style.display = 'none';
-            solBtn.style.display = 'inline-block';
+        // --- ГЕНЕРАЦИЯ ОДНОЙ ЗАДАЧИ ---
+        function createTask() {
+            const type = Math.floor(Math.random() * 3);
+            let text = "";
+            let answer = "";
 
             if (type === 0) {
-                // Шаблон 1: Сложение/вычитание обыкновенных дробей с разными знаменателями
+                // 1. Сложение/вычитание дробей
                 const den1 = [2, 3, 4, 5, 6, 7][Math.floor(Math.random() * 6)];
                 const den2 = [2, 3, 4, 5, 6, 7, 8][Math.floor(Math.random() * 7)];
-                if (den1 === den2) { generateTask(); return; } // Избегаем одинаковых
+                if (den1 === den2) return createTask(); 
 
                 const num1 = Math.floor(Math.random() * (den1 - 1)) + 1;
                 const num2 = Math.floor(Math.random() * (den2 - 1)) + 1;
-                
                 const sign = Math.random() > 0.5 ? '+' : '-';
                 const signText = sign === '+' ? '+' : '-';
 
-                taskTextEl.innerHTML = `Найдите значение выражения: \\(\\frac{${num1}}{${den1}} ${signText} \\frac{${num2}}{${den2}}\\)`;
-                MathJax.typesetPromise([taskTextEl]);
-
-                // Решение
+                text = `\\(\\frac{${num1}}{${den1}} ${signText} \\frac{${num2}}{${den2}}\\)`;
+                
                 const commonDen = lcm(den1, den2);
                 const mult1 = commonDen / den1;
                 const mult2 = commonDen / den2;
@@ -223,67 +200,92 @@
                 let d = gcd(Math.abs(simplifiedNum), simplifiedDen);
                 simplifiedNum /= d;
                 simplifiedDen /= d;
-
-                currentAnswer = `<br>Ответ: \\(${simplifiedNum}/${simplifiedDen}\\) (или \\(${(simplifiedNum/simplifiedDen).toFixed(2)}\\))`;
-                currentSolution = `
-                    <b>Решение:</b><br>
-                    1. Приводим к общему знаменателю. НОК(${den1}, ${den2}) = ${commonDen}.<br>
-                    2. Дополнительные множители: для первой дроби — ${mult1}, для второй — ${mult2}.<br>
-                    3. Получаем: \\(\\frac{${num1 * mult1}}{${commonDen}} ${signText} \\frac{${num2 * mult2}}{${commonDen}}\\)<br>
-                    4. Выполняем действие с числителями: \\(${num1 * mult1} ${signText} ${num2 * mult2} = ${finalNum}\\).<br>
-                    5. Результат: \\(\\frac{${finalNum}}{${commonDen}}\\). ${d > 1 ? `Сокращаем на ${d}: \\(\\frac{${simplifiedNum}}{${simplifiedDen}}\\).` : ''}
-                `;
+                
+                answer = `\\(\\frac{${simplifiedNum}}{${simplifiedDen}}\\) (или ${(simplifiedNum/simplifiedDen).toFixed(2)})`;
 
             } else if (type === 1) {
-                // Шаблон 2: Действия с десятичными дробями (как в Задании 4 на скрине)
+                // 2. Десятичные дроби (дробь в числителе, разность в знаменателе)
                 const a = (Math.random() * 5 + 1).toFixed(1);
-                const b = (Math.random() * 3 + 1).toFixed(1);
-                const c = (Math.random() * 2 + 1).toFixed(1);
+                const b = (Math.random() * 4 + 2).toFixed(1);
+                let c = (Math.random() * 2 + 1).toFixed(1);
+                while (b === c) c = (Math.random() * 2 + 1).toFixed(1); // знаменатель не 0
                 
-                taskTextEl.innerHTML = `Найдите значение выражения: \\(\\frac{${a}}{${b} - ${c}}\\)`;
-                MathJax.typesetPromise([taskTextEl]);
-
+                text = `\\(\\frac{${a}}{${b} - ${c}}\\)`;
+                
                 const den = (parseFloat(b) - parseFloat(c)).toFixed(2);
                 const ans = (parseFloat(a) / parseFloat(den)).toFixed(2);
-
-                currentAnswer = `<br>Ответ: \\(${ans}\\)`;
-                currentSolution = `
-                    <b>Решение:</b><br>
-                    1. Сначала выполняем действие в знаменателе: \\(${b} - ${c} = ${den}\\).<br>
-                    2. Теперь делим числитель на знаменатель: \\(${a} : ${den} = ${ans}\\).
-                `;
+                
+                answer = `\\(${ans}\\)`;
 
             } else {
-                // Шаблон 3: Степени (как в Задании 6 на скрине)
+                // 3. Степени
                 const base = [-1, -2, -3, 0.1, 0.01][Math.floor(Math.random() * 5)];
                 const power = [2, 3, 4][Math.floor(Math.random() * 3)];
                 const mult = (Math.random() * 10 + 1).toFixed(1);
                 const add = Math.floor(Math.random() * 50) + 10;
 
-                taskTextEl.innerHTML = `Найдите значение выражения: \\(${mult} \\cdot (${base})^{${power}} + ${add}\\)`;
-                MathJax.typesetPromise([taskTextEl]);
-
+                text = `\\(${mult} \\cdot (${base})^{${power}} + ${add}\\)`;
+                
                 const powerAns = Math.pow(base, power);
                 const finalAns = (parseFloat(mult) * powerAns + add).toFixed(1);
-
-                currentAnswer = `<br>Ответ: \\(${finalAns}\\)`;
-                currentSolution = `
-                    <b>Решение:</b><br>
-                    1. Возводим в степень: \\((${base})^{${power}} = ${powerAns}\\).<br>
-                    2. Умножаем: \\(${mult} \\cdot ${powerAns} = ${(mult * powerAns).toFixed(2)}\\).<br>
-                    3. Прибавляем: \\(${(mult * powerAns).toFixed(2)} + ${add} = ${finalAns}\\).
-                `;
+                
+                answer = `\\(${finalAns}\\)`;
             }
+
+            return { text, answer };
         }
 
-        function toggleGenSolution() {
-            const solBlock = document.getElementById('gen-solution');
-            if (solBlock.style.display === 'none' || solBlock.style.display === '') {
-                solBlock.innerHTML = currentSolution + currentAnswer;
-                solBlock.style.display = 'block';
-                if (typeof MathJax !== 'undefined') MathJax.typesetPromise([solBlock]);
+        // --- ГЕНЕРАЦИЯ ВСЕГО БЛАНКА ---
+        function generateSheet() {
+            const list = document.getElementById('gen-tasks-list');
+            const ansList = document.getElementById('gen-answers-list');
+            const sheet = document.getElementById('gen-sheet');
+            const btnToggle = document.getElementById('btn-toggle-answers');
+            const answerKey = document.getElementById('gen-answer-key');
+
+            list.innerHTML = '';
+            ansList.innerHTML = '';
+            sheet.style.display = 'block';
+            btnToggle.style.display = 'inline-block';
+            answerKey.classList.remove('show-print'); // Сбрасываем печать ответов
+
+            let htmlTasks = '';
+            let htmlAnswers = '';
+
+            for (let i = 1; i <= 10; i++) {
+                const task = createTask();
+                htmlTasks += `
+                    <div class="gen-task-item">
+                        <div class="gen-task-num">${i}.</div>
+                        <div>Найдите значение выражения: ${task.text}</div>
+                    </div>`;
+                htmlAnswers += `<div class="gen-answer-item"><b>${i}.</b> ${task.answer}</div>`;
+            }
+
+            list.innerHTML = htmlTasks;
+            ansList.innerHTML = htmlAnswers;
+            
+            // Перерисовываем формулы MathJax
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise([list]);
+            }
+            
+            // По умолчанию ответы скрыты на экране
+            answerKey.style.display = 'none';
+        }
+
+        // --- УПРАВЛЕНИЕ ОТВЕТАМИ ---
+        function toggleAnswers() {
+            const answerKey = document.getElementById('gen-answer-key');
+            const btn = document.getElementById('btn-toggle-answers');
+            
+            if (answerKey.style.display === 'none') {
+                answerKey.style.display = 'block';
+                btn.textContent = '🙈 Скрыть ответы';
+                if (typeof MathJax !== 'undefined') MathJax.typesetPromise([answerKey]);
             } else {
-                solBlock.style.display = 'none';
+                answerKey.style.display = 'none';
+                btn.textContent = '👁 Показать ответы';
             }
         }
 
@@ -292,11 +294,6 @@
             const el = document.getElementById(id);
             el.classList.toggle('show');
         }
-
-        // Инициализация при загрузке
-        window.addEventListener('load', () => {
-            generateTask();
-        });
     </script>
 </body>
 </html>
