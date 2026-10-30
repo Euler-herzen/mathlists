@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Продвинутая</title>
+<style>
+  :root{ --accent:#c62828; }
+  *{ box-sizing:border-box; }
+  body{ font-family:'Segoe UI', Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; color:#000; }
+  .toolbar{ position:sticky; top:0; z-index:10; display:flex; gap:12px; justify-content:space-between; padding:12px 20px; background:#ffffff; border-bottom:1px solid #d9dee3; }
+  .toolbar a, .toolbar button{ font-family:'Segoe UI', Arial, sans-serif; font-size:15px; cursor:pointer; padding:9px 16px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); text-decoration:none; transition:background .15s, color .15s; }
+  .toolbar a:hover, .toolbar button:hover{ background:var(--accent); color:#fff; }
+  .sheet{ max-width:800px; margin:24px auto; background:#fff; padding:40px; border-left:8px solid var(--accent); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+  .variant-title { font-family: 'Segoe UI', Arial, sans-serif; font-weight: bold; font-size: 18px; margin-bottom: 20px; color: #333; text-align: center; }
+  .task { font-family:'Times New Roman', Times, serif; font-size: 17px; line-height: 1.55; margin-bottom: 24px; color:#000; }
+  .task .num { font-weight:bold; color:var(--accent); margin-right:6px; }
+  .teacher-answers{ display:none; margin-top:10px; padding:8px 12px; border:1px dashed #999; background:#f4f4f4; font-family:'Segoe UI', Arial, sans-serif; font-size:14px; color:#222; }
+  @media print{
+    body{ background:#fff; }
+    .toolbar{ display:none !important; }
+    .sheet{ max-width:800px; margin:0 auto; padding:40px; box-shadow:none; border-left:8px solid var(--accent); }
+    .task{ color:#000; }
+    .teacher-answers{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button type="button" onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="variant-title">Продвинутый уровень *</div>
+
+  <div class="task">
+    <span class="num">1*.</span> В таблице приведены данные о количестве ДТП в городе за 6 месяцев: 45, 52, 38, 60, 49, 44. Полицейский утверждает: «В среднем аварий не так много, около 48 в месяц». Можно ли на основании только этой фразы сказать, что обстановка стабильная? Обоснуйте, используя другие характеристики.
+    <div class="teacher-answers">Среднее \((45+52+38+60+49+44):6 = 48\). Но размах \(60 - 38 = 22\), что очень много. Значит, количество аварий сильно скачет, стабильности нет.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">2*.</span> Менеджер завода говорит: «Наши станки делают детали строго по 100 г». Инженер провел замеры 10 деталей и получил: 98, 99, 100, 100, 101, 97, 102, 99, 100, 104.
+    а) Найдите среднюю массу.
+    б) Найдите размах.
+    в) Докажите или опровергните слова менеджера.
+    <div class="teacher-answers">а) Среднее = 1000 : 10 = 100 г. б) Размах 104 - 97 = 7 г. в) Среднее действительно 100 г, но размах 7 г. Это означает, что детали НЕ строго по 100 г, есть значительный разброс масс, брак.</div>
+  </div>
+
+  <div class="task">
+    <span class="num">3*.</span> Приведи пример величины, у которой среднее значение остается постоянным, а размах сильно меняется от периода к периоду.
+    <div class="teacher-answers">Например, дневная температура в городе в течение месяца. Средняя может быть +20, но в один месяц колебания были от +15 до +25 (размах 10), а в другой — от +5 до +35 (размах 30).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">4*.</span> В двух классах провели контрольную. В 7 «А» средний балл 4,0, а размах баллов 2 (от 3 до 5). В 7 «Б» средний балл тоже 4,0, а размах 4 (от 2 до 5). В каком классе результаты более стабильные (однородные)? Объясни.
+    <div class="teacher-answers">В 7 «А», так как размах меньше. Это означает, что знания учеников более однородны, нет сильных отстающих (двоек нет).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">5*.</span> Почему в статистике для описания случайной изменчивости важно учитывать не только среднее значение, но и размах, а иногда и моду/медиану? Приведи пример, где среднее вводит в заблуждение.
+    <div class="teacher-answers">Среднее может скрывать выбросы. Пример: в фирме 5 сотрудников получают по 20 тыс. руб., а директор — 200 тыс. руб. Средняя зарплата = 50 тыс. руб. Но она не отражает реальность большинства (медиана здесь 20 тыс.).</div>
+  </div>
+
+  <div class="task">
+    <span class="num">6*.</span> В таблице показано количество проданных билетов в кино за неделю: 120, 150, 110, 140, 130. Директор кинотеатра говорит: «Мы продаем в среднем 130 билетов в день, ситуация стабильна». Оцените справедливость утверждения, используя показатели изменчивости.
+    <div class="teacher-answers">Среднее действительно 130. Размах 150 - 110 = 40 билетов. Это довольно большой разброс (почти треть от среднего). Ситуация нестабильна: в некоторые дни продажи падают.</div>
+  </div>
+</div>
+
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
