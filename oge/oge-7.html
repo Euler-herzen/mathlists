@@ -101,13 +101,44 @@
         }
 
         /* Печать */
+                /* Печать */
         @media print {
             body { background: white; }
-            .header-bar, .controls, .generator-block, .answer-btn { display: none !important; }
+            /* Скрываем всё лишнее */
+            .header-bar, .controls, .generator-block h3, .generator-block p, .gen-buttons, .answer-btn, .task-content h3, .task-content p { 
+                display: none !important; 
+            }
+            
             .container { box-shadow: none; padding: 0; max-width: 100%; }
-            .gen-sheet { border: none; padding: 0; display: block !important; }
-            .task-list li { background: none; border: none; padding: 0; margin-bottom: 40px; page-break-inside: avoid;}
-            .answer-text { display: block !important; border: none; background: none; padding: 0; margin-top: 10px;}
+            
+            /* Принудительно показываем сам бланк, даже если он внутри скрытого блока */
+            .generator-block { 
+                display: block !important; 
+                border: none; 
+                padding: 0; 
+                background: none; 
+            }
+            .gen-sheet { 
+                display: block !important; 
+                border: none; 
+                padding: 0; 
+                margin: 0;
+            }
+            
+            /* Скрываем задачи из ФИПИ при печати, чтобы не тратить бумагу */
+            .task-content { display: none !important; }
+
+            /* Если ответы открыты, они тоже печатаются */
+            .gen-answer-key { display: none !important; }
+            .gen-answer-key.show-print { 
+                display: block !important; 
+                border-top: 2px dashed #ccc;
+                margin-top: 20px;
+                padding-top: 20px;
+            }
+            
+            /* Запрещаем разрывать задачи при печати */
+            .gen-task-item { page-break-inside: avoid; }
         }
     </style>
     
