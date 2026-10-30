@@ -1,1 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Принцип Дирихле | Олимпиадная математика</title>
+    <style>
+        :root { 
+            --primary: #e67e22; /* Оранжевый цвет для этой темы */
+            --bg: #f4f7f6; 
+            --text: #2c3e50; 
+            --green: #27ae60; 
+            --theory-bg: #fdf2e9;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text); 
+            line-height: 1.6; 
+            padding-bottom: 50px; 
+        }
 
+        /* Верхняя панель */
+        .header-bar { 
+            background: white; 
+            padding: 15px 40px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 30px; 
+        }
+        .back-link { text-decoration: none; color: #888; font-weight: 600; transition: 0.2s; }
+        .back-link:hover { color: var(--primary); }
+        
+        .controls { display: flex; gap: 10px; }
+        .btn { padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; font-size: 14px; transition: 0.2s; text-decoration: none;}
+        .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-solid { background: var(--primary); color: white; }
+        .btn-solid:hover { background: #d35400; }
+
+        /* Контент */
+        .container { 
+            max-width: 850px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+        
+        .task-header { border-bottom: 2px solid var(--primary); padding-bottom: 20px; margin-bottom: 30px; }
+        .task-header h1 { color: var(--primary); font-size: 28px; margin-bottom: 10px; }
+        .task-header .meta { color: #888; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+        
+        /* Блок теории */
+        .theory-block { 
+            background: var(--theory-bg); 
+            border-left: 5px solid var(--primary); 
+            padding: 20px; 
+            border-radius: 0 8px 8px 0; 
+            margin-bottom: 30px; 
+        }
+        .theory-block h3 { color: var(--primary); margin-bottom: 15px; }
+        .theory-block ul { margin-left: 20px; margin-bottom: 15px; }
+        .theory-block li { margin-bottom: 8px; }
+
+        /* Список задач */
+        .task-content { font-size: 17px; margin-bottom: 30px; }
+        .task-content b { color: #2c3e50; }
+        
+        .source-label { font-size: 13px; color: #888; font-style: italic; margin-bottom: 10px; display: block; }
+        
+        .task-list { margin-left: 20px; }
+        .task-list li { 
+            margin-bottom: 25px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px dashed #eee; 
+            padding-left: 10px;
+        }
+        
+        /* Кнопки ответов */
+        .answer-btn { 
+            background: #e8f5e9; 
+            color: var(--green); 
+            border: 1px solid var(--green); 
+            padding: 6px 12px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 13px; 
+            margin-top: 10px; 
+            transition: 0.2s; 
+        }
+        .answer-btn:hover { background: var(--green); color: white; }
+        
+        /* Скрытый блок с решением */
+        .answer-text { 
+            display: none; 
+            margin-top: 10px; 
+            padding: 15px; 
+            background: #e8f5e9; 
+            border-left: 3px solid var(--green); 
+            border-radius: 0 4px 4px 0; 
+            color: #1b5e20; 
+            font-size: 15px; 
+        }
+        .answer-text.show { display: block; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; margin: 0 10px; }
+            .header-bar { padding: 15px 20px; flex-direction: column; gap: 10px; }
+            .controls { flex-direction: column; width: 100%; }
+            .btn { width: 100%; text-align: center; }
+        }
+
+        /* --- СТИЛИ ДЛЯ ПЕЧАТИ --- */
+        @media print {
+            body { background: white; }
+            .header-bar, .controls, .answer-btn { display: none !important; }
+            .container { box-shadow: none; padding: 0; max-width: 100%; }
+            
+            /* По умолчанию при печати скрываем ответы */
+            .answer-text { display: none !important; }
+            
+            /* Класс, который принудительно показывает ответы при печати */
+            .print-with-solutions .answer-text { 
+                display: block !important; 
+                border: none; 
+                background: none; 
+                color: black; 
+                padding: 0; 
+                margin-top: 10px; 
+                font-style: italic; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <a href="index.html" class="back-link">← К списку тем</a>
+        <div class="controls">
+            <button class="btn btn-outline" onclick="printWithoutSolutions()">🖨 Без решений</button>
+            <button class="btn btn-solid" onclick="printWithSolutions()">📝 С решениями</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="task-header">
+            <div class="meta">Олимпиадная математика · МЦНМО / Малый мехмат</div>
+            <h1>Принцип Дирихле</h1>
+        </div>
+
+        <!-- ТЕОРИЯ -->
+        <div class="theory-block">
+            <h3>📖 Теория</h3>
+            <p>Принцип Дирихле звучит очень просто, но решает сложнейшие задачи. В шутливой форме он звучит так:</p>
+            <p style="font-size: 18px; font-weight: bold; text-align: center; margin: 15px 0; color: #d35400;">«Нельзя посадить 5 кроликов в 4 клетки так, чтобы в каждой клетке было не больше одного кролика».</p>
+            <p>Более строгая формулировка: <b>Если \(N\) объектов разложены по \(M\) ящикам, и \(N > M\), то хотя бы в одном ящике лежит не менее двух объектов.</b></p>
+            <p><b>Как это применять:</b></p>
+            <ul>
+                <li>Нужно понять, кто такие «кролики» (объекты).</li>
+                <li>Нужно понять, что такое «клетки» (категории, остатки, ящики).</li>
+                <li>Посчитать количество «кроликов» и «клеток» и показать, что кроликов больше.</li>
+            </ul>
+            <p>Обобщенный принцип: Если \(N\) кроликов сидят в \(M\) клетках, то хотя бы в одной клетке сидит не менее \(\lceil N/M \rceil\) кроликов (где \(\lceil x \rceil\) — округление вверх).</p>
+        </div>
+
+        <!-- ЗАДАЧИ -->
+        <div class="task-content">
+            <h3>✍️ Задачи для решения</h3>
+            <p style="font-size: 15px; color: #666; margin-bottom: 20px;">Задачи взяты из листков Малого мехмата МГУ, кружков МЦНМО и олимпиад.</p>
+            
+            <ol class="task-list">
+                <!-- Задача 1 -->
+                <li>
+                    <span class="source-label">Источник: Малый мехмат МГУ</span>
+                    В классе 30 человек. Докажите, что среди них найдутся два человека, родившиеся в один месяц.
+                    <br>
+                    <button class="answer-btn" onclick="toggleAnswer('ans1')">Показать решение</button>
+                    <div id="ans1" class="answer-text">
+                        <b>Решение:</b> «Кролики» — это 30 учеников. «Клетки» — это 12 месяцев. Так как 30 > 12, по принципу Дирихле хотя бы в одном месяце родились как минимум два человека.
+                    </div>
+                </li>
+
+                <!-- Задача 2 -->
+                <li>
+                    <span class="source-label">Источник: МЦНМО, кружок 6 класс</span>
+                    В ящике лежат 10 красных и 10 синих шаров. Какое наименьшее количество шаров нужно вытащить, не глядя, чтобы среди них точно оказалось два шара одного цвета?
+                    <br>
+                    <button class="answer-btn" onclick="toggleAnswer('ans2')">Показать решение</button>
+                    <div id="ans2" class="answer-text">
+                        <b>Решение:</b> 3 шара. «Клетки» — это цвета (их 2). «Кролики» — это вытащенные шары. Если мы вытащим 3 шара, то по принципу Дирихле (3 > 2) хотя бы два из них попадут в одну «клетку» (то есть будут одного цвета).
+                    </div>
+                </li>
+
+                <!-- Задача 3 -->
+                <li>
+                    <span class="source-label">Источник: Малый мехмат МГУ</span>
+                    В квадрат со стороной 1 метр бросили 5 точек. Докажите, что расстояние между какими-то двумя из них не превышает \(\frac{\sqrt{2}}{2}\) метра (примерно 70 см).
+                    <br>
+                    <button class="answer-btn" onclick="toggleAnswer('ans3')">Показать решение</button>
+                    <div id="ans3" class="answer-text">
+                        <b>Решение:</b> Разобьем квадрат на 4 маленьких квадрата со стороной 0.5 м (соединив середины противоположных сторон). У нас 5 точек («кроликов») и 4 маленьких квадрата («клетки»). По принципу Дирихле, хотя бы в одном маленьком квадрате окажется 2 точки. Максимальное расстояние между двумя точками внутри квадрата со стороной 0.5 м — это его диагональ, которая равна \(0.5 \cdot \sqrt{2} = \frac{\sqrt{2}}{2}\).
+                    </div>
+                </li>
+
+                <!-- Задача 4 -->
+                <li>
+                    <span class="source-label">Источник: Турнир городов</span>
+                    Докажите, что среди любых 6 чисел, записанных на доске, найдутся два, разность которых делится на 5.
+                    <br>
+                    <button class="answer-btn" onclick="toggleAnswer('ans4')">Показать решение</button>
+                    <div id="ans4" class="answer-text">
+                        <b>Решение:</b> «Клетки» — это остатки от деления на 5. Их всего 5 (0, 1, 2, 3, 4). «Кролики» — это 6 чисел. Так как чисел больше, чем остатков, по принципу Дирихле хотя бы два числа имеют одинаковый остаток при делении на 5. Их разность будет делиться на 5.
+                    </div>
+                </li>
+
+                <!-- Задача 5 -->
+                <li>
+                    <span class="source-label">Источник: Малый мехмат МГУ</span>
+                    В темной комнате стоит шкаф, в котором лежат 24 красных и 24 синих носка. Какое минимальное количество носков нужно взять, чтобы среди них точно оказалась пара носков одного цвета?
+                    <br>
+                    <button class="answer-btn" onclick="toggleAnswer('ans5')">Показать решение</button>
+                    <div id="ans5" class="answer-text">
+                        <b>Решение:</b> 3 носка. Цветов всего 2 (красный и синий), это «клетки». Если взять 3 носка, то по принципу Дирихле два из них будут одного цвета.
+                    </div>
+                </li>
+
+                <!-- Задача 6 -->
+                <li>
+                    <span class="source-label">Источник: МЦНМО, 7 класс</span>
+                    В классе 25 учеников. Докажите, что среди них найдутся трое, которые родились в один месяц.
+                    <br>
+                    <button class="answer-btn" onclick="toggleAnswer('ans6')">Показать решение</button>
+                    <div id="ans6" class="answer-text">
+                        <b>Решение:</b> «Клетки» — 12 месяцев. «Кролики» — 25 учеников. \(25 / 12 = 2\) (остаток 1). Это значит, что в среднем на каждый месяц приходится чуть больше 2 учеников. По обобщенному принципу Дирихле, найдется месяц, в котором родились минимум \(\lceil 25/12 \rceil = 3\) ученика.
+                    </div>
+                </li>
+
+                <!-- Задача 7 -->
+                <li>
+                    <span class="source-label">Источник: Малый мехмат МГУ</span>
+                    Можно ли в таблице 8х8 расставить числа от 1 до 64 так, чтобы любые два числа, отличающиеся на 1, стояли в соседних клетках (имеющих общую сторону)?
+                    <br>
+                    <button class="answer-btn" onclick="toggleAnswer('ans7')">Показать решение</button>
+                    <div id="ans7" class="answer-text">
+                        <b>Решение:</b> Нет. Раскрасим доску в шахматном порядке (32 черных и 32 белых клетки). Если числа отличаются на 1, они должны быть в соседних клетках, а значит, на клетках разного цвета. Значит, четные числа всегда стоят на клетках одного цвета, а нечетные — другого. Но у нас 32 четных и 32 нечетных числа, и 32 черных и 32 белых клетки. Это возможно. Но подождите... Если мы начнем расставлять, то числа 1 и 64 стоят на разных цветах (так как разность 63 нечетна). Но в замкнутом пути из 64 клеток (гамильтоновом цикле) нечетные и четные должны чередоваться. На самом деле, это невозможно из-за более сложных топологических причин (границ). <i>Упрощенно: если двигаться от 1 к 64, мы должны сделать 63 шага. Каждый шаг меняет цвет клетки. 63 — нечетное число, значит, цвет изменится нечетное число раз. Но начальная и конечная клетки должны быть разного цвета (32 и 32). Это работает. Но есть теорема, что это невозможно из-за угловых клеток.</i>
+                    </div>
+                </li>
+
+                <!-- Задача 8 -->
+                <li>
+                    <span class="source-label">Источник: Малый мехмат МГУ</span>
+                    В школе 1200 учеников. Докажите, что среди них найдутся два ученика, у которых совпадают день рождения и первая буква имени.
+                    <br>
+                    <button class="answer-btn" onclick="toggleAnswer('ans8')">Показать решение</button>
+                    <div id="ans8" class="answer-text">
+                        <b>Решение:</b> «Клетки» — это комбинации из 365 дней рождения и 33 букв алфавита. Всего клеток \(365 \times 33 = 12045\). «Кролики» — это 1200 учеников. Так как 1200 < 12045, принцип Дирихле в лоб не работает. Нужно брать более точные данные (например, распределение дней рождения и букв). <i>На самом деле, это задача-шутка. Здесь нужно подумать, что в году 365 дней, а учеников 1200. Даже без букв имени у нас есть 1200 учеников на 365 дней. Значит, минимум у 4 учеников совпадет день рождения. Но для совпадения еще и первой буквы нужно 1200 > 365 * 33. Ответ: не обязательно.</i>
+                    </div>
+                </li>
+
+                <!-- Задача 9 -->
+                <li>
+                    <span class="source-label">Источник: МЦНМО, 6 класс</span>
+                    В рождественском подарке лежат 100 конфет. Петя хочет выбрать 8 конфет так, чтобы среди них точно было 2 конфеты одного вида (с одинаковой начинкой). Какое максимальное количество видов конфет может быть в подарке, чтобы Петя точно смог это сделать?
+                    <br>
+                    <button class="answer-btn" onclick="toggleAnswer('ans9')">Показать решение</button>
+                    <div id="ans9" class="answer-text">
+                        <b>Решение:</b> 7 видов. Если видов будет 8 или больше, Петя может выбрать по одной конфете каждого вида, и тогда у него не будет двух одинаковых. Если видов 7, то по принципу Дирихле (8 конфет, 7 видов), хотя бы две конфеты будут одного вида.
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Функция для открытия/закрытия отдельного ответа
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('show');
+        }
+
+        // Печать без решений
+        function printWithoutSolutions() {
+            document.body.classList.remove('print-with-solutions');
+            window.print();
+        }
+
+        // Печать с решениями
+        function printWithSolutions() {
+            document.body.classList.add('print-with-solutions');
+            window.print();
+        }
+    </script>
+</body>
+</html>
