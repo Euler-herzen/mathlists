@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Умножение одночленов. Возведение в степень (продвинутая)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; color: #000; }
+  .toolbar { max-width: 800px; margin: 0 auto 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .toolbar a, .toolbar button { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; color: #fff; background: #c62828; transition: background .2s; }
+  .toolbar a:hover, .toolbar button:hover { background: #a02020; }
+  .sheet { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.12); padding: 40px; }
+  .sheet-header { border-left: 10px solid #c62828; padding-left: 18px; margin-bottom: 22px; }
+  .sheet-header h1 { font-family: 'Times New Roman', Times, serif; font-size: 22px; margin: 0; color: #000; }
+  .task { font-family: 'Times New Roman', Times, serif; font-size: 17px; line-height: 1.6; color: #000; margin: 14px 0 4px; }
+  .teacher-answers { display: none; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #c62828; background: #fdeaea; border-left: 4px solid #c62828; padding: 6px 12px; margin: 4px 0 18px; border-radius: 4px; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar { display: none !important; }
+    .teacher-answers { display: none !important; }
+    .sheet { box-shadow: none; border-radius: 0; max-width: 800px; margin: 0 auto; padding: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+<div class="sheet">
+  <div class="sheet-header">
+    <h1>Проверочная работа — Умножение одночленов. Возведение в степень ★</h1>
+  </div>
+
+  <div class="task">1 ★. Найдите одночлен \( A \), если выполняется условие: \( A \cdot (5c^2)^3 = 1000c^7 \). [citation:1]</div>
+  <div class="teacher-answers">A · 125c⁶ = 1000c⁷ → A = 8c</div>
+
+  <div class="task">2 ★. Петя перемножил несколько одночленов 7-й степени и получил одночлен \( 128x^{38}y^{12}z^6 \). Сколько одночленов он перемножил? [citation:2]</div>
+  <div class="teacher-answers">Степень результата: 38 + 12 + 6 = 56. 7n = 56 → n = 8.</div>
+
+  <div class="task">3 ★. Известно, что \( 3a^2 = b \). Чему равно значение выражения \( -81a^8 \)? [citation:5]</div>
+  <div class="teacher-answers">−81a⁸ = −(3a²)⁴ = −b⁴</div>
+
+  <div class="task">4 ★. Впишите пропущенный одночлен так, чтобы равенство было тождеством: \( (7a^3b^4)^2 \cdot \ldots = 98a^{12}b^9 \). [citation:5]</div>
+  <div class="teacher-answers">49a⁶b⁸ · x = 98a¹²b⁹ → x = 2a⁶b</div>
+
+  <div class="task">5 ★. Представьте выражение \( 64a^{24}b^{18} \) в виде степени тремя различными способами. [citation:5]</div>
+  <div class="teacher-answers">Например: (8a¹²b⁹)²; (4a⁸b⁶)³; (2a⁴b³)⁶.</div>
+
+  <div class="task">6 ★. Вычислите значение дроби при \( a = -4 \): \( \frac{(-a)^6 \cdot (-a)^8}{a^{12}} \). [citation:5]</div>
+  <div class="teacher-answers">a⁶ · a⁸ / a¹² = a¹⁴ / a¹² = a². При a = −4: 16.</div>
+
+  <div class="task">7 ★. При каком значении \( a \) одночлен \( (-2)^2 (x^3)^2 y^a \) является одночленом пятнадцатой степени? [citation:5]</div>
+  <div class="teacher-answers">4 · x⁶ · y^a → степень 6 + a = 15 → a = 9.</div>
+</div>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
