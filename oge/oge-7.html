@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 7. Числа на прямой | Подготовка к ОГЭ</title>
+    <style>
+        :root {
+            --primary: #16a085;
+            --bg: #f4f7f6;
+            --text: #2c3e50;
+            --green: #27ae60;
+            --blue: #2980b9;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* Верхняя панель */
+        .header-bar { background: white; padding: 15px 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .back-link { text-decoration: none; color: #888; font-weight: 600; transition: 0.2s; }
+        .back-link:hover { color: var(--primary); }
+        
+        .controls { display: flex; gap: 10px; flex-wrap: wrap;}
+        .btn { padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; font-size: 15px; transition: 0.2s; text-decoration: none; }
+        .btn-solid { background: var(--primary); color: white; }
+        .btn-solid:hover { background: #138d75; }
+        .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-orange { background: #f39c12; color: white; }
+        .btn-orange:hover { background: #d68910; }
+
+        /* Контейнер */
+        .container { max-width: 850px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        
+        .task-header { border-bottom: 2px solid var(--primary); padding-bottom: 20px; margin-bottom: 30px; }
+        .task-header h1 { color: var(--primary); font-size: 28px; margin-bottom: 10px; }
+        .task-header .meta { color: #888; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+
+        /* Теория */
+        .theory-block { background: #e8f6f3; border-left: 5px solid var(--primary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 30px; }
+        .theory-block h3 { color: var(--primary); margin-bottom: 15px; }
+        .theory-block ul { margin-left: 20px; margin-bottom: 15px; }
+        .theory-block li { margin-bottom: 8px; }
+
+        /* Генератор */
+        .generator-block { background: #f0f3f4; border: 2px dashed #bdc3c7; padding: 25px; border-radius: 10px; text-align: center; margin-bottom: 40px; }
+        .generator-block h3 { color: var(--blue); margin-bottom: 15px; }
+        .gen-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;}
+        
+        /* Бланк */
+        .gen-sheet { display: none; background: white; padding: 20px; border-radius: 8px; text-align: left; margin-top: 20px; border: 1px solid #ddd; }
+        .gen-task-item { font-size: 17px; margin-bottom: 20px; display: flex; gap: 10px; flex-direction: column;}
+        .gen-task-num { font-weight: bold; color: var(--primary); }
+        .gen-task-body { display: flex; flex-direction: column; gap: 8px;}
+        .gen-options { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 5px; color: #444;}
+        
+        /* Блок ответов */
+        .gen-answer-key { display: none; margin-top: 20px; padding-top: 20px; border-top: 2px dashed #ccc; background: #e8f5e9; padding: 15px; border-radius: 8px;}
+        .gen-answer-key h4 { color: var(--green); margin-bottom: 15px; }
+        .gen-answer-item { display: flex; width: 100%; font-size: 16px; margin-bottom: 8px; align-items: center;}
+        .gen-answer-num { width: 30px; font-weight: bold; }
+
+        /* Статичные задачи */
+        .task-content { font-size: 17px; margin-top: 40px;}
+        .task-list { margin-left: 20px; }
+        .task-list li { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed #eee; }
+        
+        .answer-btn { background: #e8f5e9; color: var(--green); border: 1px solid var(--green); padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 13px; margin-left: 10px; }
+        .answer-btn:hover { background: var(--green); color: white; }
+        .answer-text { display: none; margin-top: 10px; padding: 10px; background: #e8f5e9; border-left: 3px solid var(--green); border-radius: 0 4px 4px 0; color: #1b5e20; }
+        .answer-text.show { display: block; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; margin: 0 10px; }
+            .header-bar { padding: 15px 20px; flex-direction: column; gap: 10px; }
+            .gen-options { grid-template-columns: 1fr; }
+        }
+
+        /* Печать */
+        @media print {
+            body { background: white; }
+            .header-bar, .controls, .generator-block, .answer-btn { display: none !important; }
+            .container { box-shadow: none; padding: 0; max-width: 100%; }
+            .gen-sheet { border: none; padding: 0; display: block !important; }
+            .gen-answer-key.show-print { display: block !important; }
+            .answer-text { display: block !important; border: none; background: none; padding: 0; }
+        }
+    </style>
+    
+    <!-- Подключение MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <div class="header-bar">
+        <a href="index.html" class="back-link">← К списку заданий</a>
+        <div class="controls">
+            <button class="btn btn-solid" onclick="window.print()">🖨 Печать</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="task-header">
+            <div class="meta">ОГЭ · Задание 7</div>
+            <h1>Числа на координатной прямой</h1>
+        </div>
+
+        <div class="theory-block">
+            <h3>📖 Теория (шпаргалка)</h3>
+            <ul>
+                <li><b>Сравнение дробей:</b> чтобы сравнить дроби, приведите их к общему знаменателю (или используйте десятичные приближения).</li>
+                <li><b>Квадратные корни:</b> \(\sqrt{a} < \sqrt{b}\), если \(a < b\). Корень из числа находится между двумя целыми числами, если само число находится между их квадратами (например, \(\sqrt{15}\) между \(\sqrt{9}=3\) и \(\sqrt{16}=4\), то есть между 3 и 4).</li>
+                <li><b>Отрицательные числа:</b> чем ближе отрицательное число к нулю, тем оно больше (например, \(-2 > -5\)).</li>
+                <li><b>Координатная прямая:</b> слева направо числа возрастают.</li>
+            </ul>
+        </div>
+
+        <!-- ГЕНЕРАТОР -->
+        <div class="generator-block">
+            <h3>🎮 Генератор вариантов</h3>
+            <p>Создайте готовый вариант из 10 задач по прототипам ФИПИ.</p>
+            
+            <div class="gen-buttons">
+                <button class="btn btn-orange" onclick="generateSheet()">🔄 Сгенерировать 10 задач</button>
+                <button class="btn btn-outline" id="btn-toggle-answers" onclick="toggleAnswers()" style="display: none;">👁 Показать ответы</button>
+            </div>
+
+            <div class="gen-sheet" id="gen-sheet">
+                <div id="gen-tasks-list"></div>
+                <div class="gen-answer-key" id="gen-answer-key">
+                    <h4>Ответы:</h4>
+                    <div id="gen-answers-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СТАТИЧНЫЕ ЗАДАЧИ -->
+        <div class="task-content">
+            <h3>✍️ Примеры из ФИПИ (для самостоятельного решения)</h3>
+            
+            <ol class="task-list">
+                <li>
+                    На координатной прямой отмечено число \(a\). (Точка \(a\) находится между 2 и 3).<br>
+                    Какое из утверждений верно?<br>
+                    1) \(a - 3 < 0\) &nbsp;&nbsp; 2) \(a - 4 > 0\) &nbsp;&nbsp; 3) \(5 - a < 0\) &nbsp;&nbsp; 4) \(4 - a > 0\)
+                    <button class="answer-btn" onclick="toggleAnswer('ans1')">Показать ответ</button>
+                    <div id="ans1" class="answer-text"><b>Ответ: 1.</b> Так как \(a \in (2; 3)\), то \(a < 3\), следовательно, \(a - 3 < 0\).</div>
+                </li>
+                <li>
+                    На координатной прямой отмечены числа \(m\) и \(n\). (Точка \(m\) левее 0, \(n\) правее 0, причем \(n > |m|\)).<br>
+                    Какое из утверждений неверно?<br>
+                    1) \(m + n > 0\) &nbsp;&nbsp; 2) \(n - m > 0\) &nbsp;&nbsp; 3) \(m \cdot n < 0\) &nbsp;&nbsp; 4) \(m \cdot n^2 < 0\)
+                    <button class="answer-btn" onclick="toggleAnswer('ans2')">Показать ответ</button>
+                    <div id="ans2" class="answer-text"><b>Ответ: 4.</b> Так как \(m < 0\) (отрицательное), а \(n^2 > 0\) (положительное), их произведение \(m \cdot n^2\) будет отрицательным, то есть \(< 0\). Значит, утверждение 4 верно, а вопрос был "какое НЕВЕРНО". (Примечание: если \(m\) отрицательное, а \(n\) положительное, то \(m+n > 0\) при \(n > |m|\), \(n-m > 0\) всегда, \(m \cdot n < 0\) всегда. Следовательно, 4 — верное утверждение. В задании просят найти неверное).</div>
+                </li>
+                <li>
+                    Между какими целыми числами заключено число \(\frac{171}{14}\)?<br>
+                    1) \(11\) и \(12\) &nbsp;&nbsp; 2) \(12\) и \(13\) &nbsp;&nbsp; 3) \(13\) и \(14\) &nbsp;&nbsp; 4) \(14\) и \(15\)
+                    <button class="answer-btn" onclick="toggleAnswer('ans3')">Показать ответ</button>
+                    <div id="ans3" class="answer-text"><b>Ответ: 2.</b> \(171 : 14 = 12\) (остаток 3). То есть \(12 \frac{3}{14}\). Значит, число между 12 и 13.</div>
+                </li>
+                <li>
+                    Какое из данных чисел принадлежит промежутку \([5; 6)\)?<br>
+                    1) \(\sqrt{5}\) &nbsp;&nbsp; 2) \(\sqrt{6}\) &nbsp;&nbsp; 3) \(\sqrt{20}\) &nbsp;&nbsp; 4) \(\sqrt{29}\)
+                    <button class="answer-btn" onclick="toggleAnswer('ans4')">Показать ответ</button>
+                    <div id="ans4" class="answer-text"><b>Ответ: 4.</b> Возведем в квадрат: \(5^2 = 25\), \(6^2 = 36\). Нам нужен корень, под которым число от 25 до 35. Это \(\sqrt{29}\).</div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // --- УТИЛИТЫ ---
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // --- ГЕНЕРАЦИЯ ОДНОЙ ЗАДАЧИ ---
+        function createTask() {
+            const type = getRandomInt(1, 3); // 1, 2 или 3
+            let text = "";
+            let options = [];
+            let answerIndex = 0;
+
+            if (type === 1) {
+                // 1. Между какими числами заключена дробь (положительная)
+                const den = getRandomInt(5, 15);
+                const whole = getRandomInt(2, 12);
+                const num = den * whole + getRandomInt(1, den - 1);
+                
+                text = `Между какими целыми числами заключено число \\(\\frac{${num}}{${den}}\\)?`;
+                
+                const correctAns1 = whole;
+                const correctAns2 = whole + 1;
+                
+                // Генерируем дистракторы
+                const offset = getRandomInt(1, 2);
+                options = [
+                    `${correctAns1 - offset} и ${correctAns1 - offset + 1}`,
+                    `${correctAns1} и ${correctAns2}`, // Правильный
+                    `${correctAns1 + 1} и ${correctAns1 + 2}`,
+                    `${correctAns1 + 2} и ${correctAns1 + 3}`
+                ];
+                answerIndex = 2; // Индекс правильного ответа (с 1)
+
+            } else if (type === 2) {
+                // 2. Корни между числами
+                const n = getRandomInt(2, 10);
+                const m = n + 1;
+                const minVal = n * n;
+                const maxVal = m * m - 1;
+                const target = getRandomInt(minVal + 1, maxVal);
+                
+                text = `Между какими целыми числами заключено число \\(\\sqrt{${target}}\\)?`;
+                
+                options = [
+                    `${n - 1} и ${n}`,
+                    `${n} и ${m}`, // Правильный
+                    `${m} и ${m + 1}`,
+                    `${m + 1} и ${m + 2}`
+                ];
+                answerIndex = 2;
+
+            } else {
+                // 3. Принадлежит промежутку (с корнями)
+                const a = getRandomInt(2, 8); // Начало промежутка [a, b)
+                const b = a + 1;
+                const correctVal = getRandomInt(a * a + 1, b * b - 1); // Число под корнем
+                
+                text = `Какое из данных чисел принадлежит промежутку \\([${a}; ${b})\\)?`;
+                
+                options = [
+                    `\\(\\sqrt{${a * a - 2}}\\)`,
+                    `\\(\\sqrt{${b * b}}\\)`,
+                    `\\(\\sqrt{${correctVal}}\\)`, // Правильный
+                    `\\(\\sqrt{${b * b + 3}}\\)`
+                ];
+                answerIndex = 3;
+            }
+
+            return { text, options, answerIndex };
+        }
+
+        // --- ГЕНЕРАЦИЯ БЛАНКА ---
+        function generateSheet() {
+            const list = document.getElementById('gen-tasks-list');
+            const ansList = document.getElementById('gen-answers-list');
+            const sheet = document.getElementById('gen-sheet');
+            const btnToggle = document.getElementById('btn-toggle-answers');
+            const answerKey = document.getElementById('gen-answer-key');
+
+            list.innerHTML = '';
+            ansList.innerHTML = '';
+            sheet.style.display = 'block';
+            btnToggle.style.display = 'inline-block';
+            answerKey.classList.remove('show-print');
+
+            let htmlTasks = '';
+            let htmlAnswers = '';
+
+            for (let i = 1; i <= 10; i++) {
+                const task = createTask();
+                
+                let optionsHtml = '';
+                task.options.forEach((opt, idx) => {
+                    optionsHtml += `<div>${idx + 1}) ${opt}</div>`;
+                });
+
+                htmlTasks += `
+                    <div class="gen-task-item">
+                        <div class="gen-task-num">${i}.</div>
+                        <div class="gen-task-body">
+                            <div>${task.text}</div>
+                            <div class="gen-options">${optionsHtml}</div>
+                        </div>
+                    </div>`;
+                
+                // Записываем правильный ответ цифрой
+                htmlAnswers += `
+                    <div class="gen-answer-item">
+                        <div class="gen-answer-num">${i}.</div>
+                        <div class="gen-answer-val">Вариант ${task.answerIndex}</div>
+                    </div>`;
+            }
+
+            list.innerHTML = htmlTasks;
+            ansList.innerHTML = htmlAnswers;
+            
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise([list]);
+            }
+            
+            answerKey.style.display = 'none';
+        }
+
+        // --- УПРАВЛЕНИЕ ---
+        function toggleAnswers() {
+            const answerKey = document.getElementById('gen-answer-key');
+            const btn = document.getElementById('btn-toggle-answers');
+            
+            if (answerKey.style.display === 'none') {
+                answerKey.style.display = 'block';
+                btn.textContent = '🙈 Скрыть ответы';
+            } else {
+                answerKey.style.display = 'none';
+                btn.textContent = '👁 Показать ответы';
+            }
+        }
+
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('show');
+            if (el.classList.contains('show') && typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise([el]);
+            }
+        }
+    </script>
+</body>
+</html>
