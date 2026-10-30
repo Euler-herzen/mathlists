@@ -36,6 +36,8 @@
         
         .controls { display: flex; gap: 10px; }
         .btn { padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; font-size: 14px; transition: 0.2s; text-decoration: none;}
+        .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
         .btn-solid { background: var(--primary); color: white; }
         .btn-solid:hover { background: #7d3c98; }
 
@@ -109,14 +111,29 @@
         @media (max-width: 600px) {
             .container { padding: 20px; margin: 0 10px; }
             .header-bar { padding: 15px 20px; flex-direction: column; gap: 10px; }
+            .controls { flex-direction: column; width: 100%; }
+            .btn { width: 100%; text-align: center; }
         }
 
-        /* Стили для печати */
+        /* --- СТИЛИ ДЛЯ ПЕЧАТИ --- */
         @media print {
             body { background: white; }
             .header-bar, .controls, .answer-btn { display: none !important; }
             .container { box-shadow: none; padding: 0; max-width: 100%; }
-            .answer-text { display: block !important; border: none; background: none; color: black; padding: 0; margin-top: 5px; font-style: italic; }
+            
+            /* По умолчанию при печати скрываем ответы */
+            .answer-text { display: none !important; }
+            
+            /* Класс, который принудительно показывает ответы при печати */
+            .print-with-solutions .answer-text { 
+                display: block !important; 
+                border: none; 
+                background: none; 
+                color: black; 
+                padding: 0; 
+                margin-top: 10px; 
+                font-style: italic; 
+            }
         }
     </style>
 </head>
@@ -125,7 +142,8 @@
     <div class="header-bar">
         <a href="index.html" class="back-link">← К списку тем</a>
         <div class="controls">
-            <button class="btn btn-solid" onclick="window.print()">🖨 Печать</button>
+            <button class="btn btn-outline" onclick="printWithoutSolutions()">🖨 Без решений</button>
+            <button class="btn btn-solid" onclick="printWithSolutions()">📝 С решениями</button>
         </div>
     </div>
 
@@ -273,9 +291,24 @@
     </div>
 
     <script>
+        // Функция для открытия/закрытия отдельного ответа
         function toggleAnswer(id) {
             const el = document.getElementById(id);
             el.classList.toggle('show');
+        }
+
+        // Печать без решений
+        function printWithoutSolutions() {
+            // Убираем класс, который заставляет ответы печататься
+            document.body.classList.remove('print-with-solutions');
+            window.print();
+        }
+
+        // Печать с решениями
+        function printWithSolutions() {
+            // Добавляем класс на body, чтобы CSS при печати показал ответы
+            document.body.classList.add('print-with-solutions');
+            window.print();
         }
     </script>
 </body>
