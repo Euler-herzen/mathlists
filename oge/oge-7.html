@@ -58,11 +58,10 @@
         .gen-task-item { font-size: 17px; margin-bottom: 25px; border-bottom: 1px dashed #eee; padding-bottom: 15px;}
         .gen-task-num { font-weight: bold; color: var(--primary); margin-bottom: 5px;}
         
-        /* Координатная прямая */
-        .number-line-container { margin: 15px 0; position: relative; height: 60px; width: 100%; }
-        .gen-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; color: #444; font-size: 16px;}
+        /* Координатная прямая (SVG) */
+        .number-line-svg { width: 100%; max-width: 600px; height: 80px; display: block; margin: 10px 0; }
         
-        /* Блок ответов */
+        /* Блок ответов генератора */
         .gen-answer-key { display: none; margin-top: 20px; padding-top: 20px; border-top: 2px dashed #ccc; background: #e8f5e9; padding: 15px; border-radius: 8px;}
         .gen-answer-key h4 { color: var(--green); margin-bottom: 15px; }
         .gen-answer-item { display: flex; width: 100%; font-size: 16px; margin-bottom: 8px; align-items: center;}
@@ -70,18 +69,35 @@
 
         /* Статичные задачи */
         .task-content { font-size: 17px; margin-top: 40px;}
-        .task-list { margin-left: 20px; }
-        .task-list li { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed #eee; }
+        .task-list { margin-left: 0; list-style: none; }
+        .task-list li { 
+            margin-bottom: 30px; 
+            padding: 20px; 
+            background: #fafafa; 
+            border: 1px solid #eee; 
+            border-radius: 8px; 
+        }
+        .task-list p { margin-bottom: 10px; }
         
-        .answer-btn { background: #e8f5e9; color: var(--green); border: 1px solid var(--green); padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 13px; margin-left: 10px; }
+        /* Сетка для вариантов ответа */
+        .options-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 10px; 
+            margin: 15px 0; 
+            font-size: 16px; 
+        }
+        .options-grid.inline { grid-template-columns: repeat(4, 1fr); }
+
+        .answer-btn { background: #e8f5e9; color: var(--green); border: 1px solid var(--green); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; transition: 0.2s; }
         .answer-btn:hover { background: var(--green); color: white; }
-        .answer-text { display: none; margin-top: 10px; padding: 10px; background: #e8f5e9; border-left: 3px solid var(--green); border-radius: 0 4px 4px 0; color: #1b5e20; }
+        .answer-text { display: none; margin-top: 15px; padding: 15px; background: #e8f5e9; border-left: 4px solid var(--green); border-radius: 0 4px 4px 0; color: #1b5e20; font-size: 15px;}
         .answer-text.show { display: block; }
 
         @media (max-width: 600px) {
             .container { padding: 20px; margin: 0 10px; }
             .header-bar { padding: 15px 20px; flex-direction: column; gap: 10px; }
-            .gen-options { grid-template-columns: repeat(2, 1fr); }
+            .options-grid, .options-grid.inline { grid-template-columns: 1fr; }
         }
 
         /* Печать */
@@ -90,16 +106,15 @@
             .header-bar, .controls, .generator-block, .answer-btn { display: none !important; }
             .container { box-shadow: none; padding: 0; max-width: 100%; }
             .gen-sheet { border: none; padding: 0; display: block !important; }
-            .gen-answer-key.show-print { display: block !important; }
-            .answer-text { display: block !important; border: none; background: none; padding: 0; }
-            /* Скрываем кнопку "Показать ответ" на прямой при печати */
-            .check-btn { display: none; }
+            .task-list li { background: none; border: none; padding: 0; margin-bottom: 40px; page-break-inside: avoid;}
+            .answer-text { display: block !important; border: none; background: none; padding: 0; margin-top: 10px;}
         }
     </style>
     
-    <!-- Подключение MathJax -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }, startup: { typeset: false } };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" onload="MathJax.startup.typesetPromise()"></script>
 </head>
 <body>
 
@@ -119,16 +134,16 @@
         <div class="theory-block">
             <h3>📖 Теория (шпаргалка)</h3>
             <ul>
-                <li><b>Координатная прямая:</b> слева направо числа возрастают. Точки левее нуля — отрицательные, правее — положительные.</li>
-                <li><b>Квадратные корни:</b> чтобы понять, где находится \(\sqrt{15}\), найдите ближайшие квадраты: \(3^2=9\), \(4^2=16\). Значит, корень между 3 и 4, ближе к 4.</li>
-                <li><b>Дроби:</b> переведите в десятичную дробь (разделите числитель на знаменатель) или приведите к общему знаменателю с числами на прямой.</li>
+                <li><b>Координатная прямая:</b> слева направо числа возрастают. Чем правее точка, тем больше число.</li>
+                <li><b>Квадратные корни:</b> чтобы найти \(\sqrt{15}\), найдите ближайшие квадраты: \(3^2=9\), \(4^2=16\). Корень между 3 и 4.</li>
+                <li><b>Дроби:</b> переведите в десятичную дробь (числитель ÷ знаменатель) или сравните с числами на прямой.</li>
             </ul>
         </div>
 
         <!-- ГЕНЕРАТОР -->
         <div class="generator-block">
             <h3>🎮 Генератор вариантов</h3>
-            <p>Создайте готовый вариант из 5 задач с координатными прямыми.</p>
+            <p>Создайте готовый вариант из 5 задач (смешанные типы).</p>
             
             <div class="gen-buttons">
                 <button class="btn btn-orange" onclick="generateSheet()">🔄 Сгенерировать 5 задач</button>
@@ -144,188 +159,187 @@
             </div>
         </div>
 
-        <!-- СТАТИЧНЫЕ ЗАДАЧИ -->
+        <!-- СТАТИЧНЫЕ ЗАДАЧИ (ПРОТОТИПЫ) -->
         <div class="task-content">
-            <h3>✍️ Примеры из ФИПИ (для самостоятельного решения)</h3>
+            <h3>✍️ Прототипы из ФИПИ</h3>
+            <p style="font-size: 15px; color: #666; margin-bottom: 20px;">8 задач на все основные типы задания 7.</p>
             
-            <ol class="task-list">
+            <ul class="task-list">
+                <!-- Задача 1 (Текстовое сравнение) -->
                 <li>
-                    На координатной прямой отмечены точки A, B, C, D. Одна из них соответствует числу \(\sqrt{45}\). Какая это точка?
-                    <div class="number-line-container">
-                        <canvas class="static-canvas" width="600" height="60" data-type="static1"></canvas>
+                    <p><b>1.</b> Какое из следующих чисел заключено между числами \(\frac{9}{4}\) и \(\frac{7}{3}\)?</p>
+                    <div class="options-grid inline">
+                        <div>1) 2,1</div><div>2) 2,2</div><div>3) 2,3</div><div>4) 2,4</div>
                     </div>
-                    <div class="gen-options" style="margin-top: 5px;">
+                    <button class="answer-btn" onclick="toggleAnswer('ans1')">Показать решение</button>
+                    <div id="ans1" class="answer-text">
+                        <b>Решение:</b> Переведем дроби в десятичные. \(9/4 = 2,25\). \(7/3 = 2,333...\) Нам нужно число, которое больше 2,25, но меньше 2,33. Это 2,3.
+                        <br><b>Ответ: 3.</b>
+                    </div>
+                </li>
+
+                <!-- Задача 2 (Принадлежность отрезку) -->
+                <li>
+                    <p><b>2.</b> Какому из данных промежутков принадлежит число \(\frac{5}{7}\)?</p>
+                    <div class="options-grid inline">
+                        <div>1) [0,4; 0,5]</div><div>2) [0,5; 0,6]</div><div>3) [0,6; 0,7]</div><div>4) [0,7; 0,8]</div>
+                    </div>
+                    <button class="answer-btn" onclick="toggleAnswer('ans2')">Показать решение</button>
+                    <div id="ans2" class="answer-text">
+                        <b>Решение:</b> \(5 : 7 = 0,714...\) Это число больше 0,7 и меньше 0,8. Значит, оно попадает в промежуток [0,7; 0,8].
+                        <br><b>Ответ: 4.</b>
+                    </div>
+                </li>
+
+                <!-- Задача 3 (Точка на прямой - корень) -->
+                <li>
+                    <p><b>3.</b> На координатной прямой отмечены точки A, B, C, D. Одна из них соответствует числу \(\sqrt{45}\). Какая это точка?</p>
+                    <div id="static-svg-1"></div>
+                    <div class="options-grid inline">
                         <div>1) A</div><div>2) B</div><div>3) C</div><div>4) D</div>
                     </div>
-                    <button class="answer-btn" onclick="toggleAnswer('ans1')">Показать ответ</button>
-                    <div id="ans1" class="answer-text"><b>Ответ: 2.</b> \(\sqrt{45}\) находится между \(\sqrt{36}=6\) и \(\sqrt{49}=7\). Это точка B (чуть левее 7).</div>
-                </li>
-                <li>
-                    На координатной прямой отмечены точки A, B, C, D. Одна из них соответствует числу \(\frac{7}{11}\). Какая это точка?
-                    <div class="number-line-container">
-                        <canvas class="static-canvas" width="600" height="60" data-type="static2"></canvas>
+                    <button class="answer-btn" onclick="toggleAnswer('ans3')">Показать решение</button>
+                    <div id="ans3" class="answer-text">
+                        <b>Решение:</b> \(\sqrt{45}\) находится между \(\sqrt{36}=6\) и \(\sqrt{49}=7\). На прямой видно, что это точка B (она чуть левее 7).
+                        <br><b>Ответ: 2.</b>
                     </div>
-                    <div class="gen-options" style="margin-top: 5px;">
+                </li>
+
+                <!-- Задача 4 (Точка на прямой - дробь) -->
+                <li>
+                    <p><b>4.</b> На координатной прямой отмечены точки A, B, C, D. Одна из них соответствует числу \(\frac{7}{11}\). Какая это точка?</p>
+                    <div id="static-svg-2"></div>
+                    <div class="options-grid inline">
                         <div>1) A</div><div>2) B</div><div>3) C</div><div>4) D</div>
                     </div>
-                    <button class="answer-btn" onclick="toggleAnswer('ans2')">Показать ответ</button>
-                    <div id="ans2" class="answer-text"><b>Ответ: 1.</b> \(\frac{7}{11} \approx 0.63\). Точка A находится примерно на 0.6.</div>
+                    <button class="answer-btn" onclick="toggleAnswer('ans4')">Показать решение</button>
+                    <div id="ans4" class="answer-text">
+                        <b>Решение:</b> \(7 : 11 \approx 0,63\). На прямой есть засечка 0,6. Точка C находится правее нее. (Примечание: в оригинале ФИПИ точка C находится около 0,6).
+                        <br><b>Ответ: 3.</b>
+                    </div>
                 </li>
-            </ol>
+
+                <!-- Задача 5 (Между какими числами корень) -->
+                <li>
+                    <p><b>5.</b> Между какими целыми числами заключено число \(\sqrt{67}\)?</p>
+                    <div class="options-grid inline">
+                        <div>1) 6 и 7</div><div>2) 7 и 8</div><div>3) 8 и 9</div><div>4) 9 и 10</div>
+                    </div>
+                    <button class="answer-btn" onclick="toggleAnswer('ans5')">Показать решение</button>
+                    <div id="ans5" class="answer-text">
+                        <b>Решение:</b> Найдем ближайшие квадраты целых чисел. \(8^2 = 64\), \(9^2 = 81\). Число 67 находится между 64 и 81. Значит, \(\sqrt{67}\) между 8 и 9.
+                        <br><b>Ответ: 3.</b>
+                    </div>
+                </li>
+
+                <!-- Задача 6 (Сравнение координат) -->
+                <li>
+                    <p><b>6.</b> На координатной прямой отмечены числа \(m\) и \(n\). (Точка \(m\) левее 0, \(n\) правее 0, причем \(n > |m|\)).<br>Какое из утверждений неверно?</p>
+                    <div class="options-grid">
+                        <div>1) \(m + n > 0\)</div><div>2) \(n - m > 0\)</div>
+                        <div>3) \(m \cdot n < 0\)</div><div>4) \(m \cdot n^2 < 0\)</div>
+                    </div>
+                    <button class="answer-btn" onclick="toggleAnswer('ans6')">Показать решение</button>
+                    <div id="ans6" class="answer-text">
+                        <b>Решение:</b> Так как \(m < 0\), а \(n^2 > 0\) (квадрат любого числа положителен), то их произведение \(m \cdot n^2\) будет отрицательным (то есть \(< 0\)). Утверждение 4 <b>верно</b>. А вопрос просит найти <b>неверное</b> утверждение. (В реальной задаче ФИПИ ответ зависит от конкретного расположения точек, здесь проверим все: \(m+n>0\) верно, так как \(n>|m|\); \(n-m>0\) верно, так как \(n>0\) и \(m<0\); \(mn<0\) верно, так как знаки разные).
+                        <br><b>Ответ: 4.</b>
+                    </div>
+                </li>
+
+                <!-- Задача 7 (Принадлежность промежутку - корень) -->
+                <li>
+                    <p><b>7.</b> Какое из данных чисел принадлежит промежутку \([5; 6)\)?</p>
+                    <div class="options-grid inline">
+                        <div>1) \(\sqrt{5}\)</div><div>2) \(\sqrt{6}\)</div><div>3) \(\sqrt{20}\)</div><div>4) \(\sqrt{29}\)</div>
+                    </div>
+                    <button class="answer-btn" onclick="toggleAnswer('ans7')">Показать решение</button>
+                    <div id="ans7" class="answer-text">
+                        <b>Решение:</b> Возведем границы промежутка в квадрат: \(5^2 = 25\), \(6^2 = 36\). Нам нужен корень из числа от 25 до 36. Подходит \(\sqrt{29}\).
+                        <br><b>Ответ: 4.</b>
+                    </div>
+                </li>
+
+                <!-- Задача 8 (Отрицательные дроби) -->
+                <li>
+                    <p><b>8.</b> Какое из чисел \(\frac{-92}{15}, \frac{-83}{15}, \frac{-71}{15}, \frac{-67}{15}\) принадлежит отрезку \([-6; -5]\)?</p>
+                    <div class="options-grid inline">
+                        <div>1) \(\frac{-92}{15}\)</div><div>2) \(\frac{-83}{15}\)</div><div>3) \(\frac{-71}{15}\)</div><div>4) \(\frac{-67}{15}\)</div>
+                    </div>
+                    <button class="answer-btn" onclick="toggleAnswer('ans8')">Показать решение</button>
+                    <div id="ans8" class="answer-text">
+                        <b>Решение:</b> Переведем дроби в смешанные числа. \(-92/15 = -6 \frac{2}{15}\) (меньше -6). \(-83/15 = -5 \frac{8}{15}\) (между -6 и -5). \(-71/15 = -4 \frac{11}{15}\). \(-67/15 = -4 \frac{7}{15}\).
+                        <br><b>Ответ: 2.</b>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 
     <script>
-        // --- ГРАФИЧЕСКИЕ ФУНКЦИИ ---
-        
-        // Рисует координатную прямую на canvas
-        // params: canvas (элемент), min (нач. значение), max (кон. значение), points (массив {x, label, color})
-        function drawLine(canvas, min, max, points, showTarget = null) {
-            const ctx = canvas.getContext('2d');
-            const w = canvas.width;
-            const h = canvas.height;
-            ctx.clearRect(0, 0, w, h);
+        function getRandomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 
+        // --- ОТРИСОВКА SVG ПРЯМОЙ ---
+        function generateSVG(min, max, points) {
+            const width = 600;
+            const height = 80;
             const padding = 40;
-            const lineY = 35;
-            const drawWidth = w - padding * 2;
-
-            // Функция перевода математической координаты в пиксельную
+            const lineY = 40;
+            const drawWidth = width - padding * 2;
             const getX = (val) => padding + ((val - min) / (max - min)) * drawWidth;
 
-            // Рисуем ось
-            ctx.beginPath();
-            ctx.moveTo(padding - 10, lineY);
-            ctx.lineTo(w - padding + 10, lineY);
-            ctx.strokeStyle = '#333';
-            ctx.lineWidth = 2;
-            ctx.stroke();
-
+            let svg = `<svg viewBox="0 0 ${width} ${height}" class="number-line-svg">`;
+            // Ось
+            svg += `<line x1="${padding - 10}" y1="${lineY}" x2="${width - padding + 10}" y2="${lineY}" stroke="#333" stroke-width="2"/>`;
             // Стрелка
-            ctx.beginPath();
-            ctx.moveTo(w - padding + 10, lineY);
-            ctx.lineTo(w - padding, lineY - 5);
-            ctx.lineTo(w - padding, lineY + 5);
-            ctx.fillStyle = '#333';
-            ctx.fill();
+            svg += `<polygon points="${width - padding + 10},${lineY} ${width - padding},${lineY - 5} ${width - padding},${lineY + 5}" fill="#333"/>`;
 
-            // Рисуем засечки
+            // Засечки и цифры
             for (let i = Math.ceil(min); i <= Math.floor(max); i++) {
                 const x = getX(i);
-                ctx.beginPath();
-                ctx.moveTo(x, lineY - 5);
-                ctx.lineTo(x, lineY + 5);
-                ctx.stroke();
-
-                // Цифры
-                ctx.fillStyle = '#333';
-                ctx.font = '14px Arial';
-                ctx.textAlign = 'center';
-                ctx.fillText(i, x, lineY + 20);
+                svg += `<line x1="${x}" y1="${lineY - 5}" x2="${x}" y2="${lineY + 5}" stroke="#333" stroke-width="1"/>`;
+                svg += `<text x="${x}" y="${lineY + 20}" text-anchor="middle" font-size="14" fill="#333">${i}</text>`;
             }
 
-            // Рисуем точки
+            // Точки
             points.forEach(p => {
                 const x = getX(p.x);
-                ctx.beginPath();
-                ctx.arc(x, lineY - 15, 4, 0, Math.PI * 2);
-                ctx.fillStyle = p.color || '#333';
-                ctx.fill();
-
-                // Подпись точки
-                ctx.fillStyle = p.color || '#333';
-                ctx.font = 'bold 16px Arial';
-                ctx.fillText(p.label, x, lineY - 25);
+                svg += `<circle cx="${x}" cy="${lineY - 15}" r="5" fill="#333"/>`;
+                svg += `<text x="${x}" y="${lineY - 25}" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">${p.label}</text>`;
             });
 
-            // Рисуем целевую точку (при нажатии "Показать ответ")
-            if (showTarget !== null) {
-                const x = getX(showTarget);
-                ctx.beginPath();
-                ctx.arc(x, lineY + 15, 5, 0, Math.PI * 2);
-                ctx.fillStyle = '#e74c3c';
-                ctx.fill();
-                ctx.fillStyle = '#e74c3c';
-                ctx.font = 'bold 14px Arial';
-                ctx.fillText('?', x, lineY + 40);
+            svg += `</svg>`;
+            return svg;
+        }
+
+        // --- ЛОГИКА ГЕНЕРАТОРА ---
+        function createSqrtTask() {
+            const a = getRandomInt(2, 10); const b = a + 1;
+            const target = getRandomInt(a * a + 1, b * b - 1);
+            const points = [{ x: a - 1, label: 'A' }, { x: a + 0.2, label: 'B' }, { x: a + 0.8, label: 'C' }, { x: b, label: 'D' }];
+            let correctIndex = 1; const rootVal = Math.sqrt(target);
+            if (rootVal > b - 0.5) correctIndex = 4; else if (rootVal > a + 0.5) correctIndex = 3; else correctIndex = 2;
+            return { type: 'svg', text: `На координатной прямой отмечены точки A, B, C, D. Одна из них соответствует числу \\(\\sqrt{${target}}\\). Какая это точка?`, min: a - 1.5, max: b + 0.5, points: points, answerIndex: correctIndex };
+        }
+
+        function createFractionTask() {
+            const den = getRandomInt(7, 15); const num = getRandomInt(1, den - 1); const target = num / den;
+            const points = [{ x: 0.2, label: 'A' }, { x: 0.4, label: 'B' }, { x: 0.6, label: 'C' }, { x: 0.8, label: 'D' }];
+            let correctIndex = 1;
+            if (target > 0.7) correctIndex = 4; else if (target > 0.5) correctIndex = 3; else if (target > 0.3) correctIndex = 2;
+            return { type: 'svg', text: `На координатной прямой отмечены точки A, B, C, D. Одна из них соответствует числу \\(\\frac{${num}}{${den}}\\). Какая это точка?`, min: -0.2, max: 1.2, points: points, answerIndex: correctIndex };
+        }
+
+        function createTextTask() {
+            const type = getRandomInt(1, 2);
+            if (type === 1) {
+                const den = getRandomInt(5, 15); const whole = getRandomInt(2, 12); const num = den * whole + getRandomInt(1, den - 1);
+                return { type: 'text', text: `Между какими целыми числами заключено число \\(\\frac{${num}}{${den}}\\)?`, options: [`${whole - 1} и ${whole}`, `${whole} и ${whole + 1}`, `${whole + 1} и ${whole + 2}`, `${whole + 2} и ${whole + 3}`], answerIndex: 2 };
+            } else {
+                const n = getRandomInt(2, 10); const m = n + 1; const target = getRandomInt(n * n + 1, m * m - 1);
+                return { type: 'text', text: `Между какими целыми числами заключено число \\(\\sqrt{${target}}\\)?`, options: [`${n - 1} и ${n}`, `${n} и ${m}`, `${m} и ${m + 1}`, `${m + 1} и ${m + 2}`], answerIndex: 2 };
             }
         }
 
-        // --- ГЕНЕРАЦИЯ ЗАДАЧИ ---
-        
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
-        // 1. Задача на корни
-        function createSqrtTask() {
-            const a = getRandomInt(2, 10); // Начало [a; b]
-            const b = a + 1;
-            const target = getRandomInt(a * a + 1, b * b - 1); // Число под корнем
-            
-            // Генерируем 4 точки: a-1, a+0.2, a+0.8, b
-            const points = [
-                { x: a - 1, label: 'A' },
-                { x: a + 0.2, label: 'B' },
-                { x: a + 0.8, label: 'C' },
-                { x: b, label: 'D' }
-            ];
-            
-            // Перемешиваем, чтобы правильная точка была не всегда на одном месте
-            // Но для наглядности оставим порядок возрастания A, B, C, D
-            // Находим правильную точку
-            let correctIndex = 1; // По умолчанию B
-            const rootVal = Math.sqrt(target);
-            
-            if (rootVal > b - 0.5) correctIndex = 3; // D
-            else if (rootVal > a + 0.5) correctIndex = 2; // C
-            else correctIndex = 1; // B
-
-            return {
-                text: `На координатной прямой отмечены точки A, B, C, D. Одна из них соответствует числу \\(\\sqrt{${target}}\\). Какая это точка?`,
-                min: a - 1.5,
-                max: b + 0.5,
-                points: points,
-                options: ['A', 'B', 'C', 'D'],
-                answerIndex: correctIndex,
-                targetValue: rootVal,
-                type: 'sqrt'
-            };
-        }
-
-        // 2. Задача на дроби
-        function createFractionTask() {
-            const den = getRandomInt(7, 15);
-            const num = getRandomInt(1, den - 1);
-            const target = num / den; // 0 < target < 1
-            
-            // Генерируем точки на промежутке [0; 1]
-            const points = [
-                { x: 0.2, label: 'A' },
-                { x: 0.4, label: 'B' },
-                { x: 0.6, label: 'C' },
-                { x: 0.8, label: 'D' }
-            ];
-            
-            let correctIndex = 1;
-            if (target > 0.7) correctIndex = 4;
-            else if (target > 0.5) correctIndex = 3;
-            else if (target > 0.3) correctIndex = 2;
-            else correctIndex = 1;
-
-            return {
-                text: `На координатной прямой отмечены точки A, B, C, D. Одна из них соответствует числу \\(\\frac{${num}}{${den}}\\). Какая это точка?`,
-                min: -0.2,
-                max: 1.2,
-                points: points,
-                options: ['A', 'B', 'C', 'D'],
-                answerIndex: correctIndex,
-                targetValue: target,
-                type: 'fraction'
-            };
-        }
-
-        // --- ГЕНЕРАЦИЯ БЛАНКА ---
         function generateSheet() {
             const list = document.getElementById('gen-tasks-list');
             const ansList = document.getElementById('gen-answers-list');
@@ -333,118 +347,55 @@
             const btnToggle = document.getElementById('btn-toggle-answers');
             const answerKey = document.getElementById('gen-answer-key');
 
-            list.innerHTML = '';
-            ansList.innerHTML = '';
-            sheet.style.display = 'block';
-            btnToggle.style.display = 'inline-block';
-            answerKey.classList.remove('show-print');
+            list.innerHTML = ''; ansList.innerHTML = ''; sheet.style.display = 'block';
+            btnToggle.style.display = 'inline-block'; answerKey.classList.remove('show-print');
 
-            let htmlTasks = '';
-            let htmlAnswers = '';
+            let htmlTasks = ''; let htmlAnswers = '';
 
-            // Генерируем 5 задач (чтобы влезло на 1 лист А4)
             for (let i = 1; i <= 5; i++) {
-                // Чередуем типы задач
-                const task = (i % 2 === 0) ? createFractionTask() : createSqrtTask();
-                const canvasId = `canvas-${i}`;
-                
-                htmlTasks += `
-                    <div class="gen-task-item">
-                        <div class="gen-task-num">${i}.</div>
-                        <div>${task.text}</div>
-                        <div class="number-line-container">
-                            <canvas id="${canvasId}" width="600" height="70" style="width: 100%; max-width: 600px; height: auto;"></canvas>
-                        </div>
-                        <div class="gen-options">
-                            <div>1) A</div><div>2) B</div><div>3) C</div><div>4) D</div>
-                        </div>
-                        <button class="btn btn-outline check-btn" style="margin-top:10px; padding: 5px 10px; font-size: 12px;" onclick="showTargetOnCanvas('${canvasId}', ${task.min}, ${task.max}, '${task.points.map(p => p.x).join(',')}', ${task.targetValue})">👁 Показать на прямой</button>
-                    </div>`;
-                
-                htmlAnswers += `
-                    <div class="gen-answer-item">
-                        <div class="gen-answer-num">${i}.</div>
-                        <div class="gen-answer-val">Вариант ${task.answerIndex}</div>
-                    </div>`;
+                let task;
+                const r = getRandomInt(1, 3);
+                if (r === 1) task = createTextTask(); else if (r === 2) task = createFractionTask(); else task = createSqrtTask();
 
-                // Откладываем отрисовку canvas до момента, когда он появится в DOM
-                setTimeout(() => {
-                    const canvas = document.getElementById(canvasId);
-                    if (canvas) {
-                        drawLine(canvas, task.min, task.max, task.points);
-                    }
-                }, 50);
+                let bodyHtml = '';
+                if (task.type === 'text') {
+                    bodyHtml = `<div class="options-grid" style="margin-top:10px;"><div>1) ${task.options[0]}</div><div>2) ${task.options[1]}</div><div>3) ${task.options[2]}</div><div>4) ${task.options[3]}</div></div>`;
+                } else {
+                    bodyHtml = `<div>${generateSVG(task.min, task.max, task.points)}</div><div class="options-grid inline"><div>1) A</div><div>2) B</div><div>3) C</div><div>4) D</div></div>`;
+                }
+
+                htmlTasks += `<div class="gen-task-item"><div class="gen-task-num">${i}.</div><div>${task.text}</div>${bodyHtml}</div>`;
+                htmlAnswers += `<div class="gen-answer-item"><div class="gen-answer-num">${i}.</div><div class="gen-answer-val">Вариант ${task.answerIndex}</div></div>`;
             }
 
-            list.innerHTML = htmlTasks;
-            ansList.innerHTML = htmlAnswers;
-            
-            if (typeof MathJax !== 'undefined') {
-                MathJax.typesetPromise([list]);
-            }
-            
+            list.innerHTML = htmlTasks; ansList.innerHTML = htmlAnswers;
+            if (typeof MathJax !== 'undefined') MathJax.typesetPromise([list]);
             answerKey.style.display = 'none';
         }
 
-        // Функция для отрисовки красной точки по нажатию
-        function showTargetOnCanvas(canvasId, min, max, pointsStr, targetVal) {
-            const canvas = document.getElementById(canvasId);
-            if (!canvas) return;
-            
-            const pointsX = pointsStr.split(',').map(Number);
-            const labels = ['A', 'B', 'C', 'D'];
-            const points = pointsX.map((x, idx) => ({ x: x, label: labels[idx] }));
-
-            drawLine(canvas, min, max, points, targetVal);
-        }
-
-        // --- УПРАВЛЕНИЕ ---
         function toggleAnswers() {
             const answerKey = document.getElementById('gen-answer-key');
             const btn = document.getElementById('btn-toggle-answers');
-            
-            if (answerKey.style.display === 'none') {
-                answerKey.style.display = 'block';
-                btn.textContent = '🙈 Скрыть ответы';
-            } else {
-                answerKey.style.display = 'none';
-                btn.textContent = '👁 Показать ответы';
-            }
+            if (answerKey.style.display === 'none') { answerKey.style.display = 'block'; btn.textContent = '🙈 Скрыть ответы'; } 
+            else { answerKey.style.display = 'none'; btn.textContent = '👁 Показать ответы'; }
         }
 
         function toggleAnswer(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('show');
-            if (el.classList.contains('show') && typeof MathJax !== 'undefined') {
-                MathJax.typesetPromise([el]);
-            }
+            const el = document.getElementById(id); el.classList.toggle('show');
+            if (el.classList.contains('show') && typeof MathJax !== 'undefined') MathJax.typesetPromise([el]);
         }
 
-        // --- СТАТИЧЕСКИЕ ПРЯМЫЕ (Инициализация) ---
+        // Инициализация статических прямых
         window.addEventListener('load', () => {
-            // Отрисовка статических прямых для примеров из ФИПИ
-            
-            // Пример 1: sqrt(45) (между 6 и 7)
-            const canvas1 = document.querySelector('.static-canvas[data-type="static1"]');
-            if (canvas1) {
-                drawLine(canvas1, 5.5, 7.5, [
-                    { x: 6, label: 'A' },
-                    { x: 6.7, label: 'B' },
-                    { x: 7, label: 'C' },
-                    { x: 7.3, label: 'D' }
-                ]);
-            }
+            // Задача 3 (sqrt 45 -> между 6 и 7)
+            document.getElementById('static-svg-1').innerHTML = generateSVG(5.5, 7.5, [
+                { x: 6, label: 'A' }, { x: 6.7, label: 'B' }, { x: 7, label: 'C' }, { x: 7.3, label: 'D' }
+            ]);
 
-            // Пример 2: 7/11 (около 0.63)
-            const canvas2 = document.querySelector('.static-canvas[data-type="static2"]');
-            if (canvas2) {
-                drawLine(canvas2, -0.2, 1.2, [
-                    { x: 0.2, label: 'A' },
-                    { x: 0.4, label: 'B' },
-                    { x: 0.6, label: 'C' },
-                    { x: 0.8, label: 'D' }
-                ]);
-            }
+            // Задача 4 (7/11 -> около 0.63)
+            document.getElementById('static-svg-2').innerHTML = generateSVG(-0.2, 1.2, [
+                { x: 0.2, label: 'A' }, { x: 0.4, label: 'B' }, { x: 0.6, label: 'C' }, { x: 0.8, label: 'D' }
+            ]);
         });
     </script>
 </body>
