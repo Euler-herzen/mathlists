@@ -57,9 +57,13 @@
         .gen-sheet { display: none; background: white; padding: 20px; border-radius: 8px; text-align: left; margin-top: 20px; border: 1px solid #ddd; }
         .gen-task-item { font-size: 18px; margin-bottom: 15px; display: flex; gap: 10px; }
         .gen-task-num { font-weight: bold; color: var(--primary); }
+        
+        /* Блок ответов */
         .gen-answer-key { display: none; margin-top: 20px; padding-top: 20px; border-top: 2px dashed #ccc; background: #e8f5e9; padding: 15px; border-radius: 8px;}
-        .gen-answer-key h4 { color: var(--green); margin-bottom: 10px; }
-        .gen-answer-item { display: inline-block; width: 20%; font-size: 16px; margin-bottom: 5px; }
+        .gen-answer-key h4 { color: var(--green); margin-bottom: 15px; }
+        .gen-answer-item { display: flex; width: 100%; font-size: 16px; margin-bottom: 8px; align-items: center;}
+        .gen-answer-num { width: 30px; font-weight: bold; }
+        .gen-answer-val { flex-grow: 1; }
 
         /* Задачи для самостоятельного решения */
         .task-content { font-size: 17px; margin-top: 40px;}
@@ -74,7 +78,6 @@
         @media (max-width: 600px) {
             .container { padding: 20px; margin: 0 10px; }
             .header-bar { padding: 15px 20px; flex-direction: column; gap: 10px; }
-            .gen-answer-item { width: 50%; }
         }
 
         /* Печать */
@@ -131,8 +134,8 @@
             <div class="gen-sheet" id="gen-sheet">
                 <div id="gen-tasks-list"></div>
                 <div class="gen-answer-key" id="gen-answer-key">
-                    <h4>Ответы для учителя:</h4>
-                    <div id="gen-answers-list" style="display: flex; flex-wrap: wrap;"></div>
+                    <h4>Ответы (точные):</h4>
+                    <div id="gen-answers-list"></div>
                 </div>
             </div>
         </div>
@@ -145,17 +148,17 @@
                 <li>
                     Найдите значение выражения: \(\frac{3}{4} - \frac{2}{5}\)
                     <button class="answer-btn" onclick="toggleAnswer('ans1')">Показать ответ</button>
-                    <div id="ans1" class="answer-text"><b>Ответ:</b> \(0,35\)</div>
+                    <div id="ans1" class="answer-text"><b>Ответ:</b> \(\frac{7}{20}\) (или \(0,35\))</div>
                 </li>
                 <li>
                     Найдите значение выражения: \((\frac{1}{12} - \frac{17}{15}) \cdot \frac{10}{3}\)
                     <button class="answer-btn" onclick="toggleAnswer('ans2')">Показать ответ</button>
-                    <div id="ans2" class="answer-text"><b>Ответ:</b> \(-3,6\)</div>
+                    <div id="ans2" class="answer-text"><b>Ответ:</b> \(-\frac{18}{5}\) (или \(-3,6\))</div>
                 </li>
                 <li>
                     Найдите значение выражения: \(\frac{3,6}{5,9 - 1,1}\)
                     <button class="answer-btn" onclick="toggleAnswer('ans3')">Показать ответ</button>
-                    <div id="ans3" class="answer-text"><b>Ответ:</b> \(0,75\)</div>
+                    <div id="ans3" class="answer-text"><b>Ответ:</b> \(\frac{3}{4}\) (или \(0,75\))</div>
                 </li>
                 <li>
                     Найдите значение выражения: \(0,4 \cdot (-10)^2 + 54\)
@@ -170,6 +173,22 @@
         // --- УТИЛИТЫ ---
         function gcd(a, b) { return b ? gcd(b, a % b) : a; }
         function lcm(a, b) { return a * b / gcd(a, b); }
+
+        // Перевод десятичной дроби в обыкновенную (для точного ответа)
+        function toFraction(x) {
+            if (Number.isInteger(x)) return x.toString();
+            let tolerance = 1.0E-6;
+            let h1 = 1, h2 = 0, k1 = 0, k2 = 1, b = x;
+            do {
+                let a = Math.floor(b);
+                let aux = h1; h1 = a * h1 + h2; h2 = aux;
+                aux = k1; k1 = a * k1 + k2; k2 = aux;
+                b = 1 / (b - a);
+            } while (Math.abs(x - h1 / k1) > x * tolerance);
+
+            if (k1 === 1) return h1.toString();
+            return `\\frac{${h1}}{${k1}}`;
+        }
 
         // --- ГЕНЕРАЦИЯ ОДНОЙ ЗАДАЧИ ---
         function createTask() {
@@ -201,21 +220,27 @@
                 simplifiedNum /= d;
                 simplifiedDen /= d;
                 
-                answer = `\\(\\frac{${simplifiedNum}}{${simplifiedDen}}\\) (или ${(simplifiedNum/simplifiedDen).toFixed(2)})`;
+                answer = `\\(\\frac{${simplifiedNum}}{${simplifiedDen}}\\)`;
 
             } else if (type === 1) {
-                // 2. Десятичные дроби (дробь в числителе, разность в знаменателе)
+                // 2. Десятичные дроби
                 const a = (Math.random() * 5 + 1).toFixed(1);
                 const b = (Math.random() * 4 + 2).toFixed(1);
                 let c = (Math.random() * 2 + 1).toFixed(1);
-                while (b === c) c = (Math.random() * 2 + 1).toFixed(1); // знаменатель не 0
+                while (b === c) c = (Math.random() * 2 + 1).toFixed(1); 
                 
                 text = `\\(\\frac{${a}}{${b} - ${c}}\\)`;
                 
-                const den = (parseFloat(b) - parseFloat(c)).toFixed(2);
-                const ans = (parseFloat(a) / parseFloat(den)).toFixed(2);
+                const den = parseFloat(b) - parseFloat(c);
+                const ans = parseFloat(a) / den;
                 
-                answer = `\\(${ans}\\)`;
+                // Выводим и дробь, и точный десятичный вид (если он не бесконечный)
+                answer = `\\(${toFraction(ans)}\\)`;
+                if (Number.isInteger(ans)) {
+                    answer += ` или ${ans}`;
+                } else {
+                    answer += ` (или ${ans.toFixed(4)}...)`;
+                }
 
             } else {
                 // 3. Степени
@@ -227,9 +252,12 @@
                 text = `\\(${mult} \\cdot (${base})^{${power}} + ${add}\\)`;
                 
                 const powerAns = Math.pow(base, power);
-                const finalAns = (parseFloat(mult) * powerAns + add).toFixed(1);
+                const finalAns = parseFloat(mult) * powerAns + add;
                 
-                answer = `\\(${finalAns}\\)`;
+                answer = `\\(${toFraction(finalAns)}\\)`;
+                if (!Number.isInteger(finalAns)) {
+                    answer += ` (или ${finalAns.toFixed(4)})`;
+                }
             }
 
             return { text, answer };
@@ -247,7 +275,7 @@
             ansList.innerHTML = '';
             sheet.style.display = 'block';
             btnToggle.style.display = 'inline-block';
-            answerKey.classList.remove('show-print'); // Сбрасываем печать ответов
+            answerKey.classList.remove('show-print'); 
 
             let htmlTasks = '';
             let htmlAnswers = '';
@@ -259,18 +287,20 @@
                         <div class="gen-task-num">${i}.</div>
                         <div>Найдите значение выражения: ${task.text}</div>
                     </div>`;
-                htmlAnswers += `<div class="gen-answer-item"><b>${i}.</b> ${task.answer}</div>`;
+                htmlAnswers += `
+                    <div class="gen-answer-item">
+                        <div class="gen-answer-num">${i}.</div>
+                        <div class="gen-answer-val">${task.answer}</div>
+                    </div>`;
             }
 
             list.innerHTML = htmlTasks;
             ansList.innerHTML = htmlAnswers;
             
-            // Перерисовываем формулы MathJax
             if (typeof MathJax !== 'undefined') {
-                MathJax.typesetPromise([list]);
+                MathJax.typesetPromise([list, ansList]);
             }
             
-            // По умолчанию ответы скрыты на экране
             answerKey.style.display = 'none';
         }
 
@@ -293,6 +323,9 @@
         function toggleAnswer(id) {
             const el = document.getElementById(id);
             el.classList.toggle('show');
+            if (el.classList.contains('show') && typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise([el]);
+            }
         }
     </script>
 </body>
