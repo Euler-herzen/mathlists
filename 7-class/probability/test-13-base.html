@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Проверочная работа — Базовая</title>
+<style>
+  :root{ --accent:#4a90e2; }
+  *{ box-sizing:border-box; }
+  body{ font-family:'Segoe UI', Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; color:#000; }
+  .toolbar{ position:sticky; top:0; z-index:10; display:flex; gap:12px; justify-content:space-between; padding:12px 20px; background:#ffffff; border-bottom:1px solid #d9dee3; }
+  .toolbar a, .toolbar button{ font-family:'Segoe UI', Arial, sans-serif; font-size:15px; cursor:pointer; padding:9px 16px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); text-decoration:none; transition:background .15s, color .15s; }
+  .toolbar a:hover, .toolbar button:hover{ background:var(--accent); color:#fff; }
+  .sheet{ max-width:800px; margin:24px auto; background:#fff; padding:40px; border-left:8px solid var(--accent); box-shadow:0 2px 10px rgba(0,0,0,.08); }
+  .variant-container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .variant { flex: 1 1 45%; border-left: 4px solid var(--accent); padding-left: 15px; }
+  .variant-title { font-family: 'Segoe UI', Arial, sans-serif; font-weight: bold; font-size: 16px; margin-bottom: 15px; color: #333; }
+  .task { font-family:'Times New Roman', Times, serif; font-size: 15px; line-height: 1.35; margin-bottom: 16px; color:#000; }
+  .task .num { font-weight:bold; color:var(--accent); margin-right:4px; }
+  .teacher-answers{ display:none; margin-top:6px; padding:6px 10px; border:1px dashed #999; background:#f4f4f4; font-family:'Segoe UI', Arial, sans-serif; font-size:13px; color:#222; }
+  @media print{
+    body{ background:#fff; }
+    .toolbar{ display:none !important; }
+    .sheet{ max-width:800px; margin:0 auto; padding:40px; box-shadow:none; border-left:8px solid var(--accent); }
+    .variant-container { gap: 30px; }
+    .variant { flex: 1 1 45%; border-left: 4px solid var(--accent); padding-left: 15px; }
+    .task{ color:#000; font-size: 14px; line-height: 1.35; margin-bottom: 14px; }
+    .teacher-answers{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="index.html">← На главную</a>
+  <button type="button" onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="variant-container">
+    <!-- ВАРИАНТ 1 -->
+    <div class="variant">
+      <div class="variant-title">Вариант 1</div>
+
+      <div class="task">
+        <span class="num">1.</span> По графику атмосферного давления определите, в каком месяце наблюдалась наибольшая изменчивость (размах) давления, если в марте давление менялось от 740 до 760 мм рт. ст., а в апреле — от 745 до 765 мм рт. ст.
+        <div class="teacher-answers">В апреле (размах 20 мм рт. ст. против 20 в марте — одинаковый, но значения выше).</div>
+      </div>
+
+      <div class="task">
+        <span class="num">2.</span> Урожайность пшеницы за 5 лет: 20, 25, 22, 30, 18 ц/га. Найдите размах урожайности.
+        <div class="teacher-answers">\(30 - 18 = 12\) ц/га.</div>
+      </div>
+
+      <div class="task">
+        <span class="num">3.</span> На диаграмме (мысленно) показан курс рубля за неделю: 70, 72, 69, 71, 73, 68, 74. Найдите среднее значение курса и размах.
+        <div class="teacher-answers">Среднее: \((70+72+69+71+73+68+74):7 = 497:7 = 71\). Размах: \(74 - 68 = 6\).</div>
+      </div>
+
+      <div class="task">
+        <span class="num">4.</span> В двух классах измерили время решения задачи. В 7А: 5, 8, 6. В 7Б: 4, 9, 6. В каком классе разброс времени больше?
+        <div class="teacher-answers">В 7Б (размах 5 против 3).</div>
+      </div>
+
+      <div class="task">
+        <span class="num">5.</span> Что такое тенденция в статистике? Приведите пример.
+        <div class="teacher-answers">Тенденция — устойчивое изменение величины во времени. Пример: рост населения, повышение урожайности.</div>
+      </div>
+
+      <div class="task">
+        <span class="num">6.</span> Может ли размах числового набора быть отрицательным? Ответ обоснуйте.
+        <div class="teacher-answers">Нет, размах — это разность между наибольшим и наименьшим значениями, она неотрицательна.</div>
+      </div>
+    </div>
+
+    <!-- ВАРИАНТ 2 -->
+    <div class="variant">
+      <div class="variant-title">Вариант 2</div>
+
+      <div class="task">
+        <span class="num">1.</span> По графику температуры определите, в какой день недели наблюдалась наибольшая изменчивость (размах) температуры, если в понедельник температура менялась от +10 до +18°C, а во вторник — от +8 до +20°C.
+        <div class="teacher-answers">Во вторник (размах 12°C против 8°C).</div>
+      </div>
+
+      <div class="task">
+        <span class="num">2.</span> Масса 10 батончиков: 49, 51, 50, 48, 52, 50, 49, 50, 51, 50. Найдите среднюю массу.
+        <div class="teacher-answers">\((49+51+50+48+52+50+49+50+51+50):10 = 500:10 = 50\) г.</div>
+      </div>
+
+      <div class="task">
+        <span class="num">3.</span> Курс валюты за 5 дней: 60, 62, 59, 61, 58. Найдите размах и среднее.
+        <div class="teacher-answers">Размах: \(62 - 58 = 4\). Среднее: \((60+62+59+61+58):5 = 300:5 = 60\).</div>
+      </div>
+
+      <div class="task">
+        <span class="num">4.</span> В двух магазинах замерили цены на один смартфон. В первом: 10000, 10500, 9800. Во втором: 10200, 10200, 10200. В каком магазине цена стабильнее?
+        <div class="teacher-answers">Во втором (размах 0).</div>
+      </div>
+
+      <div class="task">
+        <span class="num">5.</span> Что такое случайная изменчивость? Приведите пример.
+        <div class="teacher-answers">Случайная изменчивость — изменение величины под действием случайных факторов. Пример: температура воздуха, масса батончика.</div>
+      </div>
+
+      <div class="task">
+        <span class="num">6.</span> Может ли среднее арифметическое набора быть больше наибольшего числа? Обоснуйте.
+        <div class="teacher-answers">Нет, среднее всегда находится между наименьшим и наибольшим значениями.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+</html>
