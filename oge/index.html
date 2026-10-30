@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подготовка к ОГЭ | Методическая копилка</title>
+    <style>
+        :root { --primary: #16a085; --bg: #f4f7f6; --text: #2c3e50; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 50px; }
+        
+        .header-bar { background: white; padding: 15px 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; align-items: center; margin-bottom: 30px; }
+        .back-link { text-decoration: none; color: #888; font-weight: 600; transition: 0.2s; }
+        .back-link:hover { color: var(--primary); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+        .section-header { margin-bottom: 30px; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        .section-header h2 { font-size: 28px; color: var(--primary); }
+        .section-header p { color: #666; margin-top: 5px; }
+
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        
+        .card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: 0.2s; border-top: 5px solid var(--primary); }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+        
+        .card-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: #2c3e50; }
+        .card-desc { font-size: 14px; color: #666; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; }
+
+        .btn { display: block; width: 100%; padding: 12px; background: var(--primary); color: white; text-decoration: none; border-radius: 6px; text-align: center; font-size: 15px; font-weight: 600; transition: 0.2s; }
+        .btn:hover { background: #138d75; }
+
+        @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .container { padding: 0 20px; } }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <a href="../index.html" class="back-link">← На главную</a>
+    </div>
+
+    <div class="container">
+        <div class="section-header">
+            <h2>🎯 Подготовка к ОГЭ</h2>
+            <p>Тренажёры по номерам экзамена для 9 класса. Теория и генераторы задач.</p>
+        </div>
+        
+        <div class="grid" id="topics-grid">
+            <!-- Сюда скрипт вставит карточки -->
+        </div>
+    </div>
+
+    <script>
+        // === СПИСОК НОМЕРОВ ОГЭ ===
+        const ogeTopics = [
+            { 
+                title: "Задание 6. Дроби и вычисления", 
+                desc: "Обыкновенные и десятичные дроби. Порядок действий.", 
+                path: "oge-6.html" 
+            },
+            { 
+                title: "Задание 9. Уравнения", 
+                desc: "Линейные, квадратные и рациональные уравнения.", 
+                path: "oge-9.html" 
+            },
+            { 
+                title: "Задание 10. Вероятность", 
+                desc: "Классическое определение вероятности. Задачи про шары, билеты, жребий.", 
+                path: "oge-10.html" 
+            },
+            { 
+                title: "Задание 11. Графики функций", 
+                desc: "Чтение графиков, соответствие формул и графиков.", 
+                path: "oge-11.html" 
+            }
+        ];
+
+        function renderTopics() {
+            const grid = document.getElementById('topics-grid');
+            if (ogeTopics.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; color:#999;">Материалы скоро появятся.</div>';
+                return;
+            }
+            grid.innerHTML = ogeTopics.map(topic => `
+                <div class="card">
+                    <div class="card-title">${topic.title}</div>
+                    <div class="card-desc">${topic.desc}</div>
+                    <a href="${topic.path}" class="btn">Перейти к тренировке</a>
+                </div>
+            `).join('');
+        }
+        renderTopics();
+    </script>
+</body>
+</html>
