@@ -18,16 +18,27 @@
         .section-header h2 { font-size: 28px; color: var(--primary); }
         .section-header p { color: #666; margin-top: 5px; }
 
+        /* Заголовки блоков */
+        .block-title { 
+            font-size: 20px; 
+            font-weight: 700; 
+            margin: 30px 0 15px 0; 
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #ccc;
+            color: #34495e;
+        }
+
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         
-        .card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: 0.2s; border-top: 5px solid var(--primary); }
+        .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: 0.2s; border-top: 5px solid var(--primary); }
         .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
         
-        .card-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: #2c3e50; }
-        .card-desc { font-size: 14px; color: #666; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; }
+        .card-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #2c3e50; }
+        .card-desc { font-size: 13px; color: #666; margin-bottom: 15px; flex-grow: 1; line-height: 1.4; }
 
-        .btn { display: block; width: 100%; padding: 12px; background: var(--primary); color: white; text-decoration: none; border-radius: 6px; text-align: center; font-size: 15px; font-weight: 600; transition: 0.2s; }
+        .btn { display: block; width: 100%; padding: 10px; background: var(--primary); color: white; text-decoration: none; border-radius: 6px; text-align: center; font-size: 14px; font-weight: 600; transition: 0.2s; }
         .btn:hover { background: #138d75; }
+        .btn.disabled { background: #bdc3c7; cursor: not-allowed; }
 
         @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .container { padding: 0 20px; } }
@@ -42,59 +53,57 @@
     <div class="container">
         <div class="section-header">
             <h2>🎯 Подготовка к ОГЭ</h2>
-            <p>Тренажёры по номерам экзамена для 9 класса. Теория и генераторы задач.</p>
+            <p>Тренажёры по номерам экзамена. Выберите нужное задание.</p>
         </div>
         
-        <div class="grid" id="topics-grid">
-            <!-- Сюда скрипт вставит карточки -->
+        <!-- БЛОК 1: ЧИСЛА И ВЫЧИСЛЕНИЯ -->
+        <div class="block-title">Блок 1. Числа и вычисления (Задания 1–5)</div>
+        <div class="grid">
+            <div class="card"><div class="card-title">Задание 1. Числа и вычисления</div><div class="card-desc">Действия с числами, сравнение, координатная прямая.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 2. Практические задачи</div><div class="card-desc">Выбор оптимального варианта, тарифы.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 3. План участка</div><div class="card-desc">Работа с планом местности, площадь, периметр.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 4. План квартиры</div><div class="card-desc">Работа с планом квартиры, комнаты.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 5. Печь для бани</div><div class="card-desc">Практическая задача на расчеты с печью.</div><a href="#" class="btn disabled">В разработке</a></div>
         </div>
+
+        <!-- БЛОК 2: АЛГЕБРА (готовые) -->
+        <div class="block-title">Блок 2. Алгебра (Задания 6–14)</div>
+        <div class="grid">
+            <!-- УЖЕ ГОТОВЫЕ -->
+            <div class="card" style="border-top-color: #e67e22;"><div class="card-title">Задание 6. Дроби и степени</div><div class="card-desc">Обыкновенные и десятичные дроби. Порядок действий. Степени.</div><a href="oge-6.html" class="btn" style="background:#e67e22;">Перейти</a></div>
+            <div class="card" style="border-top-color: #e67e22;"><div class="card-title">Задание 7. Числа на прямой</div><div class="card-desc">Обыкновенные дроби, квадратные корни, выбор промежутка.</div><a href="oge-7.html" class="btn" style="background:#e67e22;">Перейти</a></div>
+            
+            <!-- ЗАГЛУШКИ -->
+            <div class="card"><div class="card-title">Задание 8. Алгебраические выражения</div><div class="card-desc">Формулы сокращенного умножения, преобразования.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 9. Уравнения</div><div class="card-desc">Линейные, квадратные и рациональные уравнения.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 10. Вероятность</div><div class="card-desc">Классическое определение вероятности.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 11. Графики функций</div><div class="card-desc">Чтение графиков, соответствие формул и графиков.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 12. Расчеты по формулам</div><div class="card-desc">Выражение переменной, подстановка в формулу.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 13. Неравенства</div><div class="card-desc">Линейные неравенства, системы неравенств.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 14. Прогрессии</div><div class="card-desc">Арифметическая и геометрическая прогрессии.</div><a href="#" class="btn disabled">В разработке</a></div>
+        </div>
+
+        <!-- БЛОК 3: ГЕОМЕТРИЯ -->
+        <div class="block-title">Блок 3. Геометрия (Задания 15–19)</div>
+        <div class="grid">
+            <div class="card"><div class="card-title">Задание 15. Треугольники</div><div class="card-desc">Площадь, углы, подобие, теорема Пифагора.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 16. Окружность</div><div class="card-desc">Вписанные углы, касательные, хорды.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 17. Четырехугольники</div><div class="card-desc">Параллелограмм, трапеция, ромб, квадрат.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 18. Фигуры на клетке</div><div class="card-desc">Нахождение площадей и длин по клеточкам.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 19. Анализ геометрии</div><div class="card-desc">Выбор верных утверждений.</div><a href="#" class="btn disabled">В разработке</a></div>
+        </div>
+
+        <!-- БЛОК 4: ПРАКТИКА И РЕАЛЬНАЯ МАТЕМАТИКА -->
+        <div class="block-title">Блок 4. Реальная математика (Задания 20–25)</div>
+        <div class="grid">
+            <div class="card"><div class="card-title">Задание 20. Уравнения и неравенства</div><div class="card-desc">Сложные алгебраические выражения.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 21. Текстовые задачи</div><div class="card-desc">Задачи на движение, работу, проценты.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 22. Графики и функции</div><div class="card-desc">Построение и исследование функций.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 23. Геометрия (вычисления)</div><div class="card-desc">Сложные задачи на нахождение элементов фигур.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 24. Геометрия (доказательство)</div><div class="card-desc">Доказательство геометрических фактов.</div><a href="#" class="btn disabled">В разработке</a></div>
+            <div class="card"><div class="card-title">Задание 25. Геометрия (повышенная сложность)</div><div class="card-desc">Комбинированные задачи.</div><a href="#" class="btn disabled">В разработке</a></div>
+        </div>
+
     </div>
-
-    <script>
-        // === СПИСОК НОМЕРОВ ОГЭ ===
-        const ogeTopics = [
-            { 
-                title: "Задание 6. Дроби и вычисления", 
-                desc: "Обыкновенные и десятичные дроби. Порядок действий.", 
-                path: "oge-6.html" 
-            },
-                        { 
-                title: "Задание 7. Числа на прямой", 
-                desc: "Обыкновенные дроби, квадратные корни, выбор промежутка.", 
-                path: "oge-7.html" 
-            },
-            { 
-                title: "Задание 9. Уравнения", 
-                desc: "Линейные, квадратные и рациональные уравнения.", 
-                path: "oge-9.html" 
-            },
-            { 
-                title: "Задание 10. Вероятность", 
-                desc: "Классическое определение вероятности. Задачи про шары, билеты, жребий.", 
-                path: "oge-10.html" 
-            },
-            { 
-                title: "Задание 11. Графики функций", 
-                desc: "Чтение графиков, соответствие формул и графиков.", 
-                path: "oge-11.html" 
-            }
-        ];
-
-        function renderTopics() {
-            const grid = document.getElementById('topics-grid');
-            if (ogeTopics.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; color:#999;">Материалы скоро появятся.</div>';
-                return;
-            }
-            grid.innerHTML = ogeTopics.map(topic => `
-                <div class="card">
-                    <div class="card-title">${topic.title}</div>
-                    <div class="card-desc">${topic.desc}</div>
-                    <a href="${topic.path}" class="btn">Перейти к тренировке</a>
-                </div>
-            `).join('');
-        }
-        renderTopics();
-    </script>
 </body>
 </html>
