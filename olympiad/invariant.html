@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инварианты · Олимпиадная математика</title>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary: #0d9488;
+            --primary-dark: #0f766e;
+            --primary-light: #f0fdfa;
+            --text: #1f2937;
+            --text-light: #4b5563;
+            --bg: #ffffff;
+            --border: #e5e7eb;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --radius: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 0 20px 60px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 16px 0;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 32px;
+        }
+
+        .header-bar a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 6px 12px;
+            border-radius: var(--radius);
+            transition: background 0.2s;
+        }
+
+        .header-bar a:hover {
+            background: var(--primary-light);
+        }
+
+        .print-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .print-buttons button {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+
+        .print-buttons button:hover {
+            background: var(--primary-dark);
+        }
+
+        .topic-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .topic-subtitle {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        .theory-block {
+            background: var(--primary-light);
+            border-left: 5px solid var(--primary);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .theory-block h2 {
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .theory-block p {
+            margin-bottom: 12px;
+        }
+
+        .theory-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .theory-block ul {
+            padding-left: 22px;
+            margin: 10px 0 14px;
+        }
+
+        .theory-block li {
+            margin-bottom: 6px;
+        }
+
+        .formula-box {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px 18px;
+            margin: 16px 0;
+            font-size: 1.05rem;
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        .problems-section h2 {
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .problem-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            transition: border-color 0.2s;
+        }
+
+        .problem-card:hover {
+            border-color: var(--primary);
+        }
+
+        .problem-number {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        .problem-text {
+            font-size: 1rem;
+            margin-bottom: 14px;
+        }
+
+        .source-label {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: 1.5px solid var(--primary);
+            color: var(--primary-dark);
+            padding: 7px 18px;
+            border-radius: var(--radius);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .solution-block {
+            display: none;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .solution-block.visible {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .solution-block p {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .solution-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                background: #fff;
+            }
+
+            .header-bar,
+            .toggle-btn {
+                display: none !important;
+            }
+
+            .problem-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                break-inside: avoid;
+                page-break-inside: avoid;
+                margin-bottom: 14px;
+            }
+
+            .theory-block {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+
+            .solution-block {
+                display: none !important;
+            }
+
+            body.print-with-solutions .solution-block {
+                display: block !important;
+            }
+
+            .topic-title {
+                font-size: 1.8rem;
+            }
+
+            .source-label {
+                border-bottom: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 0 12px 40px; }
+            .topic-title { font-size: 1.6rem; }
+            .theory-block { padding: 18px 16px; }
+            .problem-card { padding: 16px; }
+            .header-bar { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header-bar">
+        <a href="index.html">← К списку тем</a>
+        <div class="print-buttons">
+            <button onclick="printWithoutSolutions()">🖨 Без решений</button>
+            <button onclick="printWithSolutions()">📝 С решениями</button>
+        </div>
+    </div>
+
+    <h1 class="topic-title">Инварианты</h1>
+    <p class="topic-subtitle">Олимпиадная математика · Источники: Малый мехмат МГУ, МЦНМО, ВсОШ, Турнир городов</p>
+
+   <div class="theory-block">
+    <h2>📖 Теория</h2>
+    <p>Инвариант — это величина (число, остаток, чётность, раскраска, сумма и т.п.), которая <strong>не меняется</strong> при выполнении разрешённых в задаче преобразований. Если начальное и конечное состояния имеют разные значения инварианта, то перейти из одного в другое невозможно.</p>
+    <div class="formula-box">
+        Если I(A) ≠ I(B), то из состояния A нельзя получить состояние B<br>с помощью разрешённых операций.
+    </div>
+    <p><strong>Как искать инвариант:</strong></p>
+    <ul>
+        <li>Посмотрите, что сохраняется: чётность, сумма, произведение, остаток от деления, количество объектов определённого цвета.</li>
+        <li>Попробуйте раскрасить объекты в несколько цветов так, чтобы каждое преобразование сохраняло баланс цветов.</li>
+        <li>Проверьте «полуинвариант» — величину, которая меняется монотонно (только возрастает или только убывает). Это помогает доказать, что процесс конечен.</li>
+    </ul>
+    <p>Инварианты часто работают в паре с раскрасками: раскраска задаёт величину, а правило хода показывает, что она не меняется. Именно так решаются многие задачи на шахматной доске, с монетами, числами и перестановками.</p>
+</div>
+
+    <div class="problems-section">
+        <h2>✍️ Задачи для решения</h2>
+
+        <div class="problem-card">
+            <span class="problem-number">Задача 1</span>
+            <p class="problem-text">На доске записаны числа 1, 2, 3, …, 2024. Разрешено стереть любые два числа и записать вместо них их сумму. Можно ли через несколько таких операций получить на доске одно число 2025?</p>
+            <span class="source-label">Источник: Малый мехмат МГУ, 6 класс</span>
+            <button class="toggle-btn" onclick="toggleSolution(this)">Показать решение</button>
+            <div class="solution-block">
+                <p><strong>Решение.</strong> Инвариант — сумма всех чисел на доске. При замене двух чисел \(a\) и \(b\) на \(a+b\) сумма всех чисел не меняется. Исходная сумма равна \(1+2+\ldots+2024 = \frac{2024 \cdot 2025}{2} = 1012 \cdot 2025\). Если бы в конце осталось одно число 2025, сумма была бы равна 2025. Но \(1012 \cdot 2025 \neq 2025\). Значит, получить 2025 нельзя.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <span class="problem-number">Задача 2</span>
+            <p class="problem-text">В каждой клетке доски 8×8 стоит по монете. Разрешено переворачивать любые две монеты, стоящие в одной строке или в одном столбце. Можно ли добиться того, чтобы все монеты лежали орлом вверх, если изначально все лежали решкой вверх?</p>
+            <span class="source-label">Источник: МЦНМО, турнир «Осенний марафон»</span>
+            <button class="toggle-btn" onclick="toggleSolution(this)">Показать решение</button>
+            <div class="solution-block">
+                <p><strong>Решение.</strong> Инвариант — чётность числа монет, лежащих орлом вверх. Каждая операция переворачивает ровно две монеты, поэтому число орлов меняется на 2, на −2 или на 0 — в любом случае чётность сохраняется. Изначально орлов 0 (чётное число), значит, в любой момент число орлов чётно. Число 64 чётно, так что это препятствие не мешает.</p>
+                <p>Достижимость: переворачивая пары в одной строке, можно сделать все монеты в строке орлами, не трогая остальные строки (действуем попарно внутри строки). Проделав это для всех 8 строк, получим все 64 орла. Ответ: да, можно.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <span class="problem-number">Задача 3</span>
+            <p class="problem-text">В клетках таблицы 5×5 расставлены числа +1 и −1. За один ход разрешается поменять знак у всех чисел в любой строке или в любом столбце. Можно ли из таблицы, где все числа равны +1, получить таблицу, где все числа равны −1?</p>
+            <span class="source-label">Источник: ВсОШ, муниципальный этап</span>
+            <button class="toggle-btn" onclick="toggleSolution(this)">Показать решение</button>
+            <div class="solution-block">
+                <p><strong>Решение.</strong> Инвариант — произведение всех чисел в таблице. При ходе по строке (5 чисел) произведение умножается на \((-1)^5 = -1\); при ходе по столбцу — тоже на \(-1\). Значит, при каждом ходе произведение меняет знак. Исходное произведение равно \(+1\), конечное (все −1) равно \((-1)^{25} = -1\). Нужно нечётное число ходов — это возможно.</p>
+                <p>Достижимость: поменяем знак в каждой из 5 строк — это 5 ходов (нечётное число). После этого каждая клетка поменяет знак ровно один раз, то есть все +1 станут −1. Ответ: да, можно.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <span class="problem-number">Задача 4</span>
+            <p class="problem-text">Кузнечик прыгает по прямой. Первый прыжок он делает длиной 1, второй — длиной 2, третий — длиной 3 и т.д. (в одном из двух направлений). Может ли кузнечик после 2023 прыжков оказаться в той же точке, из которой начал?</p>
+            <span class="source-label">Источник: Турнир городов, базовый вариант</span>
+            <button class="toggle-btn" onclick="toggleSolution(this)">Показать решение</button>
+            <div class="solution-block">
+                <p><strong>Решение.</strong> Чтобы вернуться в начальную точку, нужно разбить числа \(1, 2, \ldots, 2023\) на два множества равной суммы (прыжки вправо и прыжки влево). Сумма всех длин \(S = \frac{2023 \cdot 2024}{2} = 2023 \cdot 1012\) — чётное число, значит, \(S/2\) целое.</p>
+                <p>Известно, что для \(n \equiv 0, 3 \pmod 4\) такое разбиение существует. Здесь \(2023 = 4 \cdot 505 + 3\), то есть \(2023 \equiv 3 \pmod 4\). Значит, разбиение возможно, и кузнечик может вернуться. Ответ: да, может.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <span class="problem-number">Задача 5</span>
+            <p class="problem-text">На доске написано число 1. Разрешено прибавлять к нему 3 или вычитать 5. Можно ли получить число 2024?</p>
+            <span class="source-label">Источник: Малый мехмат МГУ, 6 класс</span>
+            <button class="toggle-btn" onclick="toggleSolution(this)">Показать решение</button>
+            <div class="solution-block">
+                <p><strong>Решение.</strong> Рассмотрим остаток от деления на 8. При прибавлении 3 остаток увеличивается на 3; при вычитании 5 остаток уменьшается на 5, что по модулю 8 то же самое, что прибавить 3 (так как \(-5 \equiv 3 \pmod 8\)). Значит, каждый ход увеличивает остаток на 3 по модулю 8. Исходный остаток 1, после \(k\) ходов остаток равен \(1 + 3k \pmod 8\).</p>
+                <p>Число 2024 делится на 8 (\(2024 = 8 \cdot 253\)), его остаток 0. Нужно \(1 + 3k \equiv 0 \pmod 8\), откуда \(3k \equiv 7 \pmod 8\), \(k \equiv 5 \pmod 8\). Возьмём \(k = 5\), но проверим явно: пусть \(x\) — число прибавлений 3, \(y\) — число вычитаний 5. Тогда \(1 + 3x - 5y = 2024\), то есть \(3x - 5y = 2023\). При \(y = 1\): \(3x = 2028\), \(x = 676\). Итого \(1 + 3 \cdot 676 - 5 \cdot 1 = 2024\). Ответ: да, можно (676 прибавлений и 1 вычитание).</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <span class="problem-number">Задача 6</span>
+            <p class="problem-text">В вершинах правильного 2024-угольника расставлены числа так, что сумма любых трёх подряд идущих чисел равна 0. Может ли сумма всех чисел быть равной 2024?</p>
+            <span class="source-label">Источник: ВсОШ, региональный этап</span>
+            <button class="toggle-btn" onclick="toggleSolution(this)">Показать решение</button>
+            <div class="solution-block">
+                <p><strong>Решение.</strong> Обозначим числа \(a_1, a_2, \ldots, a_{2024}\) (индексы по модулю 2024). Условие: \(a_i + a_{i+1} + a_{i+2} = 0\) для всех \(i\). Вычтем из равенства для \(i\) равенство для \(i+1\): \(a_i - a_{i+3} = 0\), то есть \(a_i = a_{i+3}\). Последовательность периодична с периодом 3.</p>
+                <p>Так как \(\gcd(3, 2024) = 1\), период 3 на цикле длины 2024 означает, что все числа равны: \(a_i = a_j\) для всех \(i, j\). Пусть все числа равны \(c\). Тогда \(3c = 0\), значит \(c = 0\). Сумма всех чисел равна 0, а не 2024. Ответ: нет, не может.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <span class="problem-number">Задача 7</span>
+            <p class="problem-text">Имеется 100 гирь массами 1, 2, 3, …, 100 граммов. Разрешено заменить любые две гири на две гири, суммарная масса которых равна суммарной массе исходных. Можно ли с помощью таких операций добиться того, чтобы все гири стали иметь одинаковую массу?</p>
+            <span class="source-label">Источник: МЦНМО, турнир «Весенний марафон»</span>
+            <button class="toggle-btn" onclick="toggleSolution(this)">Показать решение</button>
+            <div class="solution-block">
+                <p><strong>Решение.</strong> Инвариант — суммарная масса всех гирь: \(1+2+\ldots+100 = 5050\). Если бы все 100 гирь стали одинаковой массы \(m\), то \(100m = 5050\), откуда \(m = 50{,}5\). Но массы гирь — целые числа (замена сохраняет целочисленность суммарной массы, и мы можем считать все массы целыми). 50,5 не целое, значит, добиться одинаковой целой массы нельзя. Ответ: нет.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <span class="problem-number">Задача 8</span>
+            <p class="problem-text">На плоскости расположены 2024 точки, никакие три из которых не лежат на одной прямой. Разрешено стирать любые две точки и вместо них ставить их середину. Можно ли через несколько операций получить одну точку, совпадающую с одной из исходных?</p>
+            <span class="source-label">Источник: Турнир городов, сложный вариант</span>
+            <button class="toggle-btn" onclick="toggleSolution(this)">Показать решение</button>
+            <div class="solution-block">
+                <p><strong>Решение.</strong> Инвариант — центр масс всех точек (среднее арифметическое их координат). При замене двух точек \(A\) и \(B\) на их середину \(M = (A+B)/2\) сумма координат всех точек не меняется: вклад \(A+B\) заменяется на \(2M = A+B\). Значит, центр масс \(G\) всех точек — инвариант.</p>
+                <p>Если в конце осталась одна точка, она обязана совпадать с \(G\). Поэтому получить исходную точку можно только в том случае, если \(G\) совпадает с одной из исходных точек. В общем случае это не так: можно расположить 2024 точки (никакие три не на одной прямой) так, чтобы их центр масс не совпадал ни с одной из них. Для такого расположения ответ — нет. Ответ: не всегда можно.</p>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <span class="problem-number">Задача 9</span>
+            <p class="problem-text">В каждой клетке доски 10×10 стоит стрелка, указывающая вправо или вверх. Разрешено в любой строке или любом столбце заменить все стрелки на противоположные (вправо ↔ вверх). Можно ли из некоторой расстановки получить любую другую?</p>
+            <span class="source-label">Источник: Малый мехмат МГУ, 7 класс</span>
+            <button class="toggle-btn" onclick="toggleSolution(this)">Показать решение</button>
+            <div class="solution-block">
+                <p><strong>Решение.</strong> Закодируем стрелку «вправо» как 0, «вверх» как 1. Ход по строке или столбцу прибавляет 1 по модулю 2 ко всем клеткам этой строки/столбца. Инвариант — сумма всех чисел по модулю 2 (то есть чётность числа стрелок «вверх»).</p>
+                <p>Ход по строке меняет 10 клеток — чётное число, значит, чётность общего числа единиц не меняется. Ход по столбцу — тоже 10 клеток, чётность не меняется. Итак, чётность числа стрелок «вверх» — инвариант. Значит, из расстановки с чётным числом «вверх» нельзя получить расстановку с нечётным числом «вверх».</p>
+                <p>Ответ: нет, не из любой в любую — препятствует инвариант чётности.</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function toggleSolution(btn) {
+        const solution = btn.nextElementSibling;
+        if (solution.classList.contains('visible')) {
+            solution.classList.remove('visible');
+            btn.textContent = 'Показать решение';
+        } else {
+            solution.classList.add('visible');
+            btn.textContent = 'Скрыть решение';
+        }
+    }
+
+    function printWithoutSolutions() {
+        document.body.classList.remove('print-with-solutions');
+        window.print();
+    }
+
+    function printWithSolutions() {
+        document.body.classList.add('print-with-solutions');
+        document.querySelectorAll('.solution-block').forEach(el => el.classList.add('visible'));
+        document.querySelectorAll('.toggle-btn').forEach(btn => btn.textContent = 'Скрыть решение');
+        window.print();
+    }
+</script>
+
+</body>
+</html>
