@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 9. Уравнения | Подготовка к ОГЭ</title>
+    <style>
+        :root {
+            --primary: #16a085;
+            --bg: #f4f7f6;
+            --text: #2c3e50;
+            --green: #27ae60;
+            --blue: #2980b9;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* Верхняя панель */
+        .header-bar { background: white; padding: 15px 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .back-link { text-decoration: none; color: #888; font-weight: 600; transition: 0.2s; }
+        .back-link:hover { color: var(--primary); }
+        
+        .controls { display: flex; gap: 10px; flex-wrap: wrap;}
+        .btn { padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; font-size: 15px; transition: 0.2s; text-decoration: none; }
+        .btn-solid { background: var(--primary); color: white; }
+        .btn-solid:hover { background: #138d75; }
+        .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-orange { background: #f39c12; color: white; }
+        .btn-orange:hover { background: #d68910; }
+
+        /* Контейнер */
+        .container { max-width: 850px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        
+        .task-header { border-bottom: 2px solid var(--primary); padding-bottom: 20px; margin-bottom: 30px; }
+        .task-header h1 { color: var(--primary); font-size: 28px; margin-bottom: 10px; }
+        .task-header .meta { color: #888; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+
+        /* Теория */
+        .theory-block { background: #e8f6f3; border-left: 5px solid var(--primary); padding: 20px; border-radius: 0 8px 8px 0; margin-bottom: 30px; }
+        .theory-block h3 { color: var(--primary); margin-bottom: 15px; }
+        .theory-block ul { margin-left: 20px; margin-bottom: 15px; }
+        .theory-block li { margin-bottom: 8px; }
+
+        /* Генератор */
+        .generator-block { background: #f0f3f4; border: 2px dashed #bdc3c7; padding: 25px; border-radius: 10px; text-align: center; margin-bottom: 40px; }
+        .generator-block h3 { color: var(--blue); margin-bottom: 15px; }
+        .gen-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;}
+        
+        /* Бланк сгенерированных задач */
+        .gen-sheet { display: none; background: white; padding: 20px; border-radius: 8px; text-align: left; margin-top: 20px; border: 1px solid #ddd; }
+        .gen-task-item { font-size: 18px; margin-bottom: 20px; display: flex; gap: 10px; flex-direction: column;}
+        .gen-task-row { display: flex; gap: 10px; align-items: baseline;}
+        .gen-task-num { font-weight: bold; color: var(--primary); min-width: 25px;}
+        
+        /* Блок ответов */
+        .gen-answer-key { display: none; margin-top: 20px; padding-top: 20px; border-top: 2px dashed #ccc; background: #e8f5e9; padding: 15px; border-radius: 8px;}
+        .gen-answer-key h4 { color: var(--green); margin-bottom: 15px; }
+        .gen-answer-item { display: flex; width: 100%; font-size: 16px; margin-bottom: 8px; align-items: center;}
+        .gen-answer-num { width: 30px; font-weight: bold; }
+        .gen-answer-val { flex-grow: 1; }
+
+        /* Задачи для самостоятельного решения */
+        .task-content { font-size: 17px; margin-top: 40px;}
+        .task-list { margin-left: 20px; }
+        .task-list li { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed #eee; }
+        
+        .answer-btn { background: #e8f5e9; color: var(--green); border: 1px solid var(--green); padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 13px; margin-left: 10px; }
+        .answer-btn:hover { background: var(--green); color: white; }
+        .answer-text { display: none; margin-top: 10px; padding: 10px; background: #e8f5e9; border-left: 3px solid var(--green); border-radius: 0 4px 4px 0; color: #1b5e20; }
+        .answer-text.show { display: block; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; margin: 0 10px; }
+            .header-bar { padding: 15px 20px; flex-direction: column; gap: 10px; }
+        }
+
+        /* --- ПЕЧАТЬ --- */
+        @media print {
+            body { background: white; }
+            .header-bar, .controls, .task-header, .theory-block, .task-content, .gen-buttons { display: none !important; }
+            .container { box-shadow: none; padding: 0; max-width: 100%; margin: 0; }
+            .generator-block { background: none; border: none; padding: 0; margin: 0; }
+            .gen-sheet { display: block !important; border: none; padding: 0; margin: 0; }
+            
+            .gen-answer-key { display: none !important; }
+            .gen-answer-key.show-print { display: block !important; border-top: 2px dashed #ccc; margin-top: 20px; padding-top: 20px; background: none;}
+            
+            .gen-task-item { page-break-inside: avoid; }
+        }
+    </style>
+    
+    <!-- Подключение MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <div class="header-bar">
+        <a href="index.html" class="back-link">← К списку заданий</a>
+        <div class="controls">
+            <button class="btn btn-solid" onclick="printSheet()">🖨 Печать</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="task-header">
+            <div class="meta">ОГЭ · Задание 9</div>
+            <h1>Уравнения</h1>
+        </div>
+
+        <div class="theory-block">
+            <h3>📖 Теория (шпаргалка)</h3>
+            <ul>
+                <li><b>Линейные уравнения:</b> переносим слагаемые с \(x\) влево, числа вправо. \(ax = b \Rightarrow x = b/a\).</li>
+                <li><b>Квадратные уравнения:</b> \(ax^2 + bx + c = 0\). Дискриминант \(D = b^2 - 4ac\). Если \(D > 0\), два корня: \(x = \frac{-b \pm \sqrt{D}}{2a}\).</li>
+                <li><b>Дробные уравнения:</b> находим общий знаменатель, умножаем обе части, не забываем про ОДЗ (знаменатель не равен нулю).</li>
+            </ul>
+        </div>
+
+        <!-- ГЕНЕРАТОР -->
+        <div class="generator-block">
+            <h3>🎮 Генератор вариантов</h3>
+            <p>Создайте готовый вариант из 10 уравнений (прототипы ФИПИ).</p>
+            
+            <div class="gen-buttons">
+                <button class="btn btn-orange" onclick="generateSheet()">🔄 Сгенерировать 10 уравнений</button>
+                <button class="btn btn-outline" id="btn-toggle-answers" onclick="toggleAnswers()" style="display: none;">👁 Показать ответы</button>
+            </div>
+
+            <div class="gen-sheet" id="gen-sheet">
+                <div id="gen-tasks-list"></div>
+                <div class="gen-answer-key" id="gen-answer-key">
+                    <h4>Ответы:</h4>
+                    <div id="gen-answers-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СТАТИЧНЫЕ ЗАДАЧИ -->
+        <div class="task-content">
+            <h3>✍️ Примеры из ФИПИ</h3>
+            <ol class="task-list">
+                <li>
+                    Решите уравнение: \(2x^2 - 3x + 1 = 0\)<br>
+                    <button class="answer-btn" onclick="toggleAnswer('ans1')">Показать ответ</button>
+                    <div id="ans1" class="answer-text"><b>Ответ:</b> \(1; 0,5\)</div>
+                </li>
+                <li>
+                    Решите уравнение: \(\frac{x}{3} + \frac{x}{4} = 7\)<br>
+                    <button class="answer-btn" onclick="toggleAnswer('ans2')">Показать ответ</button>
+                    <div id="ans2" class="answer-text"><b>Ответ:</b> \(12\)</div>
+                </li>
+                <li>
+                    Решите уравнение: \(x^2 - 5x = 0\)<br>
+                    <button class="answer-btn" onclick="toggleAnswer('ans3')">Показать ответ</button>
+                    <div id="ans3" class="answer-text"><b>Ответ:</b> \(0; 5\)</div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // --- УТИЛИТЫ ---
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Форматирование числа (убираем .0)
+        function fmt(num) {
+            if (Number.isInteger(num)) return num.toString();
+            return num.toFixed(2).replace('.', ',');
+        }
+
+        // --- ГЕНЕРАЦИЯ ОДНОЙ ЗАДАЧИ ---
+        function createTask() {
+            const type = getRandomInt(1, 4);
+            let text = "";
+            let answer = "";
+
+            if (type === 1) {
+                // 1. Линейное уравнение вида ax + b = cx + d
+                const a = getRandomInt(2, 9);
+                const b = getRandomInt(-10, 10);
+                const c = getRandomInt(1, a - 1); // Чтобы x не исчез
+                const d = getRandomInt(-10, 10);
+                
+                // ax + b = cx + d  =>  (a-c)x = d-b
+                const root = (d - b) / (a - c);
+                
+                text = `\\(${a}x ${b >= 0 ? '+' : '-'} ${Math.abs(b)} = ${c}x ${d >= 0 ? '+' : '-'} ${Math.abs(d)}\\)`;
+                answer = `\\(${fmt(root)}\\)`;
+
+            } else if (type === 2) {
+                // 2. Квадратное уравнение ax^2 + bx + c = 0
+                // Подбираем корни, чтобы дискриминант был полным квадратом
+                let x1 = getRandomInt(-5, 5);
+                let x2 = getRandomInt(-5, 5);
+                if (x1 === x2) x2++; // Чтобы корни были разные (обычно)
+                
+                const a = 1; 
+                const b = -(x1 + x2);
+                const c = x1 * x2;
+
+                // Форматируем строку
+                const bStr = b === 0 ? '' : (b > 0 ? ` + ${b}x` : ` - ${Math.abs(b)}x`);
+                const cStr = c === 0 ? '' : (c > 0 ? ` + ${c}` : ` - ${Math.abs(c)}`);
+                
+                text = `\\(x^2${bStr}${cStr} = 0\\)`;
+                
+                if (x1 === x2) {
+                    answer = `\\(${x1}\\)`;
+                } else {
+                    const arr = [x1, x2].sort((a, b) => a - b);
+                    answer = `\\(${arr[0]}; ${arr[1]}\\)`;
+                }
+
+            } else if (type === 3) {
+                // 3. Уравнение с дробями: x/a + x/b = c
+                const a = getRandomInt(2, 6);
+                const b = getRandomInt(2, 6);
+                if (a === b) return createTask();
+                
+                const c = getRandomInt(1, 5);
+                
+                text = `\\(\\frac{x}{${a}} + \\frac{x}{${b}} = ${c}\\)`;
+                
+                // x*(b+a)/(a*b) = c  => x = c*a*b / (a+b)
+                const root = (c * a * b) / (a + b);
+                answer = `\\(${fmt(root)}\\)`;
+
+            } else {
+                // 4. Квадратное уравнение с отрицательным дискриминантом (нет корней) или упрощенное
+                // Сделаем вид: x^2 + px + q = 0, где D < 0
+                const p = getRandomInt(-6, 6);
+                const q = getRandomInt(10, 20); // q > 0, p^2 < 4q
+                
+                const bStr = p === 0 ? '' : (p > 0 ? ` + ${p}x` : ` - ${Math.abs(p)}x`);
+                text = `\\(x^2${bStr} + ${q} = 0\\)`;
+                answer = `Корней нет`;
+
+            }
+
+            return { text, answer };
+        }
+
+        // --- ГЕНЕРАЦИЯ ВСЕГО БЛАНКА ---
+        function generateSheet() {
+            const list = document.getElementById('gen-tasks-list');
+            const ansList = document.getElementById('gen-answers-list');
+            const sheet = document.getElementById('gen-sheet');
+            const btnToggle = document.getElementById('btn-toggle-answers');
+            const answerKey = document.getElementById('gen-answer-key');
+
+            list.innerHTML = '';
+            ansList.innerHTML = '';
+            sheet.style.display = 'block';
+            btnToggle.style.display = 'inline-block';
+            answerKey.classList.remove('show-print'); 
+
+            let htmlTasks = '';
+            let htmlAnswers = '';
+
+            for (let i = 1; i <= 10; i++) {
+                const task = createTask();
+                htmlTasks += `
+                    <div class="gen-task-item">
+                        <div class="gen-task-row">
+                            <div class="gen-task-num">${i}.</div>
+                            <div>Решите уравнение: ${task.text}</div>
+                        </div>
+                    </div>`;
+                htmlAnswers += `
+                    <div class="gen-answer-item">
+                        <div class="gen-answer-num">${i}.</div>
+                        <div class="gen-answer-val">${task.answer}</div>
+                    </div>`;
+            }
+
+            list.innerHTML = htmlTasks;
+            ansList.innerHTML = htmlAnswers;
+            
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise([list, ansList]);
+            }
+            
+            answerKey.style.display = 'none';
+        }
+
+        // --- УПРАВЛЕНИЕ ОТВЕТАМИ ---
+        function toggleAnswers() {
+            const answerKey = document.getElementById('gen-answer-key');
+            const btn = document.getElementById('btn-toggle-answers');
+            
+            if (answerKey.style.display === 'none') {
+                answerKey.style.display = 'block';
+                btn.textContent = '🙈 Скрыть ответы';
+                if (typeof MathJax !== 'undefined') MathJax.typesetPromise([answerKey]);
+            } else {
+                answerKey.style.display = 'none';
+                btn.textContent = '👁 Показать ответы';
+            }
+        }
+
+        // --- ПЕЧАТЬ ---
+        function printSheet() {
+            const sheet = document.getElementById('gen-sheet');
+            if (sheet.style.display === 'none') {
+                alert('Сначала сгенерируйте задачи!');
+                return;
+            }
+
+            const answerKey = document.getElementById('gen-answer-key');
+            
+            if (answerKey.style.display === 'block') {
+                answerKey.classList.add('show-print');
+            } else {
+                answerKey.classList.remove('show-print');
+            }
+
+            window.print();
+            
+            setTimeout(() => {
+                answerKey.classList.remove('show-print');
+            }, 500);
+        }
+
+        // --- СТАТИЧНЫЕ ЗАДАЧИ ---
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('show');
+            if (el.classList.contains('show') && typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise([el]);
+            }
+        }
+    </script>
+</body>
+</html>
