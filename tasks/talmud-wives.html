@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задача о трёх жёнах | Интересные задачи</title>
+    <style>
+        :root {
+            --primary: #d35400;
+            --bg: #f4f7f6;
+            --text: #2c3e50;
+            --green: #27ae60;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* Верхняя панель */
+        .header-bar { background: white; padding: 15px 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .back-link { text-decoration: none; color: #888; font-weight: 600; transition: 0.2s; }
+        .back-link:hover { color: var(--primary); }
+        
+        .controls { display: flex; gap: 10px; }
+        .btn { padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; font-size: 14px; transition: 0.2s; }
+        .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-solid { background: var(--primary); color: white; }
+        .btn-solid:hover { background: #e67e22; }
+
+        /* Основной контент */
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        
+        .task-header { border-bottom: 2px solid var(--primary); padding-bottom: 20px; margin-bottom: 30px; }
+        .task-header h1 { color: var(--primary); font-size: 28px; margin-bottom: 10px; }
+        .task-header .meta { color: #888; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+        
+        .task-content { font-size: 18px; margin-bottom: 30px; }
+        .task-content b { color: #2c3e50; }
+
+        /* Блоки */
+        .hint-block { background: #fff8e1; border-left: 5px solid #f39c12; padding: 15px 20px; border-radius: 0 8px 8px 0; margin-bottom: 20px; display: none; }
+        .solution-block { background: #e8f5e9; border-left: 5px solid var(--green); padding: 25px; border-radius: 0 8px 8px 0; display: none; margin-top: 30px;}
+        
+        .hint-block h3, .solution-block h3 { margin-bottom: 15px; font-size: 20px; }
+        .hint-block h3 { color: #d35400; }
+        .solution-block h3 { color: var(--green); }
+
+        /* Таблица */
+        .solution-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 16px; text-align: center; }
+        .solution-table th, .solution-table td { border: 1px solid #ccc; padding: 12px; }
+        .solution-table th { background: #f0fdf4; color: #1b5e20; font-weight: bold; }
+        .solution-table tr:nth-child(even) { background: #fafafa; }
+
+        .show-hint { display: block; animation: fadeIn 0.5s ease; }
+        .show-solution { display: block; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; margin: 0 10px; }
+            .header-bar { padding: 15px 20px; flex-direction: column; gap: 10px; }
+            .solution-table { font-size: 14px; padding: 8px; }
+        }
+
+        @media print {
+            body { background: white; }
+            .header-bar, .controls { display: none !important; }
+            .container { box-shadow: none; padding: 0; max-width: 100%; }
+            .hint-block, .solution-block { display: block !important; border: 1px solid #ccc; page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <a href="index.html" class="back-link">← К списку задач</a>
+        <div class="controls">
+            <button class="btn btn-outline" onclick="toggleHint()">💡 Подсказка</button>
+            <button class="btn btn-outline" onclick="toggleSolution()">✅ Решение</button>
+            <button class="btn btn-solid" onclick="window.print()">🖨 Печать</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="task-header">
+            <div class="meta">Логика · История математики</div>
+            <h1>Задача о трёх жёнах (Талмуд)</h1>
+        </div>
+
+        <div class="task-content">
+            <p>Эта задача описана в древнем трактате «Ктубот» (Талмуд) и ставила в тупик математиков на протяжении почти 2000 лет.</p>
+            <p>Мужчина был женат на трёх женщинах. По брачным контрактам (ктубам) он должен был оставить им после своей смерти <b>100, 200 и 300 зузов</b> соответственно.</p>
+            <p>После его смерти выяснилось, что в наследстве было меньше денег, чем он обещал. Как справедливо разделить наследство между жёнами?</p>
+            <br>
+            <p><b>Задача:</b> Как распределить наследство, если его общая сумма равна 100 зузам? А если 200? А если 300?</p>
+        </div>
+
+        <!-- Скрытая подсказка -->
+        <div id="hint" class="hint-block">
+            <h3>💡 Подсказка</h3>
+            <p>Попробуйте разделить наследство «по-честному» пропорционально долгам. Сравните этот результат с тем, как предлагает делить Талмуд. Вы увидите странную закономерность: при маленьком наследстве жёны получают поровну, а при большом — пропорционально.</p>
+        </div>
+
+        <!-- Скрытое решение -->
+        <div id="solution" class="solution-block">
+            <h3>✅ Решение (как в Талмуде)</h3>
+            <p>Талмуд предлагает следующую схему распределения:</p>
+            
+            <table class="solution-table">
+                <tr>
+                    <th>Наследство (зузов)</th>
+                    <th>Жена 1 (долг 100)</th>
+                    <th>Жена 2 (долг 200)</th>
+                    <th>Жена 3 (долг 300)</th>
+                </tr>
+                <tr>
+                    <td><b>100</b></td>
+                    <td>33 ⅓</td>
+                    <td>33 ⅓</td>
+                    <td>33 ⅓</td>
+                </tr>
+                <tr>
+                    <td><b>200</b></td>
+                    <td>50</td>
+                    <td>75</td>
+                    <td>75</td>
+                </tr>
+                <tr>
+                    <td><b>300</b></td>
+                    <td>50</td>
+                    <td>100</td>
+                    <td>150</td>
+                </tr>
+            </table>
+
+            <p><b>Почему это кажется странным?</b></p>
+            <p>Если наследство 100, то почему все получают поровну, хотя долги разные? А если 200, почему первая жена получает меньше (50), чем две другие (по 75)?</p>
+            <br>
+            <p><b>Объяснение (теория игр):</b></p>
+            <p>В 1980-х годах математики Роберт Ауманн и Майкл Машлер доказали, что это решение идеально соответствует концепции «нуклеолуса» в теории кооперативных игр. Суть в том, что каждая жена имеет право претендовать на часть наследства, но их требования конфликтуют. Талмуд находит точку равновесия, где никто не может получить больше, не ущемив интересы другой.</p>
+            <p>Например, при наследстве в 100 зузов, первая жена (долг 100) могла бы потребовать все 100. Но тогда остальные не получат ничего. Чтобы сохранить справедливость, деньги делятся поровну, так как каждая из женщин пострадала от невыплаты.</p>
+            <p>Эта задача — блестящий пример того, как древняя мудрость опередила современную математику на тысячи лет!</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleHint() {
+            document.getElementById('hint').classList.toggle('show-hint');
+        }
+
+        function toggleSolution() {
+            document.getElementById('solution').classList.toggle('show-solution');
+        }
+    </script>
+</body>
+</html>
